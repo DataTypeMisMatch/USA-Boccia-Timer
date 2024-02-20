@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9850137E2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850137D2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift */; };
+		985013802B7B16FC00D4C9E1 /* FlagPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850137F2B7B16FC00D4C9E1 /* FlagPickerViewController.swift */; };
 		98B407D32B525BAF00575FFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B407D22B525BAF00575FFC /* AppDelegate.swift */; };
 		98B407D52B525BAF00575FFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B407D42B525BAF00575FFC /* SceneDelegate.swift */; };
 		98B407D72B525BAF00575FFC /* MatchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B407D62B525BAF00575FFC /* MatchSettingsViewController.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9850137D2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameDetailsViewController.swift; sourceTree = "<group>"; };
+		9850137F2B7B16FC00D4C9E1 /* FlagPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagPickerViewController.swift; sourceTree = "<group>"; };
 		98B407CF2B525BAF00575FFC /* USA Boccia Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "USA Boccia Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98B407D22B525BAF00575FFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98B407D42B525BAF00575FFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +68,9 @@
 			children = (
 				98B407D22B525BAF00575FFC /* AppDelegate.swift */,
 				98B407DE2B525BB300575FFC /* Assets.xcassets */,
+				9850137D2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift */,
 				98CC02492B536D4B0067D48A /* EditTextViewController.swift */,
+				9850137F2B7B16FC00D4C9E1 /* FlagPickerViewController.swift */,
 				98B407E32B525BB300575FFC /* Info.plist */,
 				98B407E02B525BB300575FFC /* LaunchScreen.storyboard */,
 				98B407D82B525BAF00575FFC /* Main.storyboard */,
@@ -147,9 +153,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				985013802B7B16FC00D4C9E1 /* FlagPickerViewController.swift in Sources */,
 				98CC024A2B536D4B0067D48A /* EditTextViewController.swift in Sources */,
 				98B407D72B525BAF00575FFC /* MatchSettingsViewController.swift in Sources */,
 				98B407D32B525BAF00575FFC /* AppDelegate.swift in Sources */,
+				9850137E2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift in Sources */,
 				98CC024D2B537E690067D48A /* USABocciaTimer.xcdatamodeld in Sources */,
 				98B407EC2B52654900575FFC /* MatchItem.swift in Sources */,
 				98B407D52B525BAF00575FFC /* SceneDelegate.swift in Sources */,

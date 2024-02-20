@@ -14,7 +14,9 @@ class MatchItem
    
    var redTeamName = ""
    var blueTeamName = ""
-   var usaFlag = UIImage(named: "USA_Flag")
+   
+   var redTeamFlagName = "United_States"
+   var blueTeamFlagName = "United_States"
    
    var kind = ""
    var playType = ""

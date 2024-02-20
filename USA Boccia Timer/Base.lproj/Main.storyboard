@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,14 +28,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="820" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBt-VW-WYj">
-                                                    <rect key="frame" x="20" y="11" width="156.5" height="33"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBt-VW-WYj">
+                                                    <rect key="frame" x="20" y="11" width="152" height="33"/>
                                                     <color key="tintColor" name="AccentColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Name of Game)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yw-s2-TBp">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Name of Game Event)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yw-s2-TBp">
                                                     <rect key="frame" x="300" y="6" width="500" height="43"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -77,14 +78,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="USA_Flag" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-fP-m5T">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7YE-fP-m5T">
                                                     <rect key="frame" x="103" y="4" width="110" height="47"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="45" id="raW-Am-hE4"/>
                                                         <constraint firstAttribute="width" constant="110" id="xGm-Nj-ae2"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Name of Red Team)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCD-Yl-g4M">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Red Team Details)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCD-Yl-g4M">
                                                     <rect key="frame" x="300" y="5" width="500" height="45"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -111,7 +112,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.78431372549019607" green="0.19607843137254902" blue="0.098039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="F9Y-vl-IWS" kind="show" identifier="EditRedTeamName" id="CMQ-9E-D5F"/>
+                                            <segue destination="39l-Fa-egd" kind="show" identifier="EditRedTeamDetails" id="Wh8-jc-nhx"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="blueTeamNameCell" rowHeight="55" id="gtf-q8-EPD">
@@ -121,7 +122,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="820" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="USA_Flag" translatesAutoresizingMaskIntoConstraints="NO" id="Hlz-De-GYC">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hlz-De-GYC">
                                                     <rect key="frame" x="104" y="5" width="110" height="45"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="110" id="644-qu-xoB"/>
@@ -135,7 +136,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Name of Blue Team)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZi-Mb-bw8">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Tap to set Blue Team Details)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZi-Mb-bw8">
                                                     <rect key="frame" x="300" y="5" width="500" height="45"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -160,7 +161,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="F9Y-vl-IWS" kind="show" identifier="EditBlueTeamName" id="qSt-YA-JjF"/>
+                                            <segue destination="39l-Fa-egd" kind="show" identifier="EditBlueTeamDetails" id="B3d-wH-d8X"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -308,23 +309,79 @@
                                                     <color key="textColor" name="AccentColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N52-5B-c6A">
-                                                    <rect key="frame" x="636.5" y="5" width="153.5" height="45"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="filled" title="BC1 / BC2">
+                                                <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7w9-bh-Agq" userLabel="Boccia Class">
+                                                    <rect key="frame" x="709.5" y="4" width="80.5" height="47"/>
+                                                    <menu key="menu" title="Boccia Class" id="MjG-gc-Wsm">
+                                                        <menuOptions key="menuOptions" singleSelection="YES"/>
+                                                        <children>
+                                                            <command title="BC01" id="jGC-bC-6u9" userLabel="BC01">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="Jsr-V5-H7r"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC02" id="e5Y-fR-n7U" userLabel="BC02">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="V0a-Nh-qR9"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC03" id="lem-e0-GyO" userLabel="BC03">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="squ-vA-sF7"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC04" id="b9R-vK-OJL" userLabel="BC04">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="Z5J-iB-T4N"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC05" id="lsf-aJ-sp3" userLabel="BC05">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="RnG-Sn-d2b"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC06" id="Tbv-QC-yzI" userLabel="BC06">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="d7Z-3Z-RKo"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC07" id="gWH-lN-QFT" userLabel="BC07">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="rTa-TN-4Ix"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC08" id="diF-le-dM2" userLabel="BC08">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="0WJ-RM-Cvj"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC09" id="4PX-ZK-Ouk" userLabel="BC09">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="0R1-4T-EMb"/>
+                                                                </connections>
+                                                            </command>
+                                                            <command title="BC10" id="zyf-60-qhX" userLabel="BC10">
+                                                                <connections>
+                                                                    <action selector="menuAction" destination="YTq-r8-4eY" id="SMm-34-f5g"/>
+                                                                </connections>
+                                                            </command>
+                                                        </children>
+                                                    </menu>
+                                                    <state key="normal" title="Boccia Class"/>
+                                                    <buttonConfiguration key="configuration" style="filled" title="Boccia Class">
                                                         <fontDescription key="titleFontDescription" type="boldSystem" pointSize="28"/>
-                                                        <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
+                                                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="baseBackgroundColor" systemColor="linkColor"/>
                                                     </buttonConfiguration>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="YpO-sX-LNR" firstAttribute="top" secondItem="585-9T-kLY" secondAttribute="topMargin" constant="1" id="4Hw-Xg-nwB"/>
-                                                <constraint firstItem="YpO-sX-LNR" firstAttribute="leading" secondItem="585-9T-kLY" secondAttribute="leadingMargin" id="Sr6-s0-M8R"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="YpO-sX-LNR" secondAttribute="bottom" constant="1" id="Uki-IE-fQV"/>
-                                                <constraint firstAttribute="bottom" secondItem="N52-5B-c6A" secondAttribute="bottom" constant="5" id="fdJ-At-R5z"/>
-                                                <constraint firstAttribute="trailing" secondItem="N52-5B-c6A" secondAttribute="trailing" constant="30" id="hCJ-pE-qNO"/>
-                                                <constraint firstItem="N52-5B-c6A" firstAttribute="top" secondItem="585-9T-kLY" secondAttribute="top" constant="5" id="k8K-j1-3CM"/>
-                                                <constraint firstItem="N52-5B-c6A" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YpO-sX-LNR" secondAttribute="trailing" constant="8" symbolic="YES" id="r6w-KX-AOG"/>
+                                                <constraint firstAttribute="bottom" secondItem="7w9-bh-Agq" secondAttribute="bottom" constant="4" id="3RX-LW-IJw"/>
+                                                <constraint firstItem="7w9-bh-Agq" firstAttribute="top" secondItem="585-9T-kLY" secondAttribute="top" constant="4" id="P4I-yc-gui"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YpO-sX-LNR" secondAttribute="bottom" constant="1" id="TRm-EF-tu3"/>
+                                                <constraint firstItem="YpO-sX-LNR" firstAttribute="leading" secondItem="585-9T-kLY" secondAttribute="leadingMargin" id="jVV-7D-l46"/>
+                                                <constraint firstItem="7w9-bh-Agq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YpO-sX-LNR" secondAttribute="trailing" constant="8" symbolic="YES" id="pro-TO-eud"/>
+                                                <constraint firstItem="YpO-sX-LNR" firstAttribute="top" secondItem="585-9T-kLY" secondAttribute="topMargin" constant="1" id="sRF-QF-f1G"/>
+                                                <constraint firstAttribute="trailing" secondItem="7w9-bh-Agq" secondAttribute="trailing" constant="30" id="tvY-Bd-QOG"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -489,7 +546,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="bc1BC2Button" destination="N52-5B-c6A" id="2hF-X5-PlX"/>
+                        <outlet property="bcButton" destination="MjG-gc-Wsm" id="MZK-Qo-ijk"/>
+                        <outlet property="blueTeamFlag" destination="Hlz-De-GYC" id="WJP-e2-I3R"/>
                         <outlet property="blueTeamNameLabel" destination="YZi-Mb-bw8" id="WH1-g3-N7g"/>
                         <outlet property="ends1Button" destination="lfs-og-BG9" id="umV-Mm-feD"/>
                         <outlet property="ends2Button" destination="nep-HV-CLA" id="9ir-OJ-oNE"/>
@@ -501,6 +559,7 @@
                         <outlet property="officialButton" destination="lDa-35-jBg" id="aTr-Rs-GVI"/>
                         <outlet property="pairButton" destination="vyw-5m-bmk" id="lki-c9-vuM"/>
                         <outlet property="practiceButton" destination="VnO-tx-XgM" id="dvq-og-b3X"/>
+                        <outlet property="redTeamFlag" destination="7YE-fP-m5T" id="Ulo-3c-Y8E"/>
                         <outlet property="redTeamNameLabel" destination="hCD-Yl-g4M" id="RkO-BE-hKs"/>
                         <outlet property="singleButton" destination="lmg-vI-xlg" id="xkS-6y-4cn"/>
                         <outlet property="teamButton" destination="il0-Gf-Dk6" id="TmI-9D-RY6"/>
@@ -511,11 +570,11 @@
             </objects>
             <point key="canvasLocation" x="739.7560975609756" y="-3.5593220338983054"/>
         </scene>
-        <!--Edit Text-->
+        <!--Edit Game Event Name-->
         <scene sceneID="fuJ-nH-YII">
             <objects>
                 <tableViewController id="F9Y-vl-IWS" customClass="EditTextViewController" customModule="USA_Boccia_Timer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="esJ-ly-PLa">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="esJ-ly-PLa">
                         <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -523,7 +582,7 @@
                             <tableViewSection id="vsQ-ld-vNO">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="VzR-pV-24G">
-                                        <rect key="frame" x="0.0" y="50" width="820" height="55"/>
+                                        <rect key="frame" x="0.0" y="18" width="820" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VzR-pV-24G" id="1WC-hR-1Ft">
                                             <rect key="frame" x="0.0" y="0.0" width="820" height="55"/>
@@ -557,7 +616,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Edit Text" largeTitleDisplayMode="never" id="aQx-kn-4w4">
+                    <navigationItem key="navigationItem" title="Edit Game Event Name" largeTitleDisplayMode="never" id="aQx-kn-4w4">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kPG-OL-VxP">
                             <connections>
                                 <action selector="cancel" destination="F9Y-vl-IWS" id="XqJ-wm-Klq"/>
@@ -577,7 +636,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abx-yt-yFq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1460.4878048780488" y="-4.0677966101694913"/>
+            <point key="canvasLocation" x="1657" y="-322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="b16-i0-Vrt">
@@ -597,20 +656,167 @@
             </objects>
             <point key="canvasLocation" x="-17.037037037037035" y="-3.333333333333333"/>
         </scene>
+        <!--Edit Game Details-->
+        <scene sceneID="gxP-qI-3ED">
+            <objects>
+                <tableViewController id="39l-Fa-egd" customClass="EditGameDetailsViewController" customModule="USA_Boccia_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="dnk-JB-aiN">
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="Qu4-tS-XTi">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="T7s-J5-EjD">
+                                        <rect key="frame" x="0.0" y="18" width="820" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="T7s-J5-EjD" id="dtU-Az-AJX">
+                                            <rect key="frame" x="0.0" y="0.0" width="820" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(Type Here)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eg6-0U-ltp">
+                                                    <rect key="frame" x="20" y="5" width="780" height="45"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="done" destination="39l-Fa-egd" eventType="editingDidEndOnExit" id="gHv-uh-ZQG"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eg6-0U-ltp" firstAttribute="top" secondItem="dtU-Az-AJX" secondAttribute="top" constant="5" id="Ik0-t7-V8J"/>
+                                                <constraint firstAttribute="bottom" secondItem="eg6-0U-ltp" secondAttribute="bottom" constant="5" id="jsq-UP-fi5"/>
+                                                <constraint firstItem="eg6-0U-ltp" firstAttribute="leading" secondItem="dtU-Az-AJX" secondAttribute="leading" constant="20" id="kkc-EF-mgw"/>
+                                                <constraint firstAttribute="trailing" secondItem="eg6-0U-ltp" secondAttribute="trailing" constant="20" id="sUJ-Yo-CIe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="EFr-9V-a98">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="75" id="ggl-Ka-ahY">
+                                        <rect key="frame" x="0.0" y="109" width="820" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ggl-Ka-ahY" id="GZX-Hi-fBh">
+                                            <rect key="frame" x="0.0" y="0.0" width="789.5" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to choose Country Flag..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPh-mZ-4zK">
+                                                    <rect key="frame" x="20" y="10" width="348" height="55"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fgq-Yc-BJp">
+                                                    <rect key="frame" x="629.5" y="7" width="140" height="61"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="pdv-RT-Tkb"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="QPh-mZ-4zK" firstAttribute="leading" secondItem="GZX-Hi-fBh" secondAttribute="leading" constant="20" symbolic="YES" id="TOv-H5-T2j"/>
+                                                <constraint firstItem="QPh-mZ-4zK" firstAttribute="top" secondItem="GZX-Hi-fBh" secondAttribute="top" constant="10" id="Vhe-Mu-5Ii"/>
+                                                <constraint firstAttribute="bottom" secondItem="QPh-mZ-4zK" secondAttribute="bottom" constant="10" id="hem-Hs-xZk"/>
+                                                <constraint firstAttribute="bottom" secondItem="fgq-Yc-BJp" secondAttribute="bottom" constant="7" id="mxh-ie-wLD"/>
+                                                <constraint firstItem="fgq-Yc-BJp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QPh-mZ-4zK" secondAttribute="trailing" constant="8" symbolic="YES" id="obK-Lj-bnX"/>
+                                                <constraint firstItem="fgq-Yc-BJp" firstAttribute="top" secondItem="GZX-Hi-fBh" secondAttribute="top" constant="7" id="q9r-6g-Hnz"/>
+                                                <constraint firstAttribute="trailing" secondItem="fgq-Yc-BJp" secondAttribute="trailing" constant="20" symbolic="YES" id="tFy-tE-rgl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="aaJ-kh-U2P" kind="show" identifier="PickFlag" id="8AX-6d-3cS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="39l-Fa-egd" id="ErP-vo-x27"/>
+                            <outlet property="delegate" destination="39l-Fa-egd" id="AH5-jp-oWX"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Edit Game Details" largeTitleDisplayMode="never" id="NwI-d9-I8e">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="O3K-P1-i1B">
+                            <connections>
+                                <action selector="cancel" destination="39l-Fa-egd" id="GdM-EX-eNe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="wmV-PV-k1w">
+                            <connections>
+                                <action selector="done" destination="39l-Fa-egd" id="U8A-df-q7T"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="doneBarButton" destination="wmV-PV-k1w" id="zNM-eg-0iD"/>
+                        <outlet property="flagImage" destination="fgq-Yc-BJp" id="3yE-x9-Ygq"/>
+                        <outlet property="textField" destination="eg6-0U-ltp" id="VFB-pF-sEI"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J4m-CP-pNw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1656.5853658536585" y="384.91525423728814"/>
+        </scene>
+        <!--Choose Flag-->
+        <scene sceneID="0IE-KP-gl9">
+            <objects>
+                <tableViewController id="aaJ-kh-U2P" customClass="FlagPickerViewController" customModule="USA_Boccia_Timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="t6c-eB-gt5">
+                        <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationWidth="10" reuseIdentifier="FlagCell" textLabel="Giy-Na-Akh" rowHeight="75" style="IBUITableViewCellStyleDefault" id="u3R-3g-OgT">
+                                <rect key="frame" x="0.0" y="50" width="820" height="75"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="u3R-3g-OgT" id="Tv4-VC-1dQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="820" height="75"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Giy-Na-Akh" userLabel="Flag Name">
+                                            <rect key="frame" x="20" y="0.0" width="780" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="aaJ-kh-U2P" id="18h-E8-v6e"/>
+                            <outlet property="delegate" destination="aaJ-kh-U2P" id="Vae-VF-TYx"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Choose Flag" id="Iks-Xe-rms"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OIM-hW-zgZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2389.0243902439024" y="384.91525423728814"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qSt-YA-JjF"/>
+        <segue reference="B3d-wH-d8X"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="USA_Flag" width="155" height="81.5"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

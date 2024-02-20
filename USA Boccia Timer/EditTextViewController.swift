@@ -12,15 +12,14 @@ protocol EditTextViewControllerDelegate: AnyObject
 {
    func editTextViewControllerDidCancel(
       _ controller: EditTextViewController)
+   
    func editTextViewController(
       _ controller: EditTextViewController,
-      didFinishAddingGameName item: MatchItem)
+      didFinishAdding item: MatchItem)
+   
    func editTextViewController(
       _ controller: EditTextViewController,
-      didFinishAddingRedTeamName item: MatchItem)
-   func editTextViewController(
-      _ controller: EditTextViewController,
-      didFinishAddingBlueTeamName item: MatchItem)
+      didFinishEditing item: MatchItem)
 }
 
 class EditTextViewController: UITableViewController 
@@ -30,11 +29,12 @@ class EditTextViewController: UITableViewController
    {
       super.viewDidLoad()
       
-	 // Uncomment the following line to preserve selection between presentations
-	 // self.clearsSelectionOnViewWillAppear = false
       
-	 // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-	 // self.navigationItem.rightBarButtonItem = self.editButtonItem
+      if let itemToEdit = matchItemToEdit
+      {
+	 textField.text = itemToEdit.gameName
+      }
+      
    }
    
    override func viewWillAppear(_ animated: Bool) 
@@ -51,9 +51,10 @@ class EditTextViewController: UITableViewController
    @IBOutlet weak var doneBarButton: UIBarButtonItem!
    
    weak var delegate: EditTextViewControllerDelegate?
+   var matchItemToEdit: MatchItem?
    
    
-   // MARK: - Table View data Source
+   // MARK: - Table View Data Source
    
    override func numberOfSections(
       in tableView: UITableView) -> Int
@@ -68,6 +69,7 @@ class EditTextViewController: UITableViewController
       return 1
    }
    
+   
    //MARK:  - Actions
    
    @IBAction func cancel()
@@ -81,23 +83,8 @@ class EditTextViewController: UITableViewController
       
       let item = MatchItem()
       
-      switch (title)
-      {
-      case "Edit Game Name":
-	 item.gameName = textField.text!
-	 delegate?.editTextViewController(self, didFinishAddingGameName: item)
-	 break
-      case "Edit Red Team Name":
-	 item.redTeamName = textField.text!
-	 delegate?.editTextViewController(self, didFinishAddingRedTeamName: item)
-	 break
-      case "Edit Blue Team Name":
-	 item.blueTeamName = textField.text!
-	 delegate?.editTextViewController(self, didFinishAddingBlueTeamName: item)
-	 break
-      default:
-	 break
-      }
+      item.gameName = textField.text!
+      delegate?.editTextViewController(self, didFinishAdding: item)
    }
 
     /*

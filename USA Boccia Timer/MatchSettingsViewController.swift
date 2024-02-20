@@ -5,13 +5,53 @@
 //  Created by Fox on 1/13/24.
 //
 
-import UIKit
 import Foundation
-import UserNotifications
+import UIKit
 
 
-class MatchSettingsViewController: UITableViewController, EditTextViewControllerDelegate
+class MatchSettingsViewController: UITableViewController, EditTextViewControllerDelegate, EditGameDetailsViewControllerDelegate
 {
+   func editGameDetailsViewControllerDidCancel(
+      _ controller: EditGameDetailsViewController)
+   {
+      navigationController?.popViewController(animated: true)
+   }
+   
+   func editGameDetailsViewController(
+      _ controller: EditGameDetailsViewController, 
+      didFinishAddingRedTeamDetails item: MatchItem)
+   {
+      item.redTeamName = controller.textField.text!
+      
+      if let cell = cellToEdit
+      {
+	 updateRedTeamLabel(for: cell, with: item)
+      }
+      
+      navigationController?.popViewController(animated: true)
+   }
+   
+   func editGameDetailsViewController(
+      _ controller: EditGameDetailsViewController,
+      didFinishAddingBlueTeamDetails item: MatchItem)
+   {
+      item.blueTeamName = controller.textField.text!
+      
+      if let cell = cellToEdit
+      {
+	 updateBlueTeamLabel(for: cell, with: item)
+      }
+      
+      navigationController?.popViewController(animated: true)
+   }
+   
+   func editGameDetailsViewController(
+      _ controller: EditGameDetailsViewController,
+      didFinishEditing item: MatchItem)
+   {
+      //add code
+   }
+   
    
    func editTextViewControllerDidCancel(
       _ controller: EditTextViewController)
@@ -21,7 +61,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    func editTextViewController(
       _ controller: EditTextViewController,
-      didFinishAddingGameName item: MatchItem)
+      didFinishAdding item: MatchItem)
    {
       item.gameName = controller.textField.text!
       
@@ -35,28 +75,13 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    func editTextViewController(
       _ controller: EditTextViewController,
-      didFinishAddingRedTeamName item: MatchItem)
+      didFinishEditing item: MatchItem)
    {
-      item.redTeamName = controller.textField.text!
+      item.gameName = controller.textField.text!
       
       if let cell = cellToEdit
       {
-	 updateRedTeamLabel(for: cell, with: item)
-      }
-      
-      navigationController?.popViewController(animated: true)
-   }
-   
-   
-   func editTextViewController(
-      _ controller: EditTextViewController,
-      didFinishAddingBlueTeamName item: MatchItem)
-   {
-      item.blueTeamName = controller.textField.text!
-      
-      if let cell = cellToEdit
-      {
-	 updateBlueTeamLabel(for: cell, with: item)
+	 updateGameLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -67,6 +92,9 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBOutlet weak var redTeamNameLabel: UILabel!
    @IBOutlet weak var blueTeamNameLabel: UILabel!
    
+   @IBOutlet weak var redTeamFlag: UIImageView!
+   @IBOutlet weak var blueTeamFlag: UIImageView!
+   
    @IBOutlet weak var practiceButton: UIButton!
    @IBOutlet weak var officialButton: UIButton!
    
@@ -74,7 +102,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBOutlet weak var pairButton: UIButton!
    @IBOutlet weak var teamButton: UIButton!
    
-   @IBOutlet weak var bc1BC2Button: UIButton!
+   @IBOutlet weak var bcButton: UIButton!
    
    @IBOutlet weak var ends1Button: UIButton!
    @IBOutlet weak var ends2Button: UIButton!
@@ -101,6 +129,11 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       //Add Start Code
    }
    
+   @IBAction func menuAction()
+   {
+      
+   }
+   
    
    override func viewDidLoad()
    {
@@ -108,7 +141,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       // Do any additional setup after loading the view.
    }
-
+   
    
    //MARK:  - Table View Data Source
    
@@ -151,13 +184,15 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    //MARK:  - Navigation
  
    override func prepare(
-      for segue: UIStoryboardSegue, sender: Any?)
+      for segue: UIStoryboardSegue, 
+      sender: Any?)
    {
       if segue.identifier == "EditGameName"
       {
 	 let controller = segue.destination as! EditTextViewController
-	 controller.title = "Edit Game Name"
+	 controller.title = "Edit Game Event Name"
 	 controller.delegate = self
+	 controller.matchItemToEdit = item
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
@@ -165,22 +200,24 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 }
 	 
       }
-      else if segue.identifier == "EditRedTeamName"
+      else if segue.identifier == "EditRedTeamDetails"
       {
-	 let controller = segue.destination as! EditTextViewController
-	 controller.title = "Edit Red Team Name"
+	 let controller = segue.destination as! EditGameDetailsViewController
+	 controller.title = "Edit Red Team Details"
 	 controller.delegate = self
+	 controller.matchItemToEdit = item
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
 	 }
       }
-      else if segue.identifier == "EditBlueTeamName"
+      else if segue.identifier == "EditBlueTeamDetails"
       {
-	 let controller = segue.destination as! EditTextViewController
-	 controller.title = "Edit Blue Team Name"
+	 let controller = segue.destination as! EditGameDetailsViewController
+	 controller.title = "Edit Blue Team Details"
 	 controller.delegate = self
+	 controller.matchItemToEdit = item
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {

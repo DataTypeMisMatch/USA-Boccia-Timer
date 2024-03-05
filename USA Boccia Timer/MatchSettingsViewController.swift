@@ -95,12 +95,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBOutlet weak var redTeamFlag: UIImageView!
    @IBOutlet weak var blueTeamFlag: UIImageView!
    
-   @IBOutlet weak var practiceButton: UIButton!
-   @IBOutlet weak var officialButton: UIButton!
-   
-   @IBOutlet weak var singleButton: UIButton!
-   @IBOutlet weak var pairButton: UIButton!
-   @IBOutlet weak var teamButton: UIButton!
+   @IBOutlet weak var matchKind: UISegmentedControl!
+   @IBOutlet weak var playType: UISegmentedControl!
    
    @IBOutlet weak var bcButton: UIButton!
    
@@ -113,7 +109,12 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    @IBOutlet weak var timesDateTimePicker: UIDatePicker!
    
-   var item: MatchItem?
+   var gameItem: MatchItem?
+   var redTeamItem: MatchItem?
+   var blueTeamItem: MatchItem?
+   var matchKindItem: MatchItem?
+   var playTypeItem: MatchItem?
+   
    var cellToEdit: UITableViewCell?
    
    
@@ -129,10 +130,6 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       //Add Start Code
    }
    
-   @IBAction func menuAction()
-   {
-      
-   }
    
    
    override func viewDidLoad()
@@ -150,6 +147,52 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       return 7
    }
    
+  
+   @IBAction func matchKindChanged(
+      sender: UISegmentedControl)
+   {
+      print ("index: ", sender.selectedSegmentIndex)
+      
+      if sender.selectedSegmentIndex == 0 
+      {
+	 print("Practice ")
+	 matchKindItem?.kind = "Practice"
+      }
+      else if sender.selectedSegmentIndex == 1
+      {
+	 print("Official ")
+	 matchKindItem?.kind = "Official"
+      }
+   }
+   
+   @IBAction func playTypeChanged(
+      sender: UISegmentedControl)
+   {
+      print ("index: ", sender.selectedSegmentIndex)
+      
+      if sender.selectedSegmentIndex == 0
+      {
+	 print ("Single")
+	 playTypeItem?.kind = "Single"
+      }
+      else if sender.selectedSegmentIndex == 1
+      {
+	 print ("Pair")
+	 playTypeItem?.kind = "Pair"
+      }
+      else if sender.selectedSegmentIndex == 2
+      {
+	 print("Team")
+	 playTypeItem?.kind = "Team"
+      }
+   }
+   
+   @IBAction func classificationChanged(
+      sender: UIButton)
+   {
+     //Add Code
+   }
+   
    
    //MARK:  - Actions
    
@@ -160,6 +203,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       let gameName = cell.viewWithTag(1) as! UILabel
       
       gameName.text = item.gameName
+      
+      self.gameItem = item
    }
    
    func updateRedTeamLabel(
@@ -169,6 +214,9 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       let redName = cell.viewWithTag(2) as! UILabel
       
       redName.text = item.redTeamName
+      redTeamFlag.image = UIImage(named: item.redTeamFlagName)
+      
+      self.redTeamItem = item
    }
    
    func updateBlueTeamLabel(
@@ -178,6 +226,9 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       let blueName = cell.viewWithTag(3) as! UILabel
       
       blueName.text = item.blueTeamName
+      blueTeamFlag.image = UIImage(named: item.blueTeamFlagName)
+      
+      self.blueTeamItem = item
    }
    
    
@@ -192,24 +243,25 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 let controller = segue.destination as! EditTextViewController
 	 controller.title = "Edit Game Event Name"
 	 controller.delegate = self
-	 controller.matchItemToEdit = item
+
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    controller.matchItemToEdit = gameItem
 	 }
-	 
       }
       else if segue.identifier == "EditRedTeamDetails"
       {
 	 let controller = segue.destination as! EditGameDetailsViewController
 	 controller.title = "Edit Red Team Details"
 	 controller.delegate = self
-	 controller.matchItemToEdit = item
+	 
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    controller.matchItemToEdit = redTeamItem
 	 }
       }
       else if segue.identifier == "EditBlueTeamDetails"
@@ -217,11 +269,12 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 let controller = segue.destination as! EditGameDetailsViewController
 	 controller.title = "Edit Blue Team Details"
 	 controller.delegate = self
-	 controller.matchItemToEdit = item
+	 
 	 
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    controller.matchItemToEdit = blueTeamItem
 	 }
       }
    }

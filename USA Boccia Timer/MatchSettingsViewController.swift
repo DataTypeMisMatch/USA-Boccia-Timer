@@ -114,20 +114,29 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    var blueTeamItem: MatchItem?
    var matchKindItem: MatchItem?
    var playTypeItem: MatchItem?
+   var classificationItem: MatchItem?
    
    var cellToEdit: UITableViewCell?
+   
+   
    
    
    //MARK: - Actions
    
    @IBAction func back()
    {
-      navigationController?.popViewController(animated: true)
+
+      dismiss(animated: true, completion: nil)
    }
    
    @IBAction func start()
    {
-      //Add Start Code
+      //Add Start Code...
+      
+      //Check that user selected all required MatchItems
+      
+      //Add Segue to the new screen that will host the Match
+      
    }
    
    
@@ -136,7 +145,72 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    {
       super.viewDidLoad()
       
-      // Do any additional setup after loading the view.
+
+      //Set Defaults in case User does not trigger the SelectionChanged event in the UISegmentedControls
+      matchKindItem?.kind = "Official"
+      playTypeItem?.kind = "Single"
+      
+      //Set Default Classification, in case User does not select any Classification from the DropDown
+      classificationItem?.kind = "BC01"
+      
+      //Set Classification Button Defaults
+      bcButton.showsMenuAsPrimaryAction = true
+      
+      //Add Menu Items
+      bcButton.menu = addMenuItems()
+   }
+   
+   func addMenuItems() -> UIMenu
+   {
+      let menuItems = UIMenu(title: "Boccia Classifications", options: .displayInline, children: [
+	 UIAction(title: "BC01", handler:
+		     { [self] (_) in
+			print("Selected Item: BC01 has been selected")
+			classificationItem?.classification = "BC01"
+		     }),
+	 UIAction(title: "BC02", handler:
+		     { [self] (_) in
+			print("Selected Item: BC02 has been selected")
+			classificationItem?.classification = "BC02"
+		     }),
+	 UIAction(title: "BC03", handler:
+		     { [self] (_) in
+			print("Selected Item: BC03 has been selected")
+			classificationItem?.classification = "BC03"
+		     }),
+	 UIAction(title: "BC04", handler:
+		     { [self] (_) in
+			print("Selected Item: BC04 has been selected")
+			classificationItem?.classification = "BC04"
+		     }),
+	 UIAction(title: "BC05", handler:
+		     { [self] (_) in
+			print("Selected Item: BC05 has been selected")
+			classificationItem?.classification = "BC05"
+		     }),
+	 UIAction(title: "BC06", handler:
+		     { [self] (_) in
+			print("Selected Item: BC06 has been selected")
+			classificationItem?.classification = "BC06"
+		     }),
+	 UIAction(title: "BC07", handler:
+		     { [self] (_) in
+			print("Selected Item: BC07 has been selected")
+			classificationItem?.classification = "BC07"
+		     }),
+	 UIAction(title: "BC08", handler:
+		     { [self] (_) in
+			print("Selected Item: BC08 has been selected")
+			classificationItem?.classification = "BC08"
+		     }),
+	 UIAction(title: "BC09", handler:
+		     { [self] (_) in
+			print("Selected Item: BC09 has been selected")
+			classificationItem?.classification = "BC09"
+		     })
+      ])
+      
+      return menuItems
    }
    
    
@@ -151,16 +225,15 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBAction func matchKindChanged(
       sender: UISegmentedControl)
    {
-      print ("index: ", sender.selectedSegmentIndex)
-      
+
       if sender.selectedSegmentIndex == 0 
       {
-	 print("Practice ")
+	 print("Selection of MatchKind:  Practice ")
 	 matchKindItem?.kind = "Practice"
       }
       else if sender.selectedSegmentIndex == 1
       {
-	 print("Official ")
+	 print("Selection of MatchKind:  Official ")
 	 matchKindItem?.kind = "Official"
       }
    }
@@ -168,30 +241,24 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBAction func playTypeChanged(
       sender: UISegmentedControl)
    {
-      print ("index: ", sender.selectedSegmentIndex)
       
       if sender.selectedSegmentIndex == 0
       {
-	 print ("Single")
+	 print ("Selection of PlayType:  Single")
 	 playTypeItem?.kind = "Single"
       }
       else if sender.selectedSegmentIndex == 1
       {
-	 print ("Pair")
+	 print ("Selection of PlayType:  Pair")
 	 playTypeItem?.kind = "Pair"
       }
       else if sender.selectedSegmentIndex == 2
       {
-	 print("Team")
+	 print("Selection of PlayType:  Team")
 	 playTypeItem?.kind = "Team"
       }
    }
    
-   @IBAction func classificationChanged(
-      sender: UIButton)
-   {
-     //Add Code
-   }
    
    
    //MARK:  - Actions

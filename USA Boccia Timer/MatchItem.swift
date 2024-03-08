@@ -23,6 +23,6 @@ class MatchItem
    var classification = ""
    
    var numEnds = 4
-   var times: UIDatePicker!
+   var time = 6
 }
 

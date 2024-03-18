@@ -23,6 +23,8 @@ class MatchItem
    var classification = ""
    
    var numEnds = 4
-   var time = 6
+   
+   var endsTime = 6 * 60
+   var warmUpTime = 2 * 60
 }
 

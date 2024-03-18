@@ -109,15 +109,9 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    @IBOutlet weak var timesDateTimePicker: UIDatePicker!
    
-   var gameItem: MatchItem?
-   var redTeamItem: MatchItem?
-   var blueTeamItem: MatchItem?
-   var matchKindItem: MatchItem?
-   var playTypeItem: MatchItem?
-   var classificationItem: MatchItem?
    
+   var matchItem = MatchItem()
    var cellToEdit: UITableViewCell?
-   
    
    
    
@@ -125,7 +119,6 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    @IBAction func back()
    {
-
       dismiss(animated: true, completion: nil)
    }
    
@@ -140,18 +133,17 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    }
    
    
-   
    override func viewDidLoad()
    {
       super.viewDidLoad()
       
 
       //Set Defaults in case User does not trigger the SelectionChanged event in the UISegmentedControls
-      matchKindItem?.kind = "Official"
-      playTypeItem?.kind = "Single"
+      matchItem.kind = "Official"
+      matchItem.playType = "Single"
       
       //Set Default Classification, in case User does not select any Classification from the DropDown
-      classificationItem?.kind = "BC01"
+      matchItem.classification = "BC01"
       
       //Set Classification Button Defaults
       bcButton.showsMenuAsPrimaryAction = true
@@ -166,47 +158,72 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 UIAction(title: "BC01", handler:
 		     { [self] (_) in
 			print("Selected Item: BC01 has been selected")
-			classificationItem?.classification = "BC01"
+			matchItem.classification = "BC01"
+			bcButton.setTitle("BC01", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC02", handler:
 		     { [self] (_) in
 			print("Selected Item: BC02 has been selected")
-			classificationItem?.classification = "BC02"
+			matchItem.classification = "BC02"
+			bcButton.setTitle("BC02", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC03", handler:
 		     { [self] (_) in
 			print("Selected Item: BC03 has been selected")
-			classificationItem?.classification = "BC03"
+			matchItem.classification = "BC03"
+			bcButton.setTitle("BC03", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC04", handler:
 		     { [self] (_) in
 			print("Selected Item: BC04 has been selected")
-			classificationItem?.classification = "BC04"
+			matchItem.classification = "BC04"
+			bcButton.setTitle("BC04", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC05", handler:
 		     { [self] (_) in
 			print("Selected Item: BC05 has been selected")
-			classificationItem?.classification = "BC05"
+			matchItem.classification = "BC05"
+			bcButton.setTitle("BC05", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC06", handler:
 		     { [self] (_) in
 			print("Selected Item: BC06 has been selected")
-			classificationItem?.classification = "BC06"
+			matchItem.classification = "BC06"
+			bcButton.setTitle("BC06", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC07", handler:
 		     { [self] (_) in
 			print("Selected Item: BC07 has been selected")
-			classificationItem?.classification = "BC07"
+			matchItem.classification = "BC07"
+			bcButton.setTitle("BC07", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC08", handler:
 		     { [self] (_) in
 			print("Selected Item: BC08 has been selected")
-			classificationItem?.classification = "BC08"
+			matchItem.classification = "BC08"
+			bcButton.setTitle("BC08", for: .normal)
+			configureMatch()
 		     }),
 	 UIAction(title: "BC09", handler:
 		     { [self] (_) in
 			print("Selected Item: BC09 has been selected")
-			classificationItem?.classification = "BC09"
+			matchItem.classification = "BC09"
+			bcButton.setTitle("BC09", for: .normal)
+			configureMatch()
+		     }),
+	 UIAction(title: "BC10", handler:
+		     { [self] (_) in
+			print("Selected Item: BC10 has been selected")
+			matchItem.classification = "BC10"
+			bcButton.setTitle("BC10", for: .normal)
+			configureMatch()
 		     })
       ])
       
@@ -229,12 +246,14 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       if sender.selectedSegmentIndex == 0 
       {
 	 print("Selection of MatchKind:  Practice ")
-	 matchKindItem?.kind = "Practice"
+	 matchItem.kind = "Practice"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
 	 print("Selection of MatchKind:  Official ")
-	 matchKindItem?.kind = "Official"
+	 matchItem.kind = "Official"
+	 configureMatch()
       }
    }
    
@@ -245,17 +264,24 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       if sender.selectedSegmentIndex == 0
       {
 	 print ("Selection of PlayType:  Single")
-	 playTypeItem?.kind = "Single"
+	 matchItem.playType = "Single"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
 	 print ("Selection of PlayType:  Pair")
-	 playTypeItem?.kind = "Pair"
+	 matchItem.playType = "Pair"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 2
       {
 	 print("Selection of PlayType:  Team")
-	 playTypeItem?.kind = "Team"
+
+	 matchItem.playType = "Team"
+	 matchItem.classification = "BC03"
+	 bcButton.setTitle("BC03", for: .normal)
+	 
+	 configureMatch()
       }
    }
    
@@ -271,7 +297,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       gameName.text = item.gameName
       
-      self.gameItem = item
+      self.matchItem.gameName = item.gameName
    }
    
    func updateRedTeamLabel(
@@ -283,7 +309,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       redName.text = item.redTeamName
       redTeamFlag.image = UIImage(named: item.redTeamFlagName)
       
-      self.redTeamItem = item
+      self.matchItem.redTeamName = item.redTeamName
+      self.matchItem.redTeamFlagName = item.redTeamFlagName
    }
    
    func updateBlueTeamLabel(
@@ -295,7 +322,111 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       blueName.text = item.blueTeamName
       blueTeamFlag.image = UIImage(named: item.blueTeamFlagName)
       
-      self.blueTeamItem = item
+      self.matchItem.blueTeamName = item.blueTeamName
+      self.matchItem.blueTeamFlagName = item.blueTeamFlagName
+   }
+   
+   func configureMatch()
+   {
+      setNumberEnds()
+      setEndsTimes()
+      setWarmUpTime()
+   }
+   
+   func setNumberEnds()
+   {
+      //Set Number of Ends based on PlayType
+      
+      switch(matchItem.playType)
+      {
+      case "Single":
+	 matchItem.numEnds = 4
+	 break
+      case "Pair":
+	 matchItem.numEnds = 4
+	 break
+      case "Team":
+	 matchItem.numEnds = 6
+	 break
+      default:
+	 matchItem.numEnds = 4
+	 break
+      }
+      
+      //Show or Hide Ends Buttons on Match Settings Screen
+      switch(matchItem.numEnds)
+      {
+      case 4:
+	 ends5Button.isHidden = true
+	 ends6Button.isHidden = true
+	 break
+      case 6:
+	 ends5Button.isHidden = false
+	 ends6Button.isHidden = false
+	 break
+      default:
+	 ends5Button.isHidden = true
+	 ends6Button.isHidden = true
+	 break
+      }
+   }
+   
+   func setEndsTimes()
+   {
+      //Set Ends Time based on Classification
+      
+      switch(matchItem.classification)
+      {
+      case "BC01":
+	 matchItem.endsTime = 5 * 60
+	 timesDateTimePicker.countDownDuration = 5 * 60
+	 break
+      case "BC02":
+	 matchItem.endsTime = 5 * 60
+	 timesDateTimePicker.countDownDuration = 5 * 60
+	 break
+      case "BC03":
+	 matchItem.endsTime = 6 * 60
+	 timesDateTimePicker.countDownDuration = 6 * 60
+	 break
+      case "BC04":
+	 matchItem.endsTime = 4 * 60
+	 timesDateTimePicker.countDownDuration = 4 * 60
+	 break
+      case "BC05":
+	 matchItem.endsTime = 4 * 60
+	 timesDateTimePicker.countDownDuration = 4 * 60
+	 break
+      case "BC06":
+	 matchItem.endsTime = 4 * 60
+	 timesDateTimePicker.countDownDuration = 4 * 60
+	 break
+      case "BC07":
+	 matchItem.endsTime = 6 * 60
+	 timesDateTimePicker.countDownDuration = 6 * 60
+	 break
+      case "BC08":
+	 matchItem.endsTime = 4 * 60
+	 timesDateTimePicker.countDownDuration = 4 * 60
+	 break
+      case "BC09":
+	 matchItem.endsTime = 5 * 60
+	 timesDateTimePicker.countDownDuration = 5 * 60
+	 break
+      case "BC10":
+	 matchItem.endsTime = 3 * 60
+	 timesDateTimePicker.countDownDuration = 3 * 60
+	 break
+      default:
+	 matchItem.endsTime = 4 * 60
+	 timesDateTimePicker.countDownDuration = 4 * 60
+	 break
+      }
+   }
+   
+   func setWarmUpTime()
+   {
+      matchItem.warmUpTime = 2 * 60
    }
    
    
@@ -315,7 +446,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    controller.matchItemToEdit = gameItem
+	    
+	    controller.matchItemToEdit = matchItem
 	 }
       }
       else if segue.identifier == "EditRedTeamDetails"
@@ -328,7 +460,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    controller.matchItemToEdit = redTeamItem
+	    
+	    controller.matchItemToEdit = matchItem
 	 }
       }
       else if segue.identifier == "EditBlueTeamDetails"
@@ -341,7 +474,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
 	 {
 	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    controller.matchItemToEdit = blueTeamItem
+	    
+	    controller.matchItemToEdit = matchItem
 	 }
       }
    }

@@ -478,6 +478,13 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	    controller.matchItemToEdit = matchItem
 	 }
       }
+      else if segue.identifier == "StartNewMatch"
+      {
+	 let controller = segue.destination as! NewMatchViewController
+	 controller.title = "New Match Started"
+	 
+	 controller.newMatchItem = matchItem
+      }
    }
    
 }

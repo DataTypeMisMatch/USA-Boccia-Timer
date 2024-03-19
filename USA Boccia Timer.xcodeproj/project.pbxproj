@@ -19,6 +19,9 @@
 		98B407EC2B52654900575FFC /* MatchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B407EB2B52654900575FFC /* MatchItem.swift */; };
 		98CC024A2B536D4B0067D48A /* EditTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CC02492B536D4B0067D48A /* EditTextViewController.swift */; };
 		98CC024D2B537E690067D48A /* USABocciaTimer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98CC024B2B537E690067D48A /* USABocciaTimer.xcdatamodeld */; };
+		98D604FF2BA94EF80074D5BE /* NewMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D604FE2BA94EF80074D5BE /* NewMatchViewController.swift */; };
+		98D605012BA958D70074D5BE /* WarmUpTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D605002BA958D70074D5BE /* WarmUpTimerViewController.swift */; };
+		98D605032BA97B960074D5BE /* TimeOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D605022BA97B960074D5BE /* TimeOutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		98B407EB2B52654900575FFC /* MatchItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchItem.swift; sourceTree = "<group>"; };
 		98CC02492B536D4B0067D48A /* EditTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTextViewController.swift; sourceTree = "<group>"; };
 		98CC024C2B537E690067D48A /* USABocciaTimer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = USABocciaTimer.xcdatamodel; sourceTree = "<group>"; };
+		98D604FE2BA94EF80074D5BE /* NewMatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchViewController.swift; sourceTree = "<group>"; };
+		98D605002BA958D70074D5BE /* WarmUpTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarmUpTimerViewController.swift; sourceTree = "<group>"; };
+		98D605022BA97B960074D5BE /* TimeOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,9 @@
 				98B407D62B525BAF00575FFC /* MatchSettingsViewController.swift */,
 				98B407D42B525BAF00575FFC /* SceneDelegate.swift */,
 				98CC024B2B537E690067D48A /* USABocciaTimer.xcdatamodeld */,
+				98D604FE2BA94EF80074D5BE /* NewMatchViewController.swift */,
+				98D605002BA958D70074D5BE /* WarmUpTimerViewController.swift */,
+				98D605022BA97B960074D5BE /* TimeOutViewController.swift */,
 			);
 			path = "USA Boccia Timer";
 			sourceTree = "<group>";
@@ -157,13 +166,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				985013802B7B16FC00D4C9E1 /* FlagPickerViewController.swift in Sources */,
+				98D604FF2BA94EF80074D5BE /* NewMatchViewController.swift in Sources */,
 				98CC024A2B536D4B0067D48A /* EditTextViewController.swift in Sources */,
 				98B407D72B525BAF00575FFC /* MatchSettingsViewController.swift in Sources */,
 				98B407D32B525BAF00575FFC /* AppDelegate.swift in Sources */,
 				9850137E2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift in Sources */,
 				98CC024D2B537E690067D48A /* USABocciaTimer.xcdatamodeld in Sources */,
 				98A418CA2B9AC34200412231 /* MainScreenTableViewController.swift in Sources */,
+				98D605032BA97B960074D5BE /* TimeOutViewController.swift in Sources */,
 				98B407EC2B52654900575FFC /* MatchItem.swift in Sources */,
+				98D605012BA958D70074D5BE /* WarmUpTimerViewController.swift in Sources */,
 				98B407D52B525BAF00575FFC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

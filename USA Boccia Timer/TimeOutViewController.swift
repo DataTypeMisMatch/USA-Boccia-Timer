@@ -44,7 +44,14 @@ class TimeOutViewController: UIViewController
    }
    
    
-      //MARK:  - Actions
+   //MARK:  - Actions
+   
+   @IBAction func finish()
+   {
+      //Close the TimeOut Screen
+      timer?.invalidate()
+      navigationController?.popViewController(animated: true)
+   }
    
    @IBAction func resetTimeOutTimer()
    {

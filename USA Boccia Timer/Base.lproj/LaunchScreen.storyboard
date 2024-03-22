@@ -30,7 +30,7 @@
                                     <constraint firstAttribute="width" secondItem="1mX-aA-M6G" secondAttribute="height" multiplier="498:119" id="4eZ-oD-rKD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="100"/>
-                                <color key="textColor" name="AccentColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -51,12 +51,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreenIcon" width="1024" height="1024"/>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="LaunchScreenIcon" width="603.5" height="603"/>
         <namedColor name="LaunchScreenColor">
-            <color red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.098039215686274508" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

@@ -481,7 +481,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       else if segue.identifier == "StartNewMatch"
       {
 	 let controller = segue.destination as! NewMatchViewController
-	 controller.title = "New Match Started"
+	 controller.title = matchItem.classification
 	 
 	 controller.newMatchItem = matchItem
       }

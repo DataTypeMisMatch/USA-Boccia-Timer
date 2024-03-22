@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "USA_Boccia_Logo_1024.png",
+      "filename" : "USA_Boccia_Logo_LongName_Color.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "USA_Boccia_Logo_1024 1.png",
+      "filename" : "USA_Boccia_Logo_LongName_Color 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "USA_Boccia_Logo_1024 2.png",
+      "filename" : "USA_Boccia_Logo_LongName_Color 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

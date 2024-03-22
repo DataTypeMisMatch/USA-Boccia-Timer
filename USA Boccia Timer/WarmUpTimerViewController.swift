@@ -40,6 +40,13 @@ class WarmUpTimerViewController: UIViewController
    
    //MARK:  - Actions
    
+   @IBAction func startMatch()
+   {
+      //Close the Warm-Up Screen to reveal the Control Board for the Match
+      timer?.invalidate()
+      navigationController?.popViewController(animated: true)
+   }
+   
    @IBAction func resetWarmUpTimer()
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen

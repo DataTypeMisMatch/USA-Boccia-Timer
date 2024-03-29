@@ -1,58 +1,60 @@
 //
-//  TimeOutViewController.swift
+//  TieBreakViewController.swift
 //  USA Boccia Timer
 //
-//  Created by Fox on 3/19/24.
+//  Created by Fox on 3/26/24.
 //
 
 import Foundation
 import UIKit
 
-class TimeOutViewController: UIViewController 
+class TieBreakViewController: UIViewController
 {
    
+   var newMatchItem = MatchItem()
+   
    var timer: Timer?
-   var timeOutDuration: Int = 10 * 60
+   var tieBreakDuration: Int = 1 * 60
    var totalTime: Int = 0
-   var timeOutType = ""
+//var timeOutType = ""
    var teamColor = ""
    
    
-   @IBOutlet weak var timeOutTimerLabel: UILabel!
+   @IBOutlet weak var tieBreakTimerLabel: UILabel!
    @IBOutlet weak var timerButton: UIButton!
    @IBOutlet weak var resetButton: UIButton!
-   @IBOutlet weak var teamColorLabel: UILabel!
-   @IBOutlet weak var timeOutTypeLabel: UILabel!
+//      @IBOutlet weak var teamColorLabel: UILabel!
+   @IBOutlet weak var tieBreakTypeLabel: UILabel!
    
    
    override func viewDidLoad()
    {
       super.viewDidLoad()
       
-	
+      
       //Set Timer Label Attributes
-      timeOutTimerLabel.layer.masksToBounds = true
-      timeOutTimerLabel.layer.borderWidth = 2
-      timeOutTimerLabel.layer.cornerRadius = 25
-      timeOutTimerLabel.layer.borderColor = UIColor.black.cgColor
+      tieBreakTimerLabel.layer.masksToBounds = true
+      tieBreakTimerLabel.layer.borderWidth = 2
+      tieBreakTimerLabel.layer.cornerRadius = 25
+      tieBreakTimerLabel.layer.borderColor = UIColor.black.cgColor
       
       //Save TimeOut Time in timeOutTimerLabel.text
-      totalTime = timeOutDuration
-      timeOutTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      totalTime = tieBreakDuration
+      tieBreakTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
-      timeOutTypeLabel.text = timeOutType
-      teamColorLabel.text = teamColor
+//timeOutTypeLabel.text = timeOutType
+//teamColorLabel.text = teamColor
    }
    
    
-   //MARK:  - Actions
+      //MARK:  - Actions
    
    @IBAction func finish()
    {
       
-      let alert = UIAlertController(title: "Confirm", message: "Finish the Timeout.  It cannot be used during the same game.  \nStill want to Stop the Timeout?", preferredStyle: UIAlertController.Style.alert)
+      let alert = UIAlertController(title: "Confirm", message: "Finish the Tie Break.  \nStill want to stop the Tie Break?", preferredStyle: UIAlertController.Style.alert)
       
-      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { 
+      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
 	 (action: UIAlertAction!) in
 	 self.alertCancelClicked()
       }))
@@ -66,14 +68,17 @@ class TimeOutViewController: UIViewController
       //Check if Timer has Finished...if not, display alert
       if (totalTime > 0)
       {
-	 present(alert, animated: true, completion: nil)
+	 //present(alert, animated: true, completion: nil)
+	 timer?.invalidate()
+	 navigationController?.popViewController(animated: true)
       }
+       
       
    }
    
    func alertCancelClicked()
    {
-	//Do Nothing
+	 //Do Nothing
    }
    
    func alertFinishClicked()
@@ -87,13 +92,13 @@ class TimeOutViewController: UIViewController
    @IBAction func resetTimeOutTimer()
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
-      totalTime = timeOutDuration
+      totalTime = tieBreakDuration
    }
    
    @IBAction func startTimeOutTimer()
    {
       //Set Timer's totalTime Variable to the time specified in the MatchSettings Screen
-      totalTime = timeOutDuration
+      totalTime = tieBreakDuration
       
       //Schedule the Timer
       timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -107,7 +112,7 @@ class TimeOutViewController: UIViewController
       print(totalTime)
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
-      timeOutTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      tieBreakTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
       //Check if the Timer needs to end
       if totalTime != 0
@@ -124,8 +129,8 @@ class TimeOutViewController: UIViewController
 	    self.timer = nil
 	 }
 	 
-	 //Re-Enable the user to start the timer again (if needed)
-//TODO: - Remove this next line if not necessary...likely will just end then Close the Screen
+	    //Re-Enable the user to start the timer again (if needed)
+	    //TODO: - Remove this next line if not necessary...likely will just end then Close the Screen
 	 timerButton.isEnabled = true
       }
    }

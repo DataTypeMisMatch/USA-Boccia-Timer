@@ -114,7 +114,6 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    var cellToEdit: UITableViewCell?
    
    
-   
    //MARK: - Actions
    
    @IBAction func back()
@@ -160,6 +159,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC01 has been selected")
 			matchItem.classification = "BC01"
 			bcButton.setTitle("BC01", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC02", handler:
@@ -167,6 +167,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC02 has been selected")
 			matchItem.classification = "BC02"
 			bcButton.setTitle("BC02", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC03", handler:
@@ -174,6 +175,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC03 has been selected")
 			matchItem.classification = "BC03"
 			bcButton.setTitle("BC03", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC04", handler:
@@ -181,6 +183,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC04 has been selected")
 			matchItem.classification = "BC04"
 			bcButton.setTitle("BC04", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC05", handler:
@@ -188,6 +191,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC05 has been selected")
 			matchItem.classification = "BC05"
 			bcButton.setTitle("BC05", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC06", handler:
@@ -195,6 +199,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC06 has been selected")
 			matchItem.classification = "BC06"
 			bcButton.setTitle("BC06", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC07", handler:
@@ -202,6 +207,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC07 has been selected")
 			matchItem.classification = "BC07"
 			bcButton.setTitle("BC07", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC08", handler:
@@ -209,6 +215,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC08 has been selected")
 			matchItem.classification = "BC08"
 			bcButton.setTitle("BC08", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC09", handler:
@@ -216,6 +223,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC09 has been selected")
 			matchItem.classification = "BC09"
 			bcButton.setTitle("BC09", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     }),
 	 UIAction(title: "BC10", handler:
@@ -223,6 +231,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 			print("Selected Item: BC10 has been selected")
 			matchItem.classification = "BC10"
 			bcButton.setTitle("BC10", for: .normal)
+			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
 			configureMatch()
 		     })
       ])
@@ -481,9 +490,11 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       else if segue.identifier == "StartNewMatch"
       {
 	 let controller = segue.destination as! NewMatchViewController
-	 controller.title = matchItem.classification
 	 
 	 controller.newMatchItem = matchItem
+	    
+	 //controller.title = matchItem.classification
+	 
       }
    }
    

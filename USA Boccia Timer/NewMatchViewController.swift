@@ -135,19 +135,19 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
       
       //Reset Balls to Non-Thrown
-      redTeamBall01.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall02.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall03.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall04.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall05.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall06.image = UIImage(named: "LaunchScreenIcon")
+      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
       
-      blueTeamBall01.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall02.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall03.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall04.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall05.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall06.image = UIImage(named: "LaunchScreenIcon")
+      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
       
       
       timerRedTeamEnd?.invalidate()
@@ -204,10 +204,6 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       currentEndItem = endsVariables
       
-      
-      //endsVariables.redTeamBallsPlayed = 0
-      //endsVariables.blueTeamBallsPlayed = 0
-      
       /*
       //Add all ends and their default variables (so they are available later when Performing Save)
       for _ in stride(from: 0, to: newMatchItem.numEnds, by: 1)
@@ -215,6 +211,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 endsItem.append(endsVariables)
       }
       */
+      
       
       //Initialize values on the screen
       classification.text = newMatchItem.classification
@@ -233,19 +230,19 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
       
       //Set Balls to Non-Thrown
-      redTeamBall01.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall02.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall03.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall04.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall05.image = UIImage(named: "LaunchScreenIcon")
-      redTeamBall06.image = UIImage(named: "LaunchScreenIcon")
+      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
       
-      blueTeamBall01.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall02.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall03.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall04.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall05.image = UIImage(named: "LaunchScreenIcon")
-      blueTeamBall06.image = UIImage(named: "LaunchScreenIcon")
+      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
       
       timerRedTeamEnd?.invalidate()
       timerBlueTeamEnd?.invalidate()
@@ -300,18 +297,42 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    
    //MARK:  - Actions
 
+   @IBAction func startRedPenaltyTimer()
+   {
+      timeOutTeamColor = "Blue"
+      
+      performSegue(withIdentifier: "StartPenaltyTimer", sender: nil)
+   }
+   
+   @IBAction func startBluePenaltyTimer()
+   {
+      timeOutTeamColor = "Red"
+      
+      performSegue(withIdentifier: "StartPenaltyTimer", sender: nil)
+   }
+   
    @IBAction func finishMatch()
    {
-      performSegue(withIdentifier: "FinalScore", sender: nil)
+      // old view controller...
+      //performSegue(withIdentifier: "FinalScore", sender: nil)
+      
+      performSegue(withIdentifier: "FinalScoreTableView", sender: nil)
+      
    }
    
    
    @IBAction func inputScore()
    {
-      //Add Verification Code
       
       //Fire any Penalties for Blue or Red
            // (remember, if Red gets a Penalty, it is taken by the Blue Team)
+      
+      /*
+      if ( *** add variables to keep track of Blue or Red Penalties, then launch the screen if >0 *** )
+      {
+	 
+      }
+      */
       
       performSegue(withIdentifier: "InputScore", sender: nil)
    }
@@ -321,20 +342,36 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       navigationController?.popViewController(animated: true)
    }
    
-   @IBAction func ballClicked(_ gesture: UITapGestureRecognizer)
+   @IBAction func redBallClicked(_ gesture: UITapGestureRecognizer)
    {
       if let imageView = gesture.view as? UIImageView 
       {
-	 if imageView.image == UIImage(named: "USA_Boccia_Ball_White_NoBackground")
-	 {
-	    imageView.image = UIImage(named: "LaunchScreenIcon")
-	 }
-	 else
+	 if imageView.image == UIImage(named: "USA_Boccia_Ball_Red")
 	 {
 	    imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
 	 }
+	 else
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_Red")
+	 }
       }
    }
+   
+   @IBAction func blueBallClicked(_ gesture: UITapGestureRecognizer)
+   {
+      if let imageView = gesture.view as? UIImageView
+      {
+	 if imageView.image == UIImage(named: "USA_Boccia_Ball_Blue")
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
+	 }
+	 else
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_Blue")
+	 }
+      }
+   }
+   
    
    @IBAction func startTimerRedTeam()
    {
@@ -529,6 +566,12 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.teamColor = timeOutTeamColor
 	 controller.timeOutType = timeOutType
       }
+      else if segue.identifier == "StartPenaltyTimer"
+      {
+	 let controller = segue.destination as! TimeOutViewController
+	 
+	 controller.teamColor = timeOutTeamColor
+      }
       else if segue.identifier == "InputScore"
       {
 	 let controller = segue.destination as! InputScoreViewController
@@ -547,9 +590,20 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.redTeamCumulativeScore = redTeamCumulativeScore
 	 controller.blueTeamCumulativeScore = blueTeamCumulativeScore
       }
+      
+      
       else if segue.identifier == "FinalScore"
       {
 	 let controller = segue.destination as! FinalScoreViewController
+	 
+	 controller.currentEndItem = currentEndItem
+	 controller.newMatchItem = newMatchItem
+	 controller.endsItem = endsItem
+      }
+      
+      else if segue.identifier == "FinalScoreTableView"
+      {
+	 let controller = segue.destination as! FinalScoreTableViewController
 	 
 	 controller.currentEndItem = currentEndItem
 	 controller.newMatchItem = newMatchItem

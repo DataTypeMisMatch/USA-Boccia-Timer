@@ -289,7 +289,6 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 matchItem.playType = "Team"
 	 matchItem.classification = "BC03"
 	 bcButton.setTitle("BC03", for: .normal)
-	 
 	 configureMatch()
       }
    }

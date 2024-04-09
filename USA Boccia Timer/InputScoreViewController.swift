@@ -23,7 +23,6 @@ class InputScoreViewController: UIViewController
    
    var newMatchItem = MatchItem()
    var endsItem = [EndsItem]()
-   //var endsItem: [EndsItem]?
    
    var currentEndItem = EndsItem()
    
@@ -56,8 +55,8 @@ class InputScoreViewController: UIViewController
    {
       super.viewDidLoad()
       
-      endsButton.showsMenuAsPrimaryAction = true
-      endsButton.menu = addMenuItems()
+      //endsButton.showsMenuAsPrimaryAction = true
+      //endsButton.menu = addMenuItems()
       
       endsButton.setTitle(currentEndNumber.description, for: .normal)
       endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
@@ -111,8 +110,9 @@ class InputScoreViewController: UIViewController
 	 currentEndItem.redTeamPenaltyCount = 0
 	 currentEndItem.blueTeamPenaltyCount = 0
 	 
-	 //endsItem[currentEndNumber].blueTeamEndTimeRemaining = 0
-	 //endsItem[currentEndNumber].redTeamEndTimeRemaining = 0
+	 currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
+	 currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
+	 
       }
       
       //Check if Last Ends
@@ -142,7 +142,6 @@ class InputScoreViewController: UIViewController
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
       }
-   
       
    }
    
@@ -169,43 +168,36 @@ class InputScoreViewController: UIViewController
 			   print("Selected Item: ENDS 01 has been selected")
 			   endsButton.setTitle("1", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[0].endNumber = 1
-			   
 			}),
 	    UIAction(title: "Ends 02", handler:
 			{ [self] (_) in
 			   print("Selected Item: ENDS 02 has been selected")
 			   endsButton.setTitle("2", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[1].endNumber = 2
 			}),
 	    UIAction(title: "Ends 03", handler:
 			{ [self] (_) in
 			   print("Selected Item: ENDS 03 has been selected")
 			   endsButton.setTitle("3", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[2].endNumber = 3
 			}),
 	    UIAction(title: "Ends 04", handler:
 			{ [self] (_) in
 			   print("Selected Item: ENDS 04 has been selected")
 			   endsButton.setTitle("4", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[3].endNumber = 4
 			}),
 	    UIAction(title: "Ends 05", handler:
 			{ [self] (_) in
 			   print("Selected Item: ENDS 05 has been selected")
 			   endsButton.setTitle("5", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[4].endNumber = 5
 			}),
 	    UIAction(title: "Ends 06", handler:
 			{ [self] (_) in
 			   print("Selected Item: ENDS 06 has been selected")
 			   endsButton.setTitle("6", for: .normal)
 			   endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
-			   //endsItem[5].endNumber = 6
 			})
 	 ])
       

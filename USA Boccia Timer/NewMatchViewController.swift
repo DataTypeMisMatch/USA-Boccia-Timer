@@ -650,18 +650,6 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.redTeamCumulativeScore = redTeamCumulativeScore
 	 controller.blueTeamCumulativeScore = blueTeamCumulativeScore
       }
-      
-      /*
-      else if segue.identifier == "FinalScore"
-      {
-	 let controller = segue.destination as! FinalScoreViewController
-	 
-	 controller.currentEndItem = currentEndItem
-	 controller.newMatchItem = newMatchItem
-	 controller.endsItem = endsItem
-      }
-      */
-      
       else if segue.identifier == "FinalScoreTableView"
       {
 	 let controller = segue.destination as! FinalScoreTableViewController

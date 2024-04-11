@@ -47,6 +47,7 @@ class PenaltyThrowTimerViewController: UIViewController
    @IBAction func finish()
    {
       
+      /*
       let alert = UIAlertController(title: "Confirm", message: "Finish the Penalty Timer.  It cannot be used during the same game.  \nStill want to Stop the Timer?", preferredStyle: UIAlertController.Style.alert)
       
       alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
@@ -65,6 +66,12 @@ class PenaltyThrowTimerViewController: UIViewController
       {
 	 present(alert, animated: true, completion: nil)
       }
+      */
+      
+      
+      //Close the TimeOut Screen
+      timer?.invalidate()
+      navigationController?.popViewController(animated: true)
       
    }
    

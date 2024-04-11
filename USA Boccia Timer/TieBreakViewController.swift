@@ -16,14 +16,12 @@ class TieBreakViewController: UIViewController
    var timer: Timer?
    var tieBreakDuration: Int = 1 * 60
    var totalTime: Int = 0
-//var timeOutType = ""
    var teamColor = ""
    
    
    @IBOutlet weak var tieBreakTimerLabel: UILabel!
    @IBOutlet weak var timerButton: UIButton!
    @IBOutlet weak var resetButton: UIButton!
-//      @IBOutlet weak var teamColorLabel: UILabel!
    @IBOutlet weak var tieBreakTypeLabel: UILabel!
    
    
@@ -47,7 +45,7 @@ class TieBreakViewController: UIViewController
    }
    
    
-      //MARK:  - Actions
+   //MARK:  - Actions
    
    @IBAction func finish()
    {

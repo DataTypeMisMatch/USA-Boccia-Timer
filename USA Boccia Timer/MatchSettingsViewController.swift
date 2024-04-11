@@ -107,7 +107,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    @IBOutlet weak var ends5Button: UIButton!
    @IBOutlet weak var ends6Button: UIButton!
    
-   @IBOutlet weak var timesDateTimePicker: UIDatePicker!
+   @IBOutlet weak var endTimeLabel: UILabel!
    
    
    var matchItem = MatchItem()
@@ -149,6 +149,12 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       //Add Menu Items
       bcButton.menu = addMenuItems()
+      
+      //Round Corners of the CountDown Timer and Penalty Labels, and their respective Buttons
+      endTimeLabel.layer.masksToBounds = true
+      endTimeLabel.layer.borderWidth = 2
+      endTimeLabel.layer.cornerRadius = 15
+      endTimeLabel.layer.borderColor = UIColor.black.cgColor
    }
    
    func addMenuItems() -> UIMenu
@@ -387,47 +393,47 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       {
       case "BC01":
 	 matchItem.endsTime = 5 * 60
-	 timesDateTimePicker.countDownDuration = 5 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
 	 break
       case "BC02":
 	 matchItem.endsTime = 5 * 60
-	 timesDateTimePicker.countDownDuration = 5 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
 	 break
       case "BC03":
 	 matchItem.endsTime = 6 * 60
-	 timesDateTimePicker.countDownDuration = 6 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
 	 break
       case "BC04":
 	 matchItem.endsTime = 4 * 60
-	 timesDateTimePicker.countDownDuration = 4 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	 break
       case "BC05":
 	 matchItem.endsTime = 4 * 60
-	 timesDateTimePicker.countDownDuration = 4 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	 break
       case "BC06":
 	 matchItem.endsTime = 4 * 60
-	 timesDateTimePicker.countDownDuration = 4 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	 break
       case "BC07":
 	 matchItem.endsTime = 6 * 60
-	 timesDateTimePicker.countDownDuration = 6 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
 	 break
       case "BC08":
 	 matchItem.endsTime = 4 * 60
-	 timesDateTimePicker.countDownDuration = 4 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	 break
       case "BC09":
 	 matchItem.endsTime = 5 * 60
-	 timesDateTimePicker.countDownDuration = 5 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
 	 break
       case "BC10":
 	 matchItem.endsTime = 3 * 60
-	 timesDateTimePicker.countDownDuration = 3 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
 	 break
       default:
 	 matchItem.endsTime = 4 * 60
-	 timesDateTimePicker.countDownDuration = 4 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	 break
       }
    }
@@ -437,6 +443,15 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       matchItem.warmUpTime = 2 * 60
    }
    
+   //MARK:  - Custom Functions
+   
+   //Custom Function for formatting Number of Seconds into Human-Readable Minutes:Seconds
+   func formatTimerMinutesSeconds(_ totalSeconds: Int) -> String
+   {
+      let seconds: Int = totalSeconds % 60
+      let minutes: Int = (totalSeconds / 60) % 60
+      return String(format: "%02d:%02d", minutes, seconds)
+   }
    
    //MARK:  - Navigation
  

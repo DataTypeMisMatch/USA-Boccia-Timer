@@ -136,7 +136,12 @@ class FinalScoreViewController: UIViewController
    
    @IBAction func done()
    {
+      //Close current Screen
       navigationController?.popViewController(animated: true)
+      
+      //Close all other Screens
+      //self.navigationController?.popToRootViewController(animated: true)
+      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
    }
    
    
@@ -150,10 +155,10 @@ class FinalScoreViewController: UIViewController
       return String(format: "%02d:%02d", minutes, seconds)
    }
    
-   
-   /*
+
     // MARK: - Navigation
-    
+      
+   /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // Get the new view controller using segue.destination.

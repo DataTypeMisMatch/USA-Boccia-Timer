@@ -57,3 +57,23 @@ class HudView: UIView
    }
    
 }
+
+
+/*
+ //If decided to be used...this code goes into the ViewController
+ 
+ 
+ //Create HUD View
+ guard let mainView = navigationController?.parent?.view
+ else { return }
+ let hudView = HudView.hud(inView: mainView, animated: true)
+ hudView.text = "Game Over"
+ 
+ let delayInSeconds = 20.0
+ DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds)
+ {
+ hudView.hide()
+ //self.navigationController?.popViewController(animated: true)
+ }
+
+ */

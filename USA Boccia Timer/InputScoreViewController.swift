@@ -49,11 +49,19 @@ class InputScoreViewController: UIViewController
    @IBOutlet weak var blueTeamBallsScored: UISegmentedControl!
    @IBOutlet weak var blueTeamPenaltiesScored: UISegmentedControl!
 
+   @IBOutlet weak var redTeamView: UIView!
+   @IBOutlet weak var blueTeamView: UIView!
+   @IBOutlet weak var headerView: UIView!
    
    
    override func viewDidLoad()
    {
       super.viewDidLoad()
+      
+      
+      //Set Maximum Values in the Steppers to prevent a subtle bug
+      redTeamTimeRemainingStepper.maximumValue = Double(newMatchItem.endsTime)
+      blueTeamTimeRemainingStepper.maximumValue = Double(newMatchItem.endsTime)
       
       //endsButton.showsMenuAsPrimaryAction = true
       //endsButton.menu = addMenuItems()
@@ -64,10 +72,12 @@ class InputScoreViewController: UIViewController
       redTeamNameLabel.text = newMatchItem.redTeamName
       redTeamFlagImage.image = UIImage(named: newMatchItem.redTeamFlagName)
       redTeamTimeRemainingLabel.text = formatTimerMinutesSeconds(currentTimeRedTeamEnd)
+      redTeamTimeRemainingStepper.value = Double(currentTimeRedTeamEnd)
       
       blueTeamNameLabel.text = newMatchItem.blueTeamName
       blueTeamFlagImage.image = UIImage(named: newMatchItem.blueTeamFlagName)
       blueTeamTimeRemainingLabel.text = formatTimerMinutesSeconds(currentTimeBlueTeamEnd)
+      blueTeamTimeRemainingStepper.value = Double(currentTimeBlueTeamEnd)
       
       //Round Corners of the CountDown Timer and Penalty Labels, and their respective Buttons
       blueTeamTimeRemainingLabel.layer.masksToBounds = true
@@ -79,6 +89,17 @@ class InputScoreViewController: UIViewController
       redTeamTimeRemainingLabel.layer.borderWidth = 2
       redTeamTimeRemainingLabel.layer.cornerRadius = 15
       redTeamTimeRemainingLabel.layer.borderColor = UIColor.black.cgColor
+      
+      //Round Corners and Set Border of the Red and Blue Team Containers
+      blueTeamView.layer.masksToBounds = true
+      blueTeamView.layer.borderWidth = 4
+      blueTeamView.layer.cornerRadius = 15
+      blueTeamView.layer.borderColor = UIColor.blue.cgColor
+      
+      redTeamView.layer.masksToBounds = true
+      redTeamView.layer.borderWidth = 4
+      redTeamView.layer.cornerRadius = 15
+      redTeamView.layer.borderColor = UIColor.red.cgColor
       
       //Round Corners of the CountDown Timer and Penalty Labels, and their respective Buttons
       endsButton.layer.masksToBounds = true
@@ -122,12 +143,6 @@ class InputScoreViewController: UIViewController
 	 
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
-	 
-	 //Close the previous screens before showing the Final Score Screen
-	 //navigationController?.popViewController(animated: true)
-	 //navigationController?.popViewController(animated: true)
-	 //navigationController?.popViewController(animated: true)
-	 //navigationController?.popViewController(animated: true)
 	 
 	 //Check if Tie Breaker is necessary (at the end of the last End Section)
 	 if ( redTeamCumulativeScore == blueTeamCumulativeScore )
@@ -217,7 +232,7 @@ class InputScoreViewController: UIViewController
    
    
    
-    // MARK: - Navigation
+   // MARK: - Navigation
     
    override func prepare(
       for segue: UIStoryboardSegue,

@@ -126,6 +126,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    @IBOutlet weak var redTeamView: UIView!
    @IBOutlet weak var headerView: UIView!
    
+   @IBOutlet weak var inputScoreBarButton: UIBarButtonItem!
+   @IBOutlet weak var cancelScoreBarButton: UIBarButtonItem!
+   
    
    var newMatchItem = MatchItem()
    var endsItem = [EndsItem]()
@@ -170,6 +173,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 blueTeamView.isHidden = true
 	 redTeamView.isHidden = true
 	 headerView.isHidden = true
+	 
+	 inputScoreBarButton.isEnabled = false
+	 cancelScoreBarButton.isEnabled = false
 	 
 	 //Stop Timers
 	 timerRedTeamEnd?.invalidate()

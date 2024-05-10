@@ -1175,10 +1175,12 @@
                         <outlet property="blueTeamPenaltyStepper" destination="Pq7-R9-4dS" id="Hiz-ty-Jbw"/>
                         <outlet property="blueTeamScoreLabel" destination="Eo5-0f-YG9" id="VoH-ae-w1U"/>
                         <outlet property="blueTeamView" destination="ncG-zv-WkT" id="ObD-ye-boI"/>
+                        <outlet property="cancelScoreBarButton" destination="qLi-Ap-yWf" id="z18-P1-JrT"/>
                         <outlet property="classification" destination="giE-lC-ljg" id="CxI-Xh-W38"/>
                         <outlet property="currentEndLabel" destination="cfo-3y-I8o" id="1MG-Bq-w7B"/>
                         <outlet property="finishButton" destination="yvJ-R4-4Dx" id="Fpi-qs-Pay"/>
                         <outlet property="headerView" destination="2Vl-Nn-fgs" id="WVQ-gQ-cug"/>
+                        <outlet property="inputScoreBarButton" destination="BE5-u6-7WP" id="K4X-Kk-1Qm"/>
                         <outlet property="redTeamBall01" destination="yMf-ix-ltq" id="iAN-GA-7vU"/>
                         <outlet property="redTeamBall02" destination="ECR-ms-e0L" id="DSK-8m-hxl"/>
                         <outlet property="redTeamBall03" destination="oWj-y0-dBW" id="MBD-eK-0HP"/>

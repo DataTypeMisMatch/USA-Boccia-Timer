@@ -125,7 +125,6 @@ class TimeOutViewController: UIViewController
 	 }
 	 
 	 //Re-Enable the user to start the timer again (if needed)
-//TODO: - Remove this next line if not necessary...likely will just end then Close the Screen
 	 timerButton.isEnabled = true
       }
    }
@@ -137,20 +136,5 @@ class TimeOutViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-   
-   
-   
-   
-   /*
-    // MARK: - Navigation
-    
-    override func prepare(
-    for segue: UIStoryboardSegue,
-    sender: Any?)
-    {
-    
-    
-    }
-    */
    
 }

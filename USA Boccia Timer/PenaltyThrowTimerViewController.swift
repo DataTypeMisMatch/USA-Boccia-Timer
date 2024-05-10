@@ -42,7 +42,7 @@ class PenaltyThrowTimerViewController: UIViewController
    }
    
    
-      //MARK:  - Actions
+   //MARK:  - Actions
    
    @IBAction func finish()
    {
@@ -128,8 +128,7 @@ class PenaltyThrowTimerViewController: UIViewController
 	    self.timer = nil
 	 }
 	 
-	    //Re-Enable the user to start the timer again (if needed)
-	    //TODO: - Remove this next line if not necessary...likely will just end then Close the Screen
+	 //Re-Enable the user to start the timer again (if needed)
 	 timerButton.isEnabled = true
       }
    }
@@ -141,20 +140,5 @@ class PenaltyThrowTimerViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-   
-   
-   
-   
-   /*
-    // MARK: - Navigation
-    
-    override func prepare(
-    for segue: UIStoryboardSegue,
-    sender: Any?)
-    {
-    
-    
-    }
-    */
    
 }

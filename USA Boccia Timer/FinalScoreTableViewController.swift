@@ -33,7 +33,7 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       let blueScoreLabel = cell.viewWithTag(4) as! UILabel
       let blueTimeLabel = cell.viewWithTag(5) as! UILabel
       
-      endLabel.text = "End " + item.endNumber.description
+      endLabel.text = item.endTitle
       redScoreLabel.text = item.redTeamFinalScore.description
       redTimeLabel.text = formatTimerMinutesSeconds( item.redTeamEndTimeRemaining )
       blueScoreLabel.text = item.blueTeamFinalScore.description
@@ -51,10 +51,10 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
    
    
    var endsItem = [EndsItem]()
-   
    var currentEndItem = EndsItem()
-   
    var newMatchItem = MatchItem()
+   var historyItems = [HistoryItem]()
+   
    var teamVersusString = ""
    var redTeamTotalGameScore = 0
    var blueTeamTotalGameScore = 0
@@ -67,7 +67,6 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
    @IBOutlet weak var classification: UILabel!
    @IBOutlet weak var numEnds: UILabel!
    @IBOutlet weak var endsTime: UILabel!
-   
    
    @IBOutlet weak var tableView: UITableView!
    
@@ -90,26 +89,48 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       endsTime.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
       
       
-      //Sum up the Total Points, based on the Number of Ends
-      for index in stride(from: 0, to: newMatchItem.numEnds, by: 1)
+      //Sum up the Total Points, based on the Number of Ends actually played (including TieBreakers)
+      for index in stride(from: 0, to: endsItem.count, by: 1)
       {
+	 //Calculate Game-Total Scores for each side
 	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
 	 
 	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+	 
+	 //Calculate Total Ends Score for each side
+	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+	 
+	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
       }
       
       //Set the Final Score Labels to show the freshly calculated values
       redTeamFinalScore.text = redTeamTotalGameScore.description
       blueTeamFinalScore.text = blueTeamTotalGameScore.description
       
+      //Get Information as to where the Documents Directory is stored
+      print("Documents folder is \(documentsDirectory())")
+      print("Data file path is \(dataFilePath())")
+      
    }
    
    
    //MARK:  - Actions
    
-   @IBAction func done()
+   @IBAction func cancel()
    {
       navigationController?.popViewController(animated: true)
+   }
+   
+   @IBAction func done()
+   {
+      //Load the existing HistoryItems from File
+      loadHistoryItems()
+      
+      //Save the HistoryItems Array to File
+      saveHistoryItems()
+      
+      //Return to the beginning of the app
+      performSegue(withIdentifier: "ReturnToStart", sender: nil)
    }
    
    
@@ -123,17 +144,92 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       return String(format: "%02d:%02d", minutes, seconds)
    }
    
+   func saveHistoryItems()
+   {
+      //Copy the required information into the new Array
+      let tempHistoryItem = HistoryItem()
+      
+      tempHistoryItem.dateTimePlayed = Date()
+      tempHistoryItem.gameName = newMatchItem.gameName
+      tempHistoryItem.team_vs_String = teamVersusString
+      tempHistoryItem.redTeamFinalScore = redTeamTotalGameScore
+      tempHistoryItem.blueTeamFinalScore = blueTeamTotalGameScore
+      tempHistoryItem.playType = newMatchItem.playType
+      tempHistoryItem.classification = newMatchItem.classification
+      tempHistoryItem.numEnds = newMatchItem.numEnds
+      tempHistoryItem.endsTime =  newMatchItem.endsTime
+      
+      //Copy Ends Results Array
+      tempHistoryItem.endsItems = endsItem
+      
+      historyItems.append(tempHistoryItem)
+      
+      
+      //Save Data to File
+      let encoder = PropertyListEncoder()
+      
+      do
+      {
+	 let data = try encoder.encode(historyItems)
+	 try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+	 
+	 print("Save Successful!")
+      }
+      catch
+      {
+	 print("Error encoding historyItem array: \(error.localizedDescription)")
+      }
+   }
+   
+   func loadHistoryItems()
+   {
+      //Load HistoryItems from File
+      let path = dataFilePath()
+      
+      if let data = try? Data(contentsOf: path)
+      {
+	 
+	 let decoder = PropertyListDecoder()
+	 
+	 do
+	 {
+	    historyItems = try decoder.decode([HistoryItem].self, from: data)
+	    
+	    print("Load Successful!")
+	 }
+	 catch
+	 {
+	    print("Error decoding historyItem array: \(error.localizedDescription)")
+	 }
+      }
+   }
+   
+   func documentsDirectory() -> URL
+   {
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+      
+      return paths[0]
+   }
+   
+   func dataFilePath() -> URL
+   {
+      return documentsDirectory().appendingPathComponent("USA_Boccia_Timer_app.plist")
+   }
    
    
     // MARK: - Navigation
     
-    /*
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-    }
-    */
+   override func prepare(
+      for segue: UIStoryboardSegue,
+      sender: Any?)
+   {
+      
+      if segue.identifier == "ReturnToStart"
+      {
+	 let controller = segue.destination as! MainScreenTableViewController
+	 
+	 controller.historyItems = historyItems
+      }
+   }
    
 }

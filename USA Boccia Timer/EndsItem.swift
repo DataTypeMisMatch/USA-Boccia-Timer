@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-class EndsItem
+class EndsItem: NSObject, Codable
 {
    var endNumber = 0
+   var endTitle = ""
    
    var classification = ""
    
@@ -24,8 +25,7 @@ class EndsItem
    
    var redTeamFinalScore = 0
    var blueTeamFinalScore = 0
-   //var redTeamBallsPlayed = 0
-   //var blueTeamBallsPlayed = 0
+   
    var redTeamPenaltyCount = 0
    var blueTeamPenaltyCount = 0
    

@@ -20,13 +20,24 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       _ controller: InputScoreViewController,
       didFinishAdding item: EndsItem)
    {
-      
       redTeamCumulativeScore = item.redTeamFinalScore + item.redTeamPenaltiesScored
       blueTeamCumulativeScore = item.blueTeamFinalScore + item.blueTeamPenaltiesScored
       
       //Copy all properties into Temp Item
       let tempItemToAppend = EndsItem()
+      
       tempItemToAppend.endNumber = item.endNumber
+      
+      //Name the End Properly (as End-n or TieBreak-n)
+      if(item.endNumber > newMatchItem.numEnds)
+      {
+	 tempItemToAppend.endTitle = "Tie Break " + (item.endNumber - newMatchItem.numEnds).description
+      }
+      else
+      {
+	 tempItemToAppend.endTitle = "End " + item.endNumber.description
+      }
+      
       tempItemToAppend.classification = item.classification
       tempItemToAppend.endsTime = item.endsTime
       tempItemToAppend.redTeamName = item.redTeamName
@@ -50,49 +61,20 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       endsItem.append(tempItemToAppend)
       
       //Increment End Number
-      currentEndNumber = currentEndNumber + 1
+      currentEndNumber += 1
       
       
-      //Reset Values to their Defaults for Next End
-      classification.text = newMatchItem.classification
-      redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
-      blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
-      currentEndLabel.text = currentEndNumber.description
-      redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
-      redTeamNameLabel.text = currentEndItem.redTeamName
-      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
-      redTeamPenaltyLabel.text = currentEndItem.redTeamPenaltyCount.description
-      blueTeamFlagImage.image = UIImage(named: currentEndItem.blueTeamFlagName)
-      blueTeamNameLabel.text = currentEndItem.blueTeamName
-      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
-      blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
+      //Check if Game Over and TieBreaker Necessary
+      if (currentEndNumber > newMatchItem.numEnds)
+      {
+	 //Check if Tie Breaker is necessary (at the end of the last End Section)
+	 if ( redTeamCumulativeScore == blueTeamCumulativeScore )
+	 {
+	    needsTieBreak = true
+	 }
+      }
       
-      //Reset Ends Time for Next End
-      currentTimeRedTeamEnd = currentEndItem.endsTime
-      currentTimeBlueTeamEnd = currentEndItem.endsTime
-      
-      //Reset the Penalty Counts
-      redTeamPenaltyStepper.value = 0
-      blueTeamPenaltyStepper.value = 0
-      
-      //Disable Penalty Buttons until Count is 1 or more
-      redTeamPenaltyButton.isEnabled = false
-      blueTeamPenaltyButton.isEnabled = false
-      
-      //Reset Balls to Non-Thrown
-      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
-      
-      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      resetScreen()
       
       //Stop Timers
       timerRedTeamEnd?.invalidate()
@@ -165,6 +147,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    var redTeamEndTimerisPaused = false
    var blueTeamEndTimerisPaused = false
    var currentEndNumber = 0
+   
+   var needsTieBreak = false
+   var numberTieBreaks = 0
 
    
    
@@ -174,7 +159,12 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       
       //Check if Game Over
-      if (currentEndNumber > newMatchItem.numEnds)
+      if (needsTieBreak)
+      {
+	 performSegue(withIdentifier: "StartTieBreak", sender: nil)
+	 numberTieBreaks += 1
+      }
+      else if (currentEndNumber > (newMatchItem.numEnds + numberTieBreaks) )
       {
 	 //Hide all items on the screen to indicate Game Over
 	 blueTeamView.isHidden = true
@@ -185,9 +175,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 timerRedTeamEnd?.invalidate()
 	 timerBlueTeamEnd?.invalidate()
 	 
+	 //Show Finish Button and hide Tie Break Button (if necessary)
 	 finishButton.isHidden = false
       }
-
    }
    
    
@@ -199,6 +189,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       //Create First End Properties
       let endsVariables = EndsItem()
+      
       endsVariables.endNumber = currentEndNumber
       endsVariables.classification = newMatchItem.classification
       endsVariables.endsTime = newMatchItem.endsTime
@@ -221,111 +212,12 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       redTeamEndTimeStepper.maximumValue = Double(newMatchItem.endsTime)
       blueTeamEndTimeStepper.maximumValue = Double(newMatchItem.endsTime)
       
-      /*
-      for _ in stride(from: 0, to: newMatchItem.numEnds, by: 1)
-      {
-	 endsItem.append(endsVariables)
-      }
-      */
-      
-      
-      //Initialize values on the screen
-      classification.text = newMatchItem.classification
-      redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
-      blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
-      currentEndLabel.text = currentEndNumber.description
-      redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
-      redTeamNameLabel.text = currentEndItem.redTeamName
-      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentEndItem.endsTime)
-      redTeamPenaltyLabel.text = currentEndItem.redTeamPenaltyCount.description
-      blueTeamFlagImage.image = UIImage(named: currentEndItem.blueTeamFlagName)
-      blueTeamNameLabel.text = currentEndItem.blueTeamName
-      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentEndItem.endsTime)
-      currentTimeRedTeamEnd = currentEndItem.endsTime
-      currentTimeBlueTeamEnd = currentEndItem.endsTime
-      blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
-      
-      //Disable Penalty Buttons until Count is 1 or more
-      redTeamPenaltyButton.isEnabled = false
-      blueTeamPenaltyButton.isEnabled = false
-      
-      //Set Balls to Non-Thrown
-      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
-      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
-      
-      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
-      
-      //Stop Timers
-      timerRedTeamEnd?.invalidate()
-      timerBlueTeamEnd?.invalidate()
-      
-      
-      //Round Corners of the CountDown Timer and Penalty Labels, and their respective Buttons
-      redTeamEndTimeLabel.layer.masksToBounds = true
-      redTeamEndTimeLabel.layer.borderWidth = 2
-      redTeamEndTimeLabel.layer.cornerRadius = 15
-      redTeamEndTimeLabel.layer.borderColor = UIColor.black.cgColor
-      
-      blueTeamEndTimeLabel.layer.masksToBounds = true
-      blueTeamEndTimeLabel.layer.borderWidth = 2
-      blueTeamEndTimeLabel.layer.cornerRadius = 15
-      blueTeamEndTimeLabel.layer.borderColor = UIColor.black.cgColor
-      
-      redTeamPenaltyLabel.layer.masksToBounds = true
-      redTeamPenaltyLabel.layer.borderWidth = 2
-      redTeamPenaltyLabel.layer.cornerRadius = 15
-      redTeamPenaltyLabel.layer.borderColor = UIColor.black.cgColor
-      
-      blueTeamPenaltyLabel.layer.masksToBounds = true
-      blueTeamPenaltyLabel.layer.borderWidth = 2
-      blueTeamPenaltyLabel.layer.cornerRadius = 15
-      blueTeamPenaltyLabel.layer.borderColor = UIColor.black.cgColor
-      
-      redTeamEndTimeButton.layer.masksToBounds = true
-      redTeamEndTimeButton.layer.borderWidth = 2
-      redTeamEndTimeButton.layer.cornerRadius = 15
-      redTeamEndTimeButton.layer.borderColor = UIColor.black.cgColor
-      
-      redTeamPenaltyButton.layer.masksToBounds = true
-      redTeamPenaltyButton.layer.borderWidth = 2
-      redTeamPenaltyButton.layer.cornerRadius = 15
-      redTeamPenaltyButton.layer.borderColor = UIColor.black.cgColor
-      
-      blueTeamEndTimeButton.layer.masksToBounds = true
-      blueTeamEndTimeButton.layer.borderWidth = 2
-      blueTeamEndTimeButton.layer.cornerRadius = 15
-      blueTeamEndTimeButton.layer.borderColor = UIColor.black.cgColor
-      
-      blueTeamPenaltyButton.layer.masksToBounds = true
-      blueTeamPenaltyButton.layer.borderWidth = 2
-      blueTeamPenaltyButton.layer.cornerRadius = 15
-      blueTeamPenaltyButton.layer.borderColor = UIColor.black.cgColor
 
-      //Round Corners and Set Border of the Red and Blue Team Containers
-      blueTeamView.layer.masksToBounds = true
-      blueTeamView.layer.borderWidth = 4
-      blueTeamView.layer.cornerRadius = 15
-      blueTeamView.layer.borderColor = UIColor.blue.cgColor
-      
-      redTeamView.layer.masksToBounds = true
-      redTeamView.layer.borderWidth = 4
-      redTeamView.layer.cornerRadius = 15
-      redTeamView.layer.borderColor = UIColor.red.cgColor
-      
-      
+      initializeValuesOnScreen()
+      formatButtons()
       
       //Auto-Show the WarmUp Timer Screen
       performSegue(withIdentifier: "StartWarmUpTimer", sender: nil)
-      
    }
    
    
@@ -347,30 +239,16 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    
    @IBAction func finishMatch()
    {
-      // old view controller...
-      //performSegue(withIdentifier: "FinalScore", sender: nil)
-      
       performSegue(withIdentifier: "FinalScoreTableView", sender: nil)
    }
    
-   
    @IBAction func inputScore()
    {
-      
-      //Fire any Penalties for Blue or Red
-           // (remember, if Red gets a Penalty, it is taken by the Blue Team)
-      
-      /*
-      if ( *** add variables to keep track of Blue or Red Penalties, then launch the screen if >0 *** )
-      {
-	 
-      }
-      */
-      
       //Stop Timers
       timerRedTeamEnd?.invalidate()
       timerBlueTeamEnd?.invalidate()
       
+      //Show the InputScore Screen
       performSegue(withIdentifier: "InputScore", sender: nil)
    }
    
@@ -418,7 +296,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Schedule the Timer
 	 timerRedTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateRedTeamEndTimer), userInfo: nil, repeats: true)
 	 
-	 //Set button title to Pause ||
+	 //Set button title to Pause ( ∥∥ )
 	 redTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
 	 redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
 	 redTeamEndTimerisPaused = true
@@ -427,7 +305,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Stop the Timer (there is no Pause)
 	 timerRedTeamEnd?.invalidate()
 	 
-	 //Set button title to Play |>
+	 //Set button title to Play ( ▶︎ )
 	 redTeamEndTimeButton.setTitle("▶︎", for: .normal)
 	 redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
 	 redTeamEndTimerisPaused = false
@@ -469,7 +347,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Schedule the Timer
 	 timerBlueTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBlueTeamEndTimer), userInfo: nil, repeats: true)
 	 
-	 //Set button title to Pause ||
+	 //Set button title to Pause ( ∥∥ )
 	 blueTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
 	 blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
 	 blueTeamEndTimerisPaused = true
@@ -478,7 +356,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Stop the Timer (there is no Pause)
 	 timerBlueTeamEnd?.invalidate()
 	 
-	 //Set button title to Play |>
+	 //Set button title to Play ( ▶︎ )
 	 blueTeamEndTimeButton.setTitle("▶︎", for: .normal)
 	 blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
 	 blueTeamEndTimerisPaused = false
@@ -531,7 +409,6 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       {
 	 redTeamPenaltyButton.isEnabled = true
       }
-      
    }
    
    @IBAction func blueTeamEndTimeStepperChanged(_ sender: UIStepper)
@@ -595,6 +472,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       performSegue(withIdentifier: "StartTimeOutTimer", sender: nil)
    }
    
+   
    //MARK:  - Custom Functions
    
    //Custom Function for formatting Number of Seconds into Human-Readable Minutes:Seconds
@@ -603,6 +481,147 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       let seconds: Int = totalSeconds % 60
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
+   }
+   
+   func resetScreen()
+   {
+      //Reset Values to their Defaults for Next End
+      classification.text = newMatchItem.classification
+      redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
+      blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
+      currentEndLabel.text = currentEndNumber.description
+      redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
+      redTeamNameLabel.text = currentEndItem.redTeamName
+      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
+      redTeamPenaltyLabel.text = currentEndItem.redTeamPenaltyCount.description
+      blueTeamFlagImage.image = UIImage(named: currentEndItem.blueTeamFlagName)
+      blueTeamNameLabel.text = currentEndItem.blueTeamName
+      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
+      blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
+      
+      //Reset Ends Time for Next End
+      currentTimeRedTeamEnd = currentEndItem.endsTime
+      currentTimeBlueTeamEnd = currentEndItem.endsTime
+      
+      //Reset the Penalty Counts
+      redTeamPenaltyStepper.value = 0
+      blueTeamPenaltyStepper.value = 0
+      
+      //Disable Penalty Buttons until Count is 1 or more
+      redTeamPenaltyButton.isEnabled = false
+      blueTeamPenaltyButton.isEnabled = false
+      
+      //Reset Balls to Non-Thrown
+      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
+      
+      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
+   }
+   
+   func initializeValuesOnScreen()
+   {
+      //Initialize values on the screen
+      classification.text = newMatchItem.classification
+      redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
+      blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
+      currentEndLabel.text = currentEndNumber.description
+      redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
+      redTeamNameLabel.text = currentEndItem.redTeamName
+      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentEndItem.endsTime)
+      redTeamPenaltyLabel.text = currentEndItem.redTeamPenaltyCount.description
+      blueTeamFlagImage.image = UIImage(named: currentEndItem.blueTeamFlagName)
+      blueTeamNameLabel.text = currentEndItem.blueTeamName
+      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentEndItem.endsTime)
+      currentTimeRedTeamEnd = currentEndItem.endsTime
+      currentTimeBlueTeamEnd = currentEndItem.endsTime
+      blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
+      
+      //Disable Penalty Buttons until Count is 1 or more
+      redTeamPenaltyButton.isEnabled = false
+      blueTeamPenaltyButton.isEnabled = false
+      
+      //Set Balls to Non-Thrown
+      redTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Red")
+      redTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Red")
+      
+      blueTeamBall01.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall02.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall03.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall04.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall05.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      blueTeamBall06.image = UIImage(named: "USA_Boccia_Ball_Blue")
+      
+      //Stop Timers
+      timerRedTeamEnd?.invalidate()
+      timerBlueTeamEnd?.invalidate()
+   }
+   
+   func formatButtons()
+   {
+      //Round Corners of the CountDown Timer and Penalty Labels, and their respective Buttons
+      redTeamEndTimeLabel.layer.masksToBounds = true
+      redTeamEndTimeLabel.layer.borderWidth = 2
+      redTeamEndTimeLabel.layer.cornerRadius = 15
+      redTeamEndTimeLabel.layer.borderColor = UIColor.black.cgColor
+      
+      blueTeamEndTimeLabel.layer.masksToBounds = true
+      blueTeamEndTimeLabel.layer.borderWidth = 2
+      blueTeamEndTimeLabel.layer.cornerRadius = 15
+      blueTeamEndTimeLabel.layer.borderColor = UIColor.black.cgColor
+      
+      redTeamPenaltyLabel.layer.masksToBounds = true
+      redTeamPenaltyLabel.layer.borderWidth = 2
+      redTeamPenaltyLabel.layer.cornerRadius = 15
+      redTeamPenaltyLabel.layer.borderColor = UIColor.black.cgColor
+      
+      blueTeamPenaltyLabel.layer.masksToBounds = true
+      blueTeamPenaltyLabel.layer.borderWidth = 2
+      blueTeamPenaltyLabel.layer.cornerRadius = 15
+      blueTeamPenaltyLabel.layer.borderColor = UIColor.black.cgColor
+      
+      redTeamEndTimeButton.layer.masksToBounds = true
+      redTeamEndTimeButton.layer.borderWidth = 2
+      redTeamEndTimeButton.layer.cornerRadius = 15
+      redTeamEndTimeButton.layer.borderColor = UIColor.black.cgColor
+      
+      redTeamPenaltyButton.layer.masksToBounds = true
+      redTeamPenaltyButton.layer.borderWidth = 2
+      redTeamPenaltyButton.layer.cornerRadius = 15
+      redTeamPenaltyButton.layer.borderColor = UIColor.black.cgColor
+      
+      blueTeamEndTimeButton.layer.masksToBounds = true
+      blueTeamEndTimeButton.layer.borderWidth = 2
+      blueTeamEndTimeButton.layer.cornerRadius = 15
+      blueTeamEndTimeButton.layer.borderColor = UIColor.black.cgColor
+      
+      blueTeamPenaltyButton.layer.masksToBounds = true
+      blueTeamPenaltyButton.layer.borderWidth = 2
+      blueTeamPenaltyButton.layer.cornerRadius = 15
+      blueTeamPenaltyButton.layer.borderColor = UIColor.black.cgColor
+      
+      //Round Corners and Set Border of the Red and Blue Team Containers
+      blueTeamView.layer.masksToBounds = true
+      blueTeamView.layer.borderWidth = 4
+      blueTeamView.layer.cornerRadius = 15
+      blueTeamView.layer.borderColor = UIColor.blue.cgColor
+      
+      redTeamView.layer.masksToBounds = true
+      redTeamView.layer.borderWidth = 4
+      redTeamView.layer.cornerRadius = 15
+      redTeamView.layer.borderColor = UIColor.red.cgColor
    }
    
    
@@ -647,8 +666,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.currentTimeRedTeamEnd = currentTimeRedTeamEnd
 	 controller.currentTimeBlueTeamEnd = currentTimeBlueTeamEnd
 	 
-	 controller.redTeamCumulativeScore = redTeamCumulativeScore
-	 controller.blueTeamCumulativeScore = blueTeamCumulativeScore
+	 controller.needsTieBreak = needsTieBreak
       }
       else if segue.identifier == "FinalScoreTableView"
       {
@@ -657,6 +675,15 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.currentEndItem = currentEndItem
 	 controller.newMatchItem = newMatchItem
 	 controller.endsItem = endsItem
+      }
+      else if segue.identifier == "StartTieBreak"
+      {
+	 let controller = segue.destination as! TieBreakViewController
+	 
+	 controller.newMatchItem = newMatchItem
+	 
+	 //Tie Breaker is Done, so toggle the flag back to False
+	 needsTieBreak = false
       }
    }
    

@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="width" secondItem="MbW-58-Y0t" secondAttribute="height" multiplier="650:649" id="ozt-5X-Fq5"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USA Boccia" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mX-aA-M6G">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boccia" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mX-aA-M6G">
                                 <rect key="frame" x="159" y="877" width="502" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="1mX-aA-M6G" secondAttribute="height" multiplier="498:119" id="4eZ-oD-rKD"/>

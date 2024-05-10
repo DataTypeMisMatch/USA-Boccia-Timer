@@ -121,6 +121,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       dismiss(animated: true, completion: nil)
    }
    
+   /*
    @IBAction func start()
    {
       //Add Start Code...
@@ -130,7 +131,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       //Add Segue to the new screen that will host the Match
       
    }
-   
+   */
    
    override func viewDidLoad()
    {
@@ -506,9 +507,6 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 let controller = segue.destination as! NewMatchViewController
 	 
 	 controller.newMatchItem = matchItem
-	    
-	 //controller.title = matchItem.classification
-	 
       }
    }
    

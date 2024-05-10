@@ -39,9 +39,6 @@ class TieBreakViewController: UIViewController
       //Save TimeOut Time in timeOutTimerLabel.text
       totalTime = tieBreakDuration
       tieBreakTimerLabel.text = formatTimerMinutesSeconds(totalTime)
-      
-//timeOutTypeLabel.text = timeOutType
-//teamColorLabel.text = teamColor
    }
    
    
@@ -70,8 +67,6 @@ class TieBreakViewController: UIViewController
 	 timer?.invalidate()
 	 navigationController?.popViewController(animated: true)
       }
-       
-      
    }
    
    func alertCancelClicked()
@@ -140,20 +135,5 @@ class TieBreakViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-   
-   
-   
-   
-   /*
-    // MARK: - Navigation
-    
-    override func prepare(
-    for segue: UIStoryboardSegue,
-    sender: Any?)
-    {
-    
-    
-    }
-    */
    
 }

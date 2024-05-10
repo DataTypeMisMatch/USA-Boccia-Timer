@@ -33,7 +33,10 @@ class InputScoreViewController: UIViewController
    var redTeamCumulativeScore = 0
    var blueTeamCumulativeScore = 0
    
+   var needsTieBreak = false
+   
    weak var delegate: InputScoreViewControllerDelegate?
+   
    
    @IBOutlet weak var endsButton: UIButton!
    @IBOutlet weak var redTeamNameLabel: UILabel!
@@ -109,10 +112,13 @@ class InputScoreViewController: UIViewController
    
    //MARK:  - Actions
    
+   @IBAction func cancel()
+   {
+      navigationController?.popViewController(animated: true)
+   }
+   
    @IBAction func done()
    {
-      
-//TODO:  - Add Save Code to save to P-List
       
       //Save Data into Array
       if let currentEndNumber = Int( (endsButton.titleLabel?.text)! )
@@ -133,31 +139,29 @@ class InputScoreViewController: UIViewController
 	 
 	 currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
 	 currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
-	 
       }
       
-      //Check if Last Ends
-      if ( currentEndNumber >= newMatchItem.numEnds )
+      
+      //Check if Last Ends or Needs TieBreak
+      if (needsTieBreak)
+      {
+	 currentEndNumber += 1
+	 needsTieBreak = false
+      }
+      else if ( currentEndNumber >= newMatchItem.numEnds )
       {
 	 //Game Over
 	 
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
-	 
-	 //Check if Tie Breaker is necessary (at the end of the last End Section)
-	 if ( redTeamCumulativeScore == blueTeamCumulativeScore )
-	 {
-	    performSegue(withIdentifier: "StartTieBreak", sender: nil)
-	 }
       }
       else
       {
-	 currentEndNumber = currentEndNumber + 1
+	 currentEndNumber += 1
 	 
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
       }
-      
    }
    
    
@@ -229,23 +233,5 @@ class InputScoreViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-   
-   
-   
-   // MARK: - Navigation
-    
-   override func prepare(
-      for segue: UIStoryboardSegue,
-      sender: Any?)
-   {
-      if segue.identifier == "StartTieBreak"
-      {
-	 let controller = segue.destination as! TieBreakViewController
-	 
-	 controller.newMatchItem = newMatchItem
-      }
-      
-   }
-   
 
 }

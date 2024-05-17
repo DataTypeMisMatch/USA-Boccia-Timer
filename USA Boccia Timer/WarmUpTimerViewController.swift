@@ -35,6 +35,10 @@ class WarmUpTimerViewController: UIViewController
       //Set Time in Variable, and save in warmUpTimerLabel.text
       totalTime = newMatchItem!.warmUpTime
       warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("ShowNonTeamSpecificTimer"), object: nil, userInfo: ["message": "Warmup"])
+       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
    }
    
    
@@ -45,12 +49,17 @@ class WarmUpTimerViewController: UIViewController
       //Close the Warm-Up Screen to reveal the Control Board for the Match
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
+       
    }
    
    @IBAction func resetWarmUpTimer()
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
       totalTime = newMatchItem!.warmUpTime
+       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": totalTime])
    }
    
    @IBAction func startWarmUpTimer()
@@ -65,39 +74,41 @@ class WarmUpTimerViewController: UIViewController
       timerButton.isEnabled = false
    }
    
-   @objc func updateTimer() 
+   @objc func updateTimer()
    {
       print(totalTime)
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
       warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
       
       //Check if the Timer needs to end
       if totalTime != 0
       {
-	 //There is time left, so decrement the timer by one second
-	 totalTime = totalTime - 1  // decrease counter timer
+     //There is time left, so decrement the timer by one second
+     totalTime = totalTime - 1  // decrease counter timer
       }
       else
       {
-	 //No time left, so invalidate the Timer to end it
-	 if let timer = self.timer
-	 {
-	    timer.invalidate()
-	    self.timer = nil
-	 }
-	 
-	 //Re-Enable the user to start the timer again (if needed)
-	 timerButton.isEnabled = true
+     //No time left, so invalidate the Timer to end it
+     if let timer = self.timer
+     {
+        timer.invalidate()
+        self.timer = nil
+     }
+     
+     //Re-Enable the user to start the timer again (if needed)
+     timerButton.isEnabled = true
       }
    }
    
-   func formatTimerMinutesSeconds(_ totalSeconds: Int) -> String 
+   func formatTimerMinutesSeconds(_ totalSeconds: Int) -> String
    {
       //Format the Total Seconds Integer: to human-readable Minutes and Seconds
       let seconds: Int = totalSeconds % 60
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-   
+    
 }

@@ -39,6 +39,11 @@ class PenaltyThrowTimerViewController: UIViewController
       timeOutTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
       teamColorLabel.text = teamColor
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("ShowTeamSpecificTimer"), object: nil, userInfo: ["message": ["Penalty Throw", teamColor]])
+       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": timeOutTimerLabel.text!])
+
    }
    
    
@@ -51,20 +56,20 @@ class PenaltyThrowTimerViewController: UIViewController
       let alert = UIAlertController(title: "Confirm", message: "Finish the Penalty Timer.  It cannot be used during the same game.  \nStill want to Stop the Timer?", preferredStyle: UIAlertController.Style.alert)
       
       alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
-	 (action: UIAlertAction!) in
-	 self.alertCancelClicked()
+     (action: UIAlertAction!) in
+     self.alertCancelClicked()
       }))
       
       alert.addAction(UIAlertAction(title: "Finish", style: .default, handler: {
-	 (action: UIAlertAction!) in
-	 self.alertFinishClicked()
+     (action: UIAlertAction!) in
+     self.alertFinishClicked()
       }))
       
       
-	 //Check if Timer has Finished...if not, display alert
+     //Check if Timer has Finished...if not, display alert
       if (totalTime > 0)
       {
-	 present(alert, animated: true, completion: nil)
+     present(alert, animated: true, completion: nil)
       }
       */
       
@@ -72,12 +77,15 @@ class PenaltyThrowTimerViewController: UIViewController
       //Close the TimeOut Screen
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
       
    }
    
    func alertCancelClicked()
    {
-	 //Do Nothing
+     //Do Nothing
    }
    
    func alertFinishClicked()
@@ -112,24 +120,27 @@ class PenaltyThrowTimerViewController: UIViewController
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
       timeOutTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": timeOutTimerLabel.text!])
       
       //Check if the Timer needs to end
       if totalTime != 0
       {
-	 //There is time left, so decrement the timer by one second
-	 totalTime = totalTime - 1  // decrease counter timer
+     //There is time left, so decrement the timer by one second
+     totalTime = totalTime - 1  // decrease counter timer
       }
       else
       {
-	 //No time left, so invalidate the Timer to end it
-	 if let timer = self.timer
-	 {
-	    timer.invalidate()
-	    self.timer = nil
-	 }
-	 
-	 //Re-Enable the user to start the timer again (if needed)
-	 timerButton.isEnabled = true
+     //No time left, so invalidate the Timer to end it
+     if let timer = self.timer
+     {
+        timer.invalidate()
+        self.timer = nil
+     }
+     
+     //Re-Enable the user to start the timer again (if needed)
+     timerButton.isEnabled = true
       }
    }
    

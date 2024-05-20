@@ -18,14 +18,14 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    }
    
    func editGameDetailsViewController(
-      _ controller: EditGameDetailsViewController, 
+      _ controller: EditGameDetailsViewController,
       didFinishAddingRedTeamDetails item: MatchItem)
    {
       item.redTeamName = controller.textField.text!
       
       if let cell = cellToEdit
       {
-	 updateRedTeamLabel(for: cell, with: item)
+     updateRedTeamLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -39,7 +39,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-	 updateBlueTeamLabel(for: cell, with: item)
+     updateBlueTeamLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -67,7 +67,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-	 updateGameLabel(for: cell, with: item)
+     updateGameLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -81,7 +81,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-	 updateGameLabel(for: cell, with: item)
+     updateGameLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -161,86 +161,86 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    func addMenuItems() -> UIMenu
    {
       let menuItems = UIMenu(title: "Boccia Classifications", options: .displayInline, children: [
-	 UIAction(title: "BC01", handler:
-		     { [self] (_) in
-			print("Selected Item: BC01 has been selected")
-			matchItem.classification = "BC01"
-			bcButton.setTitle("BC01", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC02", handler:
-		     { [self] (_) in
-			print("Selected Item: BC02 has been selected")
-			matchItem.classification = "BC02"
-			bcButton.setTitle("BC02", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC03", handler:
-		     { [self] (_) in
-			print("Selected Item: BC03 has been selected")
-			matchItem.classification = "BC03"
-			bcButton.setTitle("BC03", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC04", handler:
-		     { [self] (_) in
-			print("Selected Item: BC04 has been selected")
-			matchItem.classification = "BC04"
-			bcButton.setTitle("BC04", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC05", handler:
-		     { [self] (_) in
-			print("Selected Item: BC05 has been selected")
-			matchItem.classification = "BC05"
-			bcButton.setTitle("BC05", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC06", handler:
-		     { [self] (_) in
-			print("Selected Item: BC06 has been selected")
-			matchItem.classification = "BC06"
-			bcButton.setTitle("BC06", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC07", handler:
-		     { [self] (_) in
-			print("Selected Item: BC07 has been selected")
-			matchItem.classification = "BC07"
-			bcButton.setTitle("BC07", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC08", handler:
-		     { [self] (_) in
-			print("Selected Item: BC08 has been selected")
-			matchItem.classification = "BC08"
-			bcButton.setTitle("BC08", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC09", handler:
-		     { [self] (_) in
-			print("Selected Item: BC09 has been selected")
-			matchItem.classification = "BC09"
-			bcButton.setTitle("BC09", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     }),
-	 UIAction(title: "BC10", handler:
-		     { [self] (_) in
-			print("Selected Item: BC10 has been selected")
-			matchItem.classification = "BC10"
-			bcButton.setTitle("BC10", for: .normal)
-			bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-			configureMatch()
-		     })
+     UIAction(title: "BC01", handler:
+             { [self] (_) in
+            print("Selected Item: BC01 has been selected")
+            matchItem.classification = "BC01"
+            bcButton.setTitle("BC01", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC02", handler:
+             { [self] (_) in
+            print("Selected Item: BC02 has been selected")
+            matchItem.classification = "BC02"
+            bcButton.setTitle("BC02", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC03", handler:
+             { [self] (_) in
+            print("Selected Item: BC03 has been selected")
+            matchItem.classification = "BC03"
+            bcButton.setTitle("BC03", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC04", handler:
+             { [self] (_) in
+            print("Selected Item: BC04 has been selected")
+            matchItem.classification = "BC04"
+            bcButton.setTitle("BC04", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC05", handler:
+             { [self] (_) in
+            print("Selected Item: BC05 has been selected")
+            matchItem.classification = "BC05"
+            bcButton.setTitle("BC05", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC06", handler:
+             { [self] (_) in
+            print("Selected Item: BC06 has been selected")
+            matchItem.classification = "BC06"
+            bcButton.setTitle("BC06", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC07", handler:
+             { [self] (_) in
+            print("Selected Item: BC07 has been selected")
+            matchItem.classification = "BC07"
+            bcButton.setTitle("BC07", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC08", handler:
+             { [self] (_) in
+            print("Selected Item: BC08 has been selected")
+            matchItem.classification = "BC08"
+            bcButton.setTitle("BC08", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC09", handler:
+             { [self] (_) in
+            print("Selected Item: BC09 has been selected")
+            matchItem.classification = "BC09"
+            bcButton.setTitle("BC09", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             }),
+     UIAction(title: "BC10", handler:
+             { [self] (_) in
+            print("Selected Item: BC10 has been selected")
+            matchItem.classification = "BC10"
+            bcButton.setTitle("BC10", for: .normal)
+            bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+            configureMatch()
+             })
       ])
       
       return menuItems
@@ -249,7 +249,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    
    //MARK:  - Table View Data Source
    
-   override func numberOfSections(in tableView: UITableView) -> Int 
+   override func numberOfSections(in tableView: UITableView) -> Int
    {
       return 7
    }
@@ -259,17 +259,17 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       sender: UISegmentedControl)
    {
 
-      if sender.selectedSegmentIndex == 0 
+      if sender.selectedSegmentIndex == 0
       {
-	 print("Selection of MatchKind:  Practice ")
-	 matchItem.kind = "Practice"
-	 configureMatch()
+     print("Selection of MatchKind:  Practice ")
+     matchItem.kind = "Practice"
+     configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
-	 print("Selection of MatchKind:  Official ")
-	 matchItem.kind = "Official"
-	 configureMatch()
+     print("Selection of MatchKind:  Official ")
+     matchItem.kind = "Official"
+     configureMatch()
       }
    }
    
@@ -279,24 +279,24 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if sender.selectedSegmentIndex == 0
       {
-	 print ("Selection of PlayType:  Single")
-	 matchItem.playType = "Single"
-	 configureMatch()
+     print ("Selection of PlayType:  Single")
+     matchItem.playType = "Single"
+     configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
-	 print ("Selection of PlayType:  Pair")
-	 matchItem.playType = "Pair"
-	 configureMatch()
+     print ("Selection of PlayType:  Pair")
+     matchItem.playType = "Pair"
+     configureMatch()
       }
       else if sender.selectedSegmentIndex == 2
       {
-	 print("Selection of PlayType:  Team")
+     print("Selection of PlayType:  Team")
 
-	 matchItem.playType = "Team"
-	 matchItem.classification = "BC03"
-	 bcButton.setTitle("BC03", for: .normal)
-	 configureMatch()
+     matchItem.playType = "Team"
+     matchItem.classification = "BC03"
+     bcButton.setTitle("BC03", for: .normal)
+     configureMatch()
       }
    }
    
@@ -355,34 +355,42 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       switch(matchItem.playType)
       {
       case "Single":
-	 matchItem.numEnds = 4
-	 break
+     matchItem.numEnds = 4
+      // Update external display
+      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+     break
       case "Pair":
-	 matchItem.numEnds = 4
-	 break
+     matchItem.numEnds = 4
+      // Update external display
+      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+     break
       case "Team":
-	 matchItem.numEnds = 6
-	 break
+     matchItem.numEnds = 6
+      // Update external display
+      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 6])
+     break
       default:
-	 matchItem.numEnds = 4
-	 break
+     matchItem.numEnds = 4
+      // Update external display
+      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+     break
       }
       
       //Show or Hide Ends Buttons on Match Settings Screen
       switch(matchItem.numEnds)
       {
       case 4:
-	 ends5Button.isHidden = true
-	 ends6Button.isHidden = true
-	 break
+     ends5Button.isHidden = true
+     ends6Button.isHidden = true
+     break
       case 6:
-	 ends5Button.isHidden = false
-	 ends6Button.isHidden = false
-	 break
+     ends5Button.isHidden = false
+     ends6Button.isHidden = false
+     break
       default:
-	 ends5Button.isHidden = true
-	 ends6Button.isHidden = true
-	 break
+     ends5Button.isHidden = true
+     ends6Button.isHidden = true
+     break
       }
    }
    
@@ -393,49 +401,49 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       switch(matchItem.classification)
       {
       case "BC01":
-	 matchItem.endsTime = 5 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-	 break
+     matchItem.endsTime = 5 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+     break
       case "BC02":
-	 matchItem.endsTime = 5 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-	 break
+     matchItem.endsTime = 5 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+     break
       case "BC03":
-	 matchItem.endsTime = 6 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
-	 break
+     matchItem.endsTime = 6 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+     break
       case "BC04":
-	 matchItem.endsTime = 4 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-	 break
+     matchItem.endsTime = 4 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+     break
       case "BC05":
-	 matchItem.endsTime = 4 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-	 break
+     matchItem.endsTime = 4 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+     break
       case "BC06":
-	 matchItem.endsTime = 4 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-	 break
+     matchItem.endsTime = 4 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+     break
       case "BC07":
-	 matchItem.endsTime = 6 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
-	 break
+     matchItem.endsTime = 6 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+     break
       case "BC08":
-	 matchItem.endsTime = 4 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-	 break
+     matchItem.endsTime = 4 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+     break
       case "BC09":
-	 matchItem.endsTime = 5 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-	 break
+     matchItem.endsTime = 5 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+     break
       case "BC10":
-	 matchItem.endsTime = 3 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
-	 break
+     matchItem.endsTime = 3 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
+     break
       default:
-	 matchItem.endsTime = 4 * 60
-	 endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-	 break
+     matchItem.endsTime = 4 * 60
+     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+     break
       }
    }
    
@@ -457,58 +465,58 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    //MARK:  - Navigation
  
    override func prepare(
-      for segue: UIStoryboardSegue, 
+      for segue: UIStoryboardSegue,
       sender: Any?)
    {
       if segue.identifier == "EditGameName"
       {
-	 let controller = segue.destination as! EditTextViewController
-	 controller.title = "Edit Game Event Name"
-	 controller.delegate = self
+     let controller = segue.destination as! EditTextViewController
+     controller.title = "Edit Game Event Name"
+     controller.delegate = self
 
-	 
-	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-	 {
-	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    
-	    controller.matchItemToEdit = matchItem
-	 }
+     
+     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+     {
+        cellToEdit = tableView.cellForRow(at: indexPath)
+        
+        controller.matchItemToEdit = matchItem
+     }
       }
       else if segue.identifier == "EditRedTeamDetails"
       {
-	 let controller = segue.destination as! EditGameDetailsViewController
-	 controller.title = "Edit Red Team Details"
-	 controller.delegate = self
-	 
-	 
-	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-	 {
-	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    
-	    controller.matchItemToEdit = matchItem
-	 }
+     let controller = segue.destination as! EditGameDetailsViewController
+     controller.title = "Edit Red Team Details"
+     controller.delegate = self
+     
+     
+     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+     {
+        cellToEdit = tableView.cellForRow(at: indexPath)
+        
+        controller.matchItemToEdit = matchItem
+     }
       }
       else if segue.identifier == "EditBlueTeamDetails"
       {
-	 let controller = segue.destination as! EditGameDetailsViewController
-	 controller.title = "Edit Blue Team Details"
-	 controller.delegate = self
-	 
-	 
-	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-	 {
-	    cellToEdit = tableView.cellForRow(at: indexPath)
-	    
-	    controller.matchItemToEdit = matchItem
-	 }
+     let controller = segue.destination as! EditGameDetailsViewController
+     controller.title = "Edit Blue Team Details"
+     controller.delegate = self
+     
+     
+     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+     {
+        cellToEdit = tableView.cellForRow(at: indexPath)
+        
+        controller.matchItemToEdit = matchItem
+     }
       }
       else if segue.identifier == "StartNewMatch"
       {
-	 let controller = segue.destination as! NewMatchViewController
-	 
-	 controller.newMatchItem = matchItem
+     let controller = segue.destination as! NewMatchViewController
+     
+     controller.newMatchItem = matchItem
       }
    }
-   
+    
 }
 

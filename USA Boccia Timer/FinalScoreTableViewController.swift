@@ -92,15 +92,15 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       //Sum up the Total Points, based on the Number of Ends actually played (including TieBreakers)
       for index in stride(from: 0, to: endsItem.count, by: 1)
       {
-	 //Calculate Game-Total Scores for each side
-	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-	 
-	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
-	 
-	 //Calculate Total Ends Score for each side
-	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-	 
-	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+     //Calculate Game-Total Scores for each side
+     redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+     
+     blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+     
+     //Calculate Total Ends Score for each side
+     endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+     
+     endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
       }
       
       //Set the Final Score Labels to show the freshly calculated values
@@ -110,6 +110,9 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       //Get Information as to where the Documents Directory is stored
       print("Documents folder is \(documentsDirectory())")
       print("Data file path is \(dataFilePath())")
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("ShowWinner"), object: nil, userInfo: ["message": [redTeamFinalScore.text, blueTeamFinalScore.text]])
       
    }
    
@@ -131,6 +134,9 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       //Return to the beginning of the app
       performSegue(withIdentifier: "ReturnToStart", sender: nil)
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("ShowIntroScreen"), object: nil, userInfo: ["message": ""])
    }
    
    
@@ -170,14 +176,14 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       do
       {
-	 let data = try encoder.encode(historyItems)
-	 try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
-	 
-	 print("Save Successful!")
+     let data = try encoder.encode(historyItems)
+     try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+     
+     print("Save Successful!")
       }
       catch
       {
-	 print("Error encoding historyItem array: \(error.localizedDescription)")
+     print("Error encoding historyItem array: \(error.localizedDescription)")
       }
    }
    
@@ -188,19 +194,19 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       if let data = try? Data(contentsOf: path)
       {
-	 
-	 let decoder = PropertyListDecoder()
-	 
-	 do
-	 {
-	    historyItems = try decoder.decode([HistoryItem].self, from: data)
-	    
-	    print("Load Successful!")
-	 }
-	 catch
-	 {
-	    print("Error decoding historyItem array: \(error.localizedDescription)")
-	 }
+     
+     let decoder = PropertyListDecoder()
+     
+     do
+     {
+        historyItems = try decoder.decode([HistoryItem].self, from: data)
+        
+        print("Load Successful!")
+     }
+     catch
+     {
+        print("Error decoding historyItem array: \(error.localizedDescription)")
+     }
       }
    }
    
@@ -226,9 +232,9 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       if segue.identifier == "ReturnToStart"
       {
-	 let controller = segue.destination as! MainScreenTableViewController
-	 
-	 controller.historyItems = historyItems
+     let controller = segue.destination as! MainScreenTableViewController
+     
+     controller.historyItems = historyItems
       }
    }
    

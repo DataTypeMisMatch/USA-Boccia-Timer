@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainScreenTableViewController: UITableViewController 
+class MainScreenTableViewController: UITableViewController
 {
    
    var historyItems = [HistoryItem]()
@@ -18,6 +18,11 @@ class MainScreenTableViewController: UITableViewController
       super.viewDidLoad()
       
    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Update external display
+        NotificationCenter.default.post(name: Notification.Name("ShowIntroScreen"), object: nil, userInfo: ["message": ""])
+    }
    
    // MARK: - Table View Data Source
    
@@ -31,16 +36,20 @@ class MainScreenTableViewController: UITableViewController
     // MARK: - Navigation
     
     override func prepare(
-    for segue: UIStoryboardSegue, 
+    for segue: UIStoryboardSegue,
     sender: Any?)
     {
        if segue.identifier == "ShowHistory"
        {
-	  let navigationController = segue.destination as! UINavigationController
-	  let controller = navigationController.topViewController as! HistoryTableViewController
-	  
-	  controller.historyItems = historyItems
+      let navigationController = segue.destination as! UINavigationController
+      let controller = navigationController.topViewController as! HistoryTableViewController
+      
+      controller.historyItems = historyItems
        }
+        else if segue.identifier == "ShowNewMatchSettings" {
+            // Update external display
+            NotificationCenter.default.post(name: Notification.Name("ShowScoreboard"), object: nil, userInfo: ["message": ""])
+        }
     }
     
 

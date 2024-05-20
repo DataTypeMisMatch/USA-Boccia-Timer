@@ -50,19 +50,19 @@ class EditGameDetailsViewController: UITableViewController, FlagPickerViewContro
       
       if let matchItem = matchItemToEdit
       {
-	 switch (title)
-	 {
-	 case "Edit Red Team Details":
-	    textField.text = matchItem.redTeamName
-	    flagName = matchItem.redTeamFlagName
-	    break
-	 case "Edit Blue Team Details":
-	    textField.text = matchItem.blueTeamName
-	    flagName = matchItem.blueTeamFlagName
-	    break
-	 default:
-	    break
-	 }
+     switch (title)
+     {
+     case "Edit Red Team Details":
+        textField.text = matchItem.redTeamName
+        flagName = matchItem.redTeamFlagName
+        break
+     case "Edit Blue Team Details":
+        textField.text = matchItem.blueTeamName
+        flagName = matchItem.blueTeamFlagName
+        break
+     default:
+        break
+     }
       }
       
       flagImage.image = UIImage(named: flagName)
@@ -120,19 +120,24 @@ class EditGameDetailsViewController: UITableViewController, FlagPickerViewContro
       switch (title)
       {
       case "Edit Red Team Details":
-	 item.redTeamName = textField.text!
-	 item.redTeamFlagName = flagName
-	 
-	 delegate?.editGameDetailsViewController(self, didFinishAddingRedTeamDetails: item)
-	 break
+     item.redTeamName = textField.text!
+     item.redTeamFlagName = flagName
+     // Update external display
+     NotificationCenter.default.post(name: Notification.Name("NewRedName"), object: nil, userInfo: ["message": item.redTeamName])
+
+     
+     delegate?.editGameDetailsViewController(self, didFinishAddingRedTeamDetails: item)
+     break
       case "Edit Blue Team Details":
-	 item.blueTeamName = textField.text!
-	 item.blueTeamFlagName = flagName
-	 
-	 delegate?.editGameDetailsViewController(self, didFinishAddingBlueTeamDetails: item)
-	 break
+     item.blueTeamName = textField.text!
+     item.blueTeamFlagName = flagName
+     // Update external display
+     NotificationCenter.default.post(name: Notification.Name("NewBlueName"), object: nil, userInfo: ["message": item.blueTeamName])
+     
+     delegate?.editGameDetailsViewController(self, didFinishAddingBlueTeamDetails: item)
+     break
       default:
-	 break
+     break
       }
    }
    
@@ -145,8 +150,8 @@ class EditGameDetailsViewController: UITableViewController, FlagPickerViewContro
    {
       if segue.identifier == "PickFlag"
       {
-	 let controller = segue.destination as! FlagPickerViewController
-	 controller.delegate = self
+     let controller = segue.destination as! FlagPickerViewController
+     controller.delegate = self
       }
    }
     

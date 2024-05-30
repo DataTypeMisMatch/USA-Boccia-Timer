@@ -41,6 +41,14 @@ class WarmUpTimerViewController: UIViewController
        NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
    }
    
+   override func viewWillDisappear(_ animated: Bool)
+   {
+      NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
+      
+      //Invalidate Timer
+      timer?.invalidate()
+   }
+   
    
    //MARK:  - Actions
    
@@ -55,6 +63,7 @@ class WarmUpTimerViewController: UIViewController
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
       totalTime = newMatchItem!.warmUpTime
+      
        NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": totalTime])
    }
    
@@ -76,26 +85,27 @@ class WarmUpTimerViewController: UIViewController
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
       warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      
        // Update external display
        NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
       
       //Check if the Timer needs to end
       if totalTime != 0
       {
-     //There is time left, so decrement the timer by one second
-     totalTime = totalTime - 1  // decrease counter timer
+	 //There is time left, so decrement the timer by one second
+	 totalTime = totalTime - 1  // decrease counter timer
       }
       else
       {
-     //No time left, so invalidate the Timer to end it
-     if let timer = self.timer
-     {
-        timer.invalidate()
-        self.timer = nil
-     }
+	 //No time left, so invalidate the Timer to end it
+	 if let timer = self.timer
+	 {
+	    timer.invalidate()
+	    self.timer = nil
+	 }
      
-     //Re-Enable the user to start the timer again (if needed)
-     timerButton.isEnabled = true
+	 //Re-Enable the user to start the timer again (if needed)
+	 timerButton.isEnabled = true
       }
    }
    
@@ -106,9 +116,5 @@ class WarmUpTimerViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
-    }
     
 }

@@ -25,7 +25,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-     updateRedTeamLabel(for: cell, with: item)
+	 updateRedTeamLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -39,7 +39,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-     updateBlueTeamLabel(for: cell, with: item)
+	 updateBlueTeamLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -67,7 +67,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-     updateGameLabel(for: cell, with: item)
+	 updateGameLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -81,7 +81,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if let cell = cellToEdit
       {
-     updateGameLabel(for: cell, with: item)
+	 updateGameLabel(for: cell, with: item)
       }
       
       navigationController?.popViewController(animated: true)
@@ -232,7 +232,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
             bcButton.setTitle("BC09", for: .normal)
             bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
             configureMatch()
-             }),
+             })
+     /*,
      UIAction(title: "BC10", handler:
              { [self] (_) in
             print("Selected Item: BC10 has been selected")
@@ -241,6 +242,7 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
             bcButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
             configureMatch()
              })
+      */
       ])
       
       return menuItems
@@ -261,15 +263,15 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 
       if sender.selectedSegmentIndex == 0
       {
-     print("Selection of MatchKind:  Practice ")
-     matchItem.kind = "Practice"
-     configureMatch()
+	 print("Selection of MatchKind:  Practice ")
+	 matchItem.kind = "Practice"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
-     print("Selection of MatchKind:  Official ")
-     matchItem.kind = "Official"
-     configureMatch()
+	 print("Selection of MatchKind:  Official ")
+	 matchItem.kind = "Official"
+	 configureMatch()
       }
    }
    
@@ -279,24 +281,22 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
       
       if sender.selectedSegmentIndex == 0
       {
-     print ("Selection of PlayType:  Single")
-     matchItem.playType = "Single"
-     configureMatch()
+	 print ("Selection of PlayType:  Single")
+	 matchItem.playType = "Single"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 1
       {
-     print ("Selection of PlayType:  Pair")
-     matchItem.playType = "Pair"
-     configureMatch()
+	 print ("Selection of PlayType:  Pair")
+	 matchItem.playType = "Pair"
+	 configureMatch()
       }
       else if sender.selectedSegmentIndex == 2
       {
-     print("Selection of PlayType:  Team")
-
-     matchItem.playType = "Team"
-     matchItem.classification = "BC03"
-     bcButton.setTitle("BC03", for: .normal)
-     configureMatch()
+	 print("Selection of PlayType:  Team")
+	 
+	 matchItem.playType = "Team"
+	 configureMatch()
       }
    }
    
@@ -351,99 +351,163 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    func setNumberEnds()
    {
       //Set Number of Ends based on PlayType
-      
       switch(matchItem.playType)
       {
       case "Single":
-     matchItem.numEnds = 4
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
-     break
+	 matchItem.numEnds = 4
+	 // Update external display
+	 NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+	 break
       case "Pair":
-     matchItem.numEnds = 4
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
-     break
+	 matchItem.numEnds = 4
+	 // Update external display
+	 NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+	 break
       case "Team":
-     matchItem.numEnds = 6
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 6])
-     break
+	 matchItem.numEnds = 6
+	 // Update external display
+	 NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 6])
+	 break
       default:
-     matchItem.numEnds = 4
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
-     break
+	 matchItem.numEnds = 4
+	 // Update external display
+	 NotificationCenter.default.post(name: Notification.Name("ChangeTotalEndsTo"), object: nil, userInfo: ["message": 4])
+	 break
       }
       
       //Show or Hide Ends Buttons on Match Settings Screen
       switch(matchItem.numEnds)
       {
       case 4:
-     ends5Button.isHidden = true
-     ends6Button.isHidden = true
-     break
+	 ends5Button.isHidden = true
+	 ends6Button.isHidden = true
+	 break
       case 6:
-     ends5Button.isHidden = false
-     ends6Button.isHidden = false
-     break
+	 ends5Button.isHidden = false
+	 ends6Button.isHidden = false
+	 break
       default:
-     ends5Button.isHidden = true
-     ends6Button.isHidden = true
-     break
+	 ends5Button.isHidden = true
+	 ends6Button.isHidden = true
+	 break
       }
    }
    
    func setEndsTimes()
    {
-      //Set Ends Time based on Classification
-      
-      switch(matchItem.classification)
+      //Set Ends Time based on PlayType and then Classification
+      switch(matchItem.playType)
       {
-      case "BC01":
-     matchItem.endsTime = 5 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-     break
-      case "BC02":
-     matchItem.endsTime = 5 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-     break
-      case "BC03":
-     matchItem.endsTime = 6 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
-     break
-      case "BC04":
-     matchItem.endsTime = 4 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-     break
-      case "BC05":
-     matchItem.endsTime = 4 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-     break
-      case "BC06":
-     matchItem.endsTime = 4 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-     break
-      case "BC07":
-     matchItem.endsTime = 6 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
-     break
-      case "BC08":
-     matchItem.endsTime = 4 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-     break
-      case "BC09":
-     matchItem.endsTime = 5 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
-     break
-      case "BC10":
-     matchItem.endsTime = 3 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
-     break
+      case "Single":
+	 switch(matchItem.classification)
+	 {
+	 case "BC01":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	 case "BC02":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 case "BC03":
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 case "BC04":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 case "BC05":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 case "BC06":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 case "BC07":
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 case "BC08":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 case "BC09":
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	       //case "BC10":
+	       //matchItem.endsTime = 3 * 60
+	       //endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
+	       //break
+	 default:
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 }
+	 break
+      case "Pair":
+	 switch(matchItem.classification)
+	 {
+	 case "BC03":
+	    matchItem.endsTime = 7 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 7 * 60 )
+	    break
+	 case "BC04":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	 case "BC05":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	 case "BC06":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	 case "BC07":
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 case "BC08":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	 case "BC09":
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    break
+	       //case "BC10":
+	       //matchItem.endsTime = 3 * 60
+	       //endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
+	       //break
+	 default:
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    break
+	 }
+	 break
+      case "Team":
+	 switch(matchItem.classification)
+	 {
+	 case "BC01":
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 case "BC02":
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 default:
+	    matchItem.endsTime = 6 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    break
+	 }
+	 break
       default:
-     matchItem.endsTime = 4 * 60
-     endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
-     break
+	 matchItem.endsTime = 5 * 60
+	 endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
       }
    }
    

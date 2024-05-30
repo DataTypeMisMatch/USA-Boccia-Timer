@@ -29,13 +29,13 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       tempItemToAppend.endNumber = item.endNumber
       
       //Name the End Properly (as End-n or TieBreak-n)
-      if(item.endNumber > newMatchItem.numEnds)
+      if(currentEndNumber > newMatchItem.numEnds)
       {
-     tempItemToAppend.endTitle = "Tie Break " + (item.endNumber - newMatchItem.numEnds).description
+	 tempItemToAppend.endTitle = "Tie Break " + (item.endNumber - newMatchItem.numEnds).description
       }
       else
       {
-     tempItemToAppend.endTitle = "End " + item.endNumber.description
+	 tempItemToAppend.endTitle = "End " + item.endNumber.description
       }
       
       tempItemToAppend.classification = item.classification
@@ -67,12 +67,24 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       //Check if Game Over and TieBreaker Necessary
       if (currentEndNumber > newMatchItem.numEnds)
       {
-     //Check if Tie Breaker is necessary (at the end of the last End Section)
-     if ( redTeamCumulativeScore == blueTeamCumulativeScore )
-     {
-        needsTieBreak = true
-     }
+	 //Check if Tie Breaker is necessary (at the end of the last End Section)
+	 if ( redTeamCumulativeScore == blueTeamCumulativeScore )
+	 {
+	    needsTieBreak = true
+	 }
       }
+      
+      
+      //Name the End Properly (as End-n or TieBreak-n)
+      if(currentEndNumber > newMatchItem.numEnds)
+      {
+	 currentEndTitle = "Tie Break " + (currentEndNumber - newMatchItem.numEnds).description
+      }
+      else
+      {
+	 currentEndTitle = "End " + currentEndNumber.description
+      }
+      
       
       resetScreen()
       
@@ -150,6 +162,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    var redTeamEndTimerisPaused = false
    var blueTeamEndTimerisPaused = false
    var currentEndNumber = 0
+   var currentEndTitle = ""
    
    var needsTieBreak = false
    var numberTieBreaks = 0
@@ -164,26 +177,27 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       //Check if Game Over
       if (needsTieBreak)
       {
-     performSegue(withIdentifier: "StartTieBreak", sender: nil)
-     numberTieBreaks += 1
+	 performSegue(withIdentifier: "StartTieBreak", sender: nil)
+	 numberTieBreaks += 1
       }
       else if (currentEndNumber > (newMatchItem.numEnds + numberTieBreaks) )
       {
-     //Hide all items on the screen to indicate Game Over
-     blueTeamView.isHidden = true
-     redTeamView.isHidden = true
-     headerView.isHidden = true
-     
-     inputScoreBarButton.isEnabled = false
-     cancelScoreBarButton.isEnabled = false
-     
-     //Stop Timers
-     timerRedTeamEnd?.invalidate()
-     timerBlueTeamEnd?.invalidate()
-     
-     //Show Finish Button and hide Tie Break Button (if necessary)
-     finishButton.isHidden = false
+	 //Hide all items on the screen to indicate Game Over
+	 blueTeamView.isHidden = true
+	 redTeamView.isHidden = true
+	 headerView.isHidden = true
+	 
+	 inputScoreBarButton.isEnabled = false
+	 cancelScoreBarButton.isEnabled = false
+	 
+	 //Stop Timers
+	 timerRedTeamEnd?.invalidate()
+	 timerBlueTeamEnd?.invalidate()
+	 
+	 //Show Finish Button and hide Tie Break Button (if necessary)
+	 finishButton.isHidden = false
       }
+      
    }
    
    
@@ -218,12 +232,30 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       redTeamEndTimeStepper.maximumValue = Double(newMatchItem.endsTime)
       blueTeamEndTimeStepper.maximumValue = Double(newMatchItem.endsTime)
       
+      
+      //Name the End Properly (as End-n or TieBreak-n)
+      if(currentEndNumber > newMatchItem.numEnds)
+      {
+	 currentEndTitle = "Tie Break " + (currentEndNumber - newMatchItem.numEnds).description
+      }
+      else
+      {
+	 currentEndTitle = "End " + currentEndNumber.description
+      }
+      
 
       initializeValuesOnScreen()
       formatButtons()
       
       //Auto-Show the WarmUp Timer Screen
       performSegue(withIdentifier: "StartWarmUpTimer", sender: nil)
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) 
+   {
+      //Invalidate Timers
+      timerBlueTeamEnd?.invalidate()
+      timerRedTeamEnd?.invalidate()
    }
    
    
@@ -269,18 +301,20 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    {
       if let imageView = gesture.view as? UIImageView
       {
-     if imageView.image == UIImage(named: "USA_Boccia_Ball_Red")
-     {
-        imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
-         // Update external display
-         NotificationCenter.default.post(name: Notification.Name("DecrementRedBalls"), object: nil, userInfo: ["message": ""])
-     }
-     else
-     {
-        imageView.image = UIImage(named: "USA_Boccia_Ball_Red")
-         // Update external display
-         NotificationCenter.default.post(name: Notification.Name("IncrementRedBalls"), object: nil, userInfo: ["message": ""])
-     }
+	 if imageView.image == UIImage(named: "USA_Boccia_Ball_Red")
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
+	    
+	    // Update external display
+	    NotificationCenter.default.post(name: Notification.Name("DecrementRedBalls"), object: nil, userInfo: ["message": ""])
+	 }
+	 else
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_Red")
+	    
+	    // Update external display
+	    NotificationCenter.default.post(name: Notification.Name("IncrementRedBalls"), object: nil, userInfo: ["message": ""])
+	 }
       }
    }
    
@@ -288,18 +322,20 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    {
       if let imageView = gesture.view as? UIImageView
       {
-     if imageView.image == UIImage(named: "USA_Boccia_Ball_Blue")
-     {
-        imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
-         // Update external display
-         NotificationCenter.default.post(name: Notification.Name("DecrementBlueBalls"), object: nil, userInfo: ["message": ""])
-     }
-     else
-     {
-        imageView.image = UIImage(named: "USA_Boccia_Ball_Blue")
-         // Update external display
-         NotificationCenter.default.post(name: Notification.Name("IncrementBlueBalls"), object: nil, userInfo: ["message": ""])
-     }
+	 if imageView.image == UIImage(named: "USA_Boccia_Ball_Blue")
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_White_NoBackground")
+	    
+	    // Update external display
+	    NotificationCenter.default.post(name: Notification.Name("DecrementBlueBalls"), object: nil, userInfo: ["message": ""])
+	 }
+	 else
+	 {
+	    imageView.image = UIImage(named: "USA_Boccia_Ball_Blue")
+	       
+	    // Update external display
+	    NotificationCenter.default.post(name: Notification.Name("IncrementBlueBalls"), object: nil, userInfo: ["message": ""])
+	 }
       }
    }
    
@@ -309,23 +345,23 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       switch (redTeamEndTimerisPaused)
       {
       case false:
-     //Schedule the Timer
-     timerRedTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateRedTeamEndTimer), userInfo: nil, repeats: true)
-     
-     //Set button title to Pause ( ∥∥ )
-     redTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
-     redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-     redTeamEndTimerisPaused = true
-     break
+	 //Schedule the Timer
+	 timerRedTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateRedTeamEndTimer), userInfo: nil, repeats: true)
+	 
+	 //Set button title to Pause ( ∥∥ )
+	 redTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
+	 redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+	 redTeamEndTimerisPaused = true
+	 break
       case true:
-     //Stop the Timer (there is no Pause)
-     timerRedTeamEnd?.invalidate()
-     
-     //Set button title to Play ( ▶︎ )
-     redTeamEndTimeButton.setTitle("▶︎", for: .normal)
-     redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-     redTeamEndTimerisPaused = false
-     break
+	 //Stop the Timer (there is no Pause)
+	 timerRedTeamEnd?.invalidate()
+	 
+	 //Set button title to Play ( ▶︎ )
+	 redTeamEndTimeButton.setTitle("▶︎", for: .normal)
+	 redTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+	 redTeamEndTimerisPaused = false
+	 break
       }
    }
    
@@ -335,24 +371,25 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
       redTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentTimeRedTeamEnd)
+      
        // Update external display
        NotificationCenter.default.post(name: Notification.Name("SetRedTimer"), object: nil, userInfo: ["message": redTeamEndTimeLabel.text!])
       
       //Check if the Timer needs to end
       if currentTimeRedTeamEnd != 0
       {
-     //There is time left, so decrement the timer by one second
-     currentTimeRedTeamEnd = currentTimeRedTeamEnd - 1  // decrease counter timer
+	 //There is time left, so decrement the timer by one second
+	 currentTimeRedTeamEnd = currentTimeRedTeamEnd - 1  // decrease counter timer
       }
       else
       {
-     //No time left, so invalidate the Timer to end it
-     if let timer = self.timerRedTeamEnd
-     {
-        timer.invalidate()
-        self.timerRedTeamEnd = nil
-        currentTimeRedTeamEnd = 0
-     }
+	 //No time left, so invalidate the Timer to end it
+	 if let timer = self.timerRedTeamEnd
+	 {
+	    timer.invalidate()
+	    self.timerRedTeamEnd = nil
+	    currentTimeRedTeamEnd = 0
+	 }
       }
    }
 
@@ -362,23 +399,23 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       switch (blueTeamEndTimerisPaused)
       {
       case false:
-     //Schedule the Timer
-     timerBlueTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBlueTeamEndTimer), userInfo: nil, repeats: true)
-     
-     //Set button title to Pause ( ∥∥ )
-     blueTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
-     blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-     blueTeamEndTimerisPaused = true
-     break
+	 //Schedule the Timer
+	 timerBlueTeamEnd = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateBlueTeamEndTimer), userInfo: nil, repeats: true)
+	 
+	 //Set button title to Pause ( ∥∥ )
+	 blueTeamEndTimeButton.setTitle("∥∥", for: UIControl.State.normal)
+	 blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+	 blueTeamEndTimerisPaused = true
+	 break
       case true:
-     //Stop the Timer (there is no Pause)
-     timerBlueTeamEnd?.invalidate()
-     
-     //Set button title to Play ( ▶︎ )
-     blueTeamEndTimeButton.setTitle("▶︎", for: .normal)
-     blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
-     blueTeamEndTimerisPaused = false
-     break
+	 //Stop the Timer (there is no Pause)
+	 timerBlueTeamEnd?.invalidate()
+	 
+	 //Set button title to Play ( ▶︎ )
+	 blueTeamEndTimeButton.setTitle("▶︎", for: .normal)
+	 blueTeamEndTimeButton.titleLabel?.font = UIFont.systemFont(ofSize: 45)
+	 blueTeamEndTimerisPaused = false
+	 break
       }
    }
    
@@ -393,18 +430,18 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       //Check if the Timer needs to end
       if currentTimeBlueTeamEnd != 0
       {
-     //There is time left, so decrement the timer by one second
-     currentTimeBlueTeamEnd = currentTimeBlueTeamEnd - 1  // decrease counter timer
+	 //There is time left, so decrement the timer by one second
+	 currentTimeBlueTeamEnd = currentTimeBlueTeamEnd - 1  // decrease counter timer
       }
       else
       {
-     //No time left, so invalidate the Timer to end it
-     if let timer = self.timerBlueTeamEnd
-     {
-        timer.invalidate()
-        self.timerBlueTeamEnd = nil
-        currentTimeBlueTeamEnd = 0
-     }
+	 //No time left, so invalidate the Timer to end it
+	 if let timer = self.timerBlueTeamEnd
+	 {
+	    timer.invalidate()
+	    self.timerBlueTeamEnd = nil
+	    currentTimeBlueTeamEnd = 0
+	 }
       }
    }
    
@@ -413,6 +450,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    {
       currentTimeRedTeamEnd = Int( sender.value )
       redTeamEndTimeLabel.text = formatTimerMinutesSeconds( Int(sender.value) )
+      
        // Update external display
        NotificationCenter.default.post(name: Notification.Name("SetRedTimer"), object: nil, userInfo: ["message": redTeamEndTimeLabel.text!])
    }
@@ -424,11 +462,11 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       if (redTeamPenaltyCount == 0)
       {
-     redTeamPenaltyButton.isEnabled = false
+	 redTeamPenaltyButton.isEnabled = false
       }
       else
       {
-     redTeamPenaltyButton.isEnabled = true
+	 redTeamPenaltyButton.isEnabled = true
       }
    }
    
@@ -436,6 +474,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    {
       currentTimeBlueTeamEnd = Int( sender.value )
       blueTeamEndTimeLabel.text = formatTimerMinutesSeconds( Int(sender.value) )
+      
        // Update external display
        NotificationCenter.default.post(name: Notification.Name("SetBlueTimer"), object: nil, userInfo: ["message": blueTeamEndTimeLabel.text!])
    }
@@ -447,11 +486,11 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       if (blueTeamPenaltyCount == 0)
       {
-     blueTeamPenaltyButton.isEnabled = false
+	 blueTeamPenaltyButton.isEnabled = false
       }
       else
       {
-     blueTeamPenaltyButton.isEnabled = true
+	 blueTeamPenaltyButton.isEnabled = true
       }
    }
    
@@ -512,7 +551,10 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       classification.text = newMatchItem.classification
       redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
       blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
-      currentEndLabel.text = currentEndNumber.description
+      
+      //currentEndLabel.text = currentEndNumber.description
+      currentEndLabel.text = currentEndTitle
+      
       redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
       redTeamNameLabel.text = currentEndItem.redTeamName
       redTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
@@ -562,7 +604,10 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       classification.text = newMatchItem.classification
       redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
       blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
-      currentEndLabel.text = currentEndNumber.description
+      
+      //currentEndLabel.text = currentEndNumber.description
+      currentEndLabel.text = currentEndTitle
+      
       redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
       redTeamNameLabel.text = currentEndItem.redTeamName
       redTeamEndTimeLabel.text = formatTimerMinutesSeconds(currentEndItem.endsTime)
@@ -668,6 +713,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
        
        -> newButtonH = hRatio * newScreenHeight
       */
+      
       let newHeight = 0.0321447 * view.bounds.height
       let newWidth = 0.133523 * view.bounds.width
       let xScale = newWidth/redTeamEndTimeStepper.bounds.width
@@ -689,56 +735,57 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       if segue.identifier == "StartWarmUpTimer"
       {
-     let controller = segue.destination as! WarmUpTimerViewController
-     
-     controller.newMatchItem = newMatchItem
+	 let controller = segue.destination as! WarmUpTimerViewController
+	 
+	 controller.newMatchItem = newMatchItem
       }
       else if segue.identifier == "StartTimeOutTimer"
       {
-     let controller = segue.destination as! TimeOutViewController
-     
-     controller.teamColor = timeOutTeamColor
-     controller.timeOutType = timeOutType
+	 let controller = segue.destination as! TimeOutViewController
+	 
+	 controller.teamColor = timeOutTeamColor
+	 controller.timeOutType = timeOutType
       }
       else if segue.identifier == "StartPenaltyTimer"
       {
-     let controller = segue.destination as! PenaltyThrowTimerViewController
-     
-     controller.teamColor = timeOutTeamColor
+	 let controller = segue.destination as! PenaltyThrowTimerViewController
+	 
+	 controller.teamColor = timeOutTeamColor
       }
       else if segue.identifier == "InputScore"
       {
-     let controller = segue.destination as! InputScoreViewController
-     controller.delegate = self
-     
-     controller.currentEndItem = currentEndItem
-     controller.newMatchItem = newMatchItem
-     
-     controller.endsItem = endsItem
-     
-     controller.currentEndNumber = currentEndNumber
-     
-     controller.currentTimeRedTeamEnd = currentTimeRedTeamEnd
-     controller.currentTimeBlueTeamEnd = currentTimeBlueTeamEnd
-     
-     controller.needsTieBreak = needsTieBreak
+	 let controller = segue.destination as! InputScoreViewController
+	 controller.delegate = self
+	 
+	 controller.currentEndItem = currentEndItem
+	 controller.newMatchItem = newMatchItem
+	 
+	 controller.endsItem = endsItem
+	 
+	 controller.currentEndNumber = currentEndNumber
+	 controller.currentEndTitle = currentEndTitle
+	 
+	 controller.currentTimeRedTeamEnd = currentTimeRedTeamEnd
+	 controller.currentTimeBlueTeamEnd = currentTimeBlueTeamEnd
+	 
+	 controller.needsTieBreak = needsTieBreak
       }
       else if segue.identifier == "FinalScoreTableView"
       {
-     let controller = segue.destination as! FinalScoreTableViewController
-     
-     controller.currentEndItem = currentEndItem
-     controller.newMatchItem = newMatchItem
-     controller.endsItem = endsItem
+	 let controller = segue.destination as! FinalScoreTableViewController
+	 
+	 controller.currentEndItem = currentEndItem
+	 controller.newMatchItem = newMatchItem
+	 controller.endsItem = endsItem
       }
       else if segue.identifier == "StartTieBreak"
       {
-     let controller = segue.destination as! TieBreakViewController
-     
-     controller.newMatchItem = newMatchItem
-     
-     //Tie Breaker is Done, so toggle the flag back to False
-     needsTieBreak = false
+	 let controller = segue.destination as! TieBreakViewController
+	 
+	 controller.newMatchItem = newMatchItem
+	 
+	 //Tie Breaker is Done, so toggle the flag back to False
+	 needsTieBreak = false
       }
    }
    

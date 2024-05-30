@@ -89,19 +89,37 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       endsTime.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
       
       
+      /*
       //Sum up the Total Points, based on the Number of Ends actually played (including TieBreakers)
       for index in stride(from: 0, to: endsItem.count, by: 1)
       {
-     //Calculate Game-Total Scores for each side
-     redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-     
-     blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
-     
-     //Calculate Total Ends Score for each side
-     endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-     
-     endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+	 //Calculate Game-Total Scores for each side
+	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+	 
+	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+	 
+	 //Calculate Total Ends Score for each side
+	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+	 
+	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
       }
+      */
+      
+      
+      //Sum up the Total Points, based on the Number of Ends actually played (EXCLUDING TieBreakers)
+      for index in stride(from: 0, to: newMatchItem.numEnds, by: 1)
+      {
+	 //Calculate Game-Total Scores for each side
+	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+	 
+	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+	 
+	 //Calculate Total Ends Score for each side
+	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+	 
+	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+      }
+       
       
       //Set the Final Score Labels to show the freshly calculated values
       redTeamFinalScore.text = redTeamTotalGameScore.description

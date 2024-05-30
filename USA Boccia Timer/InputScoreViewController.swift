@@ -27,6 +27,8 @@ class InputScoreViewController: UIViewController
    var currentEndItem = EndsItem()
    
    var currentEndNumber = 0
+   var currentEndTitle = ""
+   
    var currentTimeRedTeamEnd = 0
    var currentTimeBlueTeamEnd = 0
    
@@ -68,8 +70,10 @@ class InputScoreViewController: UIViewController
       
       //endsButton.showsMenuAsPrimaryAction = true
       //endsButton.menu = addMenuItems()
+      //endsButton.setTitle(currentEndNumber.description, for: .normal)
       
-      endsButton.setTitle(currentEndNumber.description, for: .normal)
+      endsButton.setTitle(currentEndTitle, for: .normal)
+      
       endsButton.titleLabel?.font = UIFont.systemFont(ofSize: 55)
       
       redTeamNameLabel.text = newMatchItem.redTeamName
@@ -121,46 +125,42 @@ class InputScoreViewController: UIViewController
    {
       
       //Save Data into Array
-      if let currentEndNumber = Int( (endsButton.titleLabel?.text)! )
-      {
-     currentEndItem.endNumber = currentEndNumber
-     currentEndItem.classification = newMatchItem.classification
-     currentEndItem.endsTime = newMatchItem.endsTime
-     currentEndItem.redTeamName = newMatchItem.redTeamName
-     currentEndItem.blueTeamName = newMatchItem.blueTeamName
-     currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
-     currentEndItem.blueTeamFlagName = newMatchItem.blueTeamFlagName
-     currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
-     currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
-     currentEndItem.redTeamPenaltiesScored = redTeamPenaltiesScored.selectedSegmentIndex
-     currentEndItem.blueTeamPenaltiesScored = blueTeamPenaltiesScored.selectedSegmentIndex
-     currentEndItem.redTeamPenaltyCount = 0
-     currentEndItem.blueTeamPenaltyCount = 0
-     
-     currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
-     currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
-      }
+      currentEndItem.endNumber = currentEndNumber
+      currentEndItem.classification = newMatchItem.classification
+      currentEndItem.endsTime = newMatchItem.endsTime
+      currentEndItem.redTeamName = newMatchItem.redTeamName
+      currentEndItem.blueTeamName = newMatchItem.blueTeamName
+      currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
+      currentEndItem.blueTeamFlagName = newMatchItem.blueTeamFlagName
+      currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
+      currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
+      currentEndItem.redTeamPenaltiesScored = redTeamPenaltiesScored.selectedSegmentIndex
+      currentEndItem.blueTeamPenaltiesScored = blueTeamPenaltiesScored.selectedSegmentIndex
+      currentEndItem.redTeamPenaltyCount = 0
+      currentEndItem.blueTeamPenaltyCount = 0
       
+      currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
+      currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
+   
       
       //Check if Last Ends or Needs TieBreak
       if (needsTieBreak)
       {
-     currentEndNumber += 1
-     needsTieBreak = false
+	 currentEndNumber += 1
+	 needsTieBreak = false
       }
       else if ( currentEndNumber >= newMatchItem.numEnds )
       {
-     //Game Over
-     
-     let item = currentEndItem
-     delegate?.inputScoreViewController(self, didFinishAdding: item)
+	 //Game Over
+	 let item = currentEndItem
+	 delegate?.inputScoreViewController(self, didFinishAdding: item)
       }
       else
       {
-     currentEndNumber += 1
-     
-     let item = currentEndItem
-     delegate?.inputScoreViewController(self, didFinishAdding: item)
+	 currentEndNumber += 1
+	 
+	 let item = currentEndItem
+	 delegate?.inputScoreViewController(self, didFinishAdding: item)
       }
        
        // Update external display
@@ -181,7 +181,7 @@ class InputScoreViewController: UIViewController
       blueTeamTimeRemainingLabel.text = formatTimerMinutesSeconds( Int(sender.value) )
    }
    
-   
+   /*
    func addMenuItems() -> UIMenu
    {
      let menuItems = UIMenu(title: "Choose an End", options: .displayInline, children: [
@@ -226,6 +226,7 @@ class InputScoreViewController: UIViewController
       
       return menuItems
    }
+    */
    
    
    //MARK:  - Custom Functions

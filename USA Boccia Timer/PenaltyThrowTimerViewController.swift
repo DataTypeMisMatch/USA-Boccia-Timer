@@ -46,6 +46,11 @@ class PenaltyThrowTimerViewController: UIViewController
 
    }
    
+   override func viewWillDisappear(_ animated: Bool) 
+   {
+      //Invalidate Timer
+      timer?.invalidate()
+   }
    
    //MARK:  - Actions
    
@@ -127,20 +132,20 @@ class PenaltyThrowTimerViewController: UIViewController
       //Check if the Timer needs to end
       if totalTime != 0
       {
-     //There is time left, so decrement the timer by one second
-     totalTime = totalTime - 1  // decrease counter timer
+	 //There is time left, so decrement the timer by one second
+	 totalTime = totalTime - 1  // decrease counter timer
       }
       else
       {
-     //No time left, so invalidate the Timer to end it
-     if let timer = self.timer
-     {
-        timer.invalidate()
-        self.timer = nil
-     }
-     
-     //Re-Enable the user to start the timer again (if needed)
-     timerButton.isEnabled = true
+	 //No time left, so invalidate the Timer to end it
+	 if let timer = self.timer
+	 {
+	    timer.invalidate()
+	    self.timer = nil
+	 }
+	 
+	 //Re-Enable the user to start the timer again (if needed)
+	 timerButton.isEnabled = true
       }
    }
    

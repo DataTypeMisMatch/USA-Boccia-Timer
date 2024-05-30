@@ -49,10 +49,6 @@ class WarmUpTimerViewController: UIViewController
       //Close the Warm-Up Screen to reveal the Control Board for the Match
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
-       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
-       
    }
    
    @IBAction func resetWarmUpTimer()
@@ -110,5 +106,9 @@ class WarmUpTimerViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
+    }
     
 }

@@ -161,10 +161,12 @@ class InputScoreViewController: UIViewController
 	 
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
+         
+          // Update external display
+          NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
       }
        
        // Update external display
-       NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
        NotificationCenter.default.post(name: Notification.Name("ClearScoreboard"), object: nil, userInfo: ["message": ""])
    }
    

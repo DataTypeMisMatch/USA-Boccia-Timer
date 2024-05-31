@@ -43,6 +43,7 @@ class WarmUpTimerViewController: UIViewController
    
    override func viewWillDisappear(_ animated: Bool)
    {
+       // Update external display
       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
       
       //Invalidate Timer

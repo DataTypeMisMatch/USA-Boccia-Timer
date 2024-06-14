@@ -50,6 +50,9 @@ class PenaltyThrowTimerViewController: UIViewController
    {
       //Invalidate Timer
       timer?.invalidate()
+       
+       // Update external display
+       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
    }
    
    //MARK:  - Actions
@@ -82,9 +85,6 @@ class PenaltyThrowTimerViewController: UIViewController
       //Close the TimeOut Screen
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
-       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
       
    }
    

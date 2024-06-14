@@ -99,9 +99,7 @@ class TimeOutViewController: UIViewController
       //Close the TimeOut Screen
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
-       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
+
    }
    
    

@@ -36,6 +36,7 @@ class ExternalDisplayViewController: UIViewController {
     var timerName = "Timeout"
     var redBallImages = UIStackView()
     var blueBallImages = UIStackView()
+    var firstTime = 1
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -263,8 +264,9 @@ class ExternalDisplayViewController: UIViewController {
                     return
                 }
                 
-                // Save all the ends labels for later use (this will hopefully only happens once)
-                if (currEndsCount == 6) {
+                // Save all the ends labels for later use (this will only happen once)
+                if (currEndsCount == 6 && firstTime == 1) {
+                    firstTime = 0
                     for i in 0..<6 {
                         allEndsViews?.append(endsStack!.arrangedSubviews[i])
                     }
@@ -446,6 +448,15 @@ class ExternalDisplayViewController: UIViewController {
         currentEnd += 1
         currEndsCount += 1
         currTieBreaker += 1
+        
+        if currTieBreaker > 3 {
+            let initEnds = currentEnd - currTieBreaker
+            let i = initEnds + currTieBreaker-3-1
+            endsStack!.arrangedSubviews[i].isHidden = true
+            let label = endsStack!.arrangedSubviews[i+1] as! UILabel
+            label.text = "..." + label.text!
+            
+        }
     }
     
     @objc func setRedTimer(_ notification: Notification) {
@@ -538,11 +549,14 @@ class ExternalDisplayViewController: UIViewController {
                 
                 if resetString == "HardReset" {
                     // reset internal records of ends
+                    if currTieBreaker != 0 {
+                        currEndsCount = currentEnd - currTieBreaker
+                    }
                     currentEnd = 1
                     currTieBreaker = 0
                     
                     // reset to 4 total ends
-                    for i in (4..<endsStack!.arrangedSubviews.count).reversed() {
+                    for i in (currEndsCount..<endsStack!.arrangedSubviews.count).reversed() {
                         endsStack!.arrangedSubviews[i].removeFromSuperview()
                     }
                     

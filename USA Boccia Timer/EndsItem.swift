@@ -14,6 +14,7 @@ class EndsItem: NSObject, Codable
    var endTitle = ""
    
    var classification = ""
+   var gameName = ""
    
    var endsTime = 0
    

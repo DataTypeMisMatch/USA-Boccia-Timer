@@ -534,51 +534,51 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
    {
       if segue.identifier == "EditGameName"
       {
-     let controller = segue.destination as! EditTextViewController
-     controller.title = "Edit Game Event Name"
-     controller.delegate = self
-
-     
-     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-     {
-        cellToEdit = tableView.cellForRow(at: indexPath)
-        
-        controller.matchItemToEdit = matchItem
-     }
+	 let controller = segue.destination as! EditTextViewController
+	 controller.title = "Edit Game Event Name"
+	 controller.delegate = self
+	 
+	 
+	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+	 {
+	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    
+	    controller.matchItemToEdit = matchItem
+	 }
       }
       else if segue.identifier == "EditRedTeamDetails"
       {
-     let controller = segue.destination as! EditGameDetailsViewController
-     controller.title = "Edit Red Team Details"
-     controller.delegate = self
-     
-     
-     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-     {
-        cellToEdit = tableView.cellForRow(at: indexPath)
-        
-        controller.matchItemToEdit = matchItem
-     }
+	 let controller = segue.destination as! EditGameDetailsViewController
+	 controller.title = "Edit Red Team Details"
+	 controller.delegate = self
+	 
+	 
+	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+	 {
+	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    
+	    controller.matchItemToEdit = matchItem
+	 }
       }
       else if segue.identifier == "EditBlueTeamDetails"
       {
-     let controller = segue.destination as! EditGameDetailsViewController
-     controller.title = "Edit Blue Team Details"
-     controller.delegate = self
-     
-     
-     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
-     {
-        cellToEdit = tableView.cellForRow(at: indexPath)
-        
-        controller.matchItemToEdit = matchItem
-     }
+	 let controller = segue.destination as! EditGameDetailsViewController
+	 controller.title = "Edit Blue Team Details"
+	 controller.delegate = self
+	 
+	 
+	 if let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
+	 {
+	    cellToEdit = tableView.cellForRow(at: indexPath)
+	    
+	    controller.matchItemToEdit = matchItem
+	 }
       }
       else if segue.identifier == "StartNewMatch"
       {
-     let controller = segue.destination as! NewMatchViewController
-     
-     controller.newMatchItem = matchItem
+	 let controller = segue.destination as! NewMatchViewController
+	 
+	 controller.newMatchItem = matchItem
       }
    }
     

@@ -107,6 +107,12 @@ class TimeOutViewController: UIViewController
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
       totalTime = timeOutDuration
+      timeOutTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      
+      //Update External Display
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": totalTime])
+      
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": timeOutTimerLabel.text!])
    }
    
    @IBAction func startTimeOutTimer()

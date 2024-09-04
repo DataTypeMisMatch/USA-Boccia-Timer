@@ -41,15 +41,15 @@ class MainScreenTableViewController: UITableViewController
     {
        if segue.identifier == "ShowHistory"
        {
-      let navigationController = segue.destination as! UINavigationController
-      let controller = navigationController.topViewController as! HistoryTableViewController
-      
-      controller.historyItems = historyItems
+	  let navigationController = segue.destination as! UINavigationController
+	  let controller = navigationController.topViewController as! HistoryTableViewController
+	  
+	  controller.historyItems = historyItems
        }
-        else if segue.identifier == "ShowNewMatchSettings" {
-            // Update external display
-            NotificationCenter.default.post(name: Notification.Name("ShowScoreboard"), object: nil, userInfo: ["message": ""])
-        }
+       else if segue.identifier == "ShowNewMatchSettings" {
+	 // Update external display
+	  NotificationCenter.default.post(name: Notification.Name("ShowScoreboard"), object: nil, userInfo: ["message": ""])
+       }
     }
     
 

@@ -14,6 +14,7 @@
 		4D62C2AA2BF7201400DC4F55 /* ExternTeamSpecificTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62C2A32BF7201400DC4F55 /* ExternTeamSpecificTimerViewController.swift */; };
 		4D62C2AB2BF7201400DC4F55 /* ExternWinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D62C2A42BF7201400DC4F55 /* ExternWinnerViewController.swift */; };
 		4D62C2AD2BF7208C00DC4F55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D62C2AC2BF7208C00DC4F55 /* Main.storyboard */; };
+		980957C22C7C144C001A4CD3 /* BetwixtEndsTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980957C12C7C144C001A4CD3 /* BetwixtEndsTimerViewController.swift */; };
 		981FD0EA2BB291EC00F84353 /* TieBreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981FD0E92BB291EC00F84353 /* TieBreakViewController.swift */; };
 		9850137E2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850137D2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift */; };
 		985013802B7B16FC00D4C9E1 /* FlagPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9850137F2B7B16FC00D4C9E1 /* FlagPickerViewController.swift */; };
@@ -45,6 +46,7 @@
 		4D62C2A32BF7201400DC4F55 /* ExternTeamSpecificTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternTeamSpecificTimerViewController.swift; sourceTree = "<group>"; };
 		4D62C2A42BF7201400DC4F55 /* ExternWinnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternWinnerViewController.swift; sourceTree = "<group>"; };
 		4D62C2AC2BF7208C00DC4F55 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		980957C12C7C144C001A4CD3 /* BetwixtEndsTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetwixtEndsTimerViewController.swift; sourceTree = "<group>"; };
 		981FD0E92BB291EC00F84353 /* TieBreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TieBreakViewController.swift; sourceTree = "<group>"; };
 		9850137D2B7B0CCA00D4C9E1 /* EditGameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameDetailsViewController.swift; sourceTree = "<group>"; };
 		9850137F2B7B16FC00D4C9E1 /* FlagPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagPickerViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				98D698EA2BC5010500434F94 /* FinalScoreTableViewController.swift */,
 				98BECB052BED8724003E7C3A /* HistoryTableViewController.swift */,
 				4D62C2A52BF7201400DC4F55 /* ExternalDisplay */,
+				980957C12C7C144C001A4CD3 /* BetwixtEndsTimerViewController.swift */,
 			);
 			path = "USA Boccia Timer";
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				98BECB022BECC24C003E7C3A /* HistoryItem.swift in Sources */,
 				98A418CA2B9AC34200412231 /* MainScreenTableViewController.swift in Sources */,
 				98D605032BA97B960074D5BE /* TimeOutViewController.swift in Sources */,
+				980957C22C7C144C001A4CD3 /* BetwixtEndsTimerViewController.swift in Sources */,
 				4D62C2A82BF7201400DC4F55 /* ExternIntroScreenViewController.swift in Sources */,
 				98B407EC2B52654900575FFC /* MatchItem.swift in Sources */,
 				98D605012BA958D70074D5BE /* WarmUpTimerViewController.swift in Sources */,
@@ -390,7 +394,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -425,7 +429,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,79 +1,88 @@
 //
-//  WarmUpTimerViewController.swift
+//  BetwixtEndsTimerViewController.swift
 //  USA Boccia Timer
 //
-//  Created by Fox on 3/19/24.
+//  Created by Fox on 8/25/24.
 //
 
 import UIKit
-import Foundation
 
-
-class WarmUpTimerViewController: UIViewController
+class BetwixtEndsTimerViewController: UIViewController
 {
    
-   var newMatchItem: MatchItem?
    var timer: Timer?
+   var timeOutDuration: Int = 1 * 60
    var totalTime: Int = 0
    var timerIsRunning = false
+   var currentEndString = ""
    
-   
-   @IBOutlet weak var warmUpTimerLabel: UILabel!
+   @IBOutlet weak var nextEndsTimerLabel: UILabel!
    @IBOutlet weak var timerButton: UIButton!
    @IBOutlet weak var resetButton: UIButton!
+   @IBOutlet weak var currentEndLabel: UILabel!
    
    
    override func viewDidLoad()
    {
       super.viewDidLoad()
+   
       
       //Set Timer Label Attributes
-      warmUpTimerLabel.layer.masksToBounds = true
-      warmUpTimerLabel.layer.borderWidth = 2
-      warmUpTimerLabel.layer.cornerRadius = 25
-      warmUpTimerLabel.layer.borderColor = UIColor.black.cgColor
+      nextEndsTimerLabel.layer.masksToBounds = true
+      nextEndsTimerLabel.layer.borderWidth = 2
+      nextEndsTimerLabel.layer.cornerRadius = 25
+      nextEndsTimerLabel.layer.borderColor = UIColor.black.cgColor
       
-      //Set Time in Variable, and save in warmUpTimerLabel.text
-      totalTime = newMatchItem!.warmUpTime
-      warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
-       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("ShowNonTeamSpecificTimer"), object: nil, userInfo: ["message": "Warmup"])
-       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
+      //Save TimeOut Time in timeOutTimerLabel.text
+      totalTime = timeOutDuration
+      nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      
+      currentEndLabel.text = currentEndString
    }
    
    override func viewWillDisappear(_ animated: Bool)
    {
-       // Update external display
-      NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
-      
       //Invalidate Timer
       timer?.invalidate()
+      
+      // Update external display
+      
    }
-   
    
    //MARK:  - Actions
    
-   @IBAction func startMatch()
+   @IBAction func finish()
    {
-      //Close the Warm-Up Screen to reveal the Control Board for the Match
+      //Close the Screen
       timer?.invalidate()
       navigationController?.popViewController(animated: true)
    }
    
-   @IBAction func resetWarmUpTimer()
+   /*
+   func alertCancelClicked()
    {
-      //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
-      totalTime = newMatchItem!.warmUpTime
-      warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
-      
-      //Update External Display
-       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": totalTime])
-
-      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
+	 //Do Nothing
    }
    
-   @IBAction func startWarmUpTimer()
+   func alertFinishClicked()
+   {
+      //Close the Screen
+      timer?.invalidate()
+      navigationController?.popViewController(animated: true)
+   }
+   */
+   
+   @IBAction func resetTimeOutTimer()
+   {
+      //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
+      totalTime = timeOutDuration
+      nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      
+      //Update External Display
+      
+   }
+   
+   @IBAction func startTimeOutTimer()
    {
       //Change the text on the button to "Pause"
       switch (timerIsRunning)
@@ -104,10 +113,10 @@ class WarmUpTimerViewController: UIViewController
       print(totalTime)
       
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
-      warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
+      nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": warmUpTimerLabel.text!])
+      // Update external display
+      
       
       //Check if the Timer needs to end
       if totalTime != 0
@@ -123,6 +132,9 @@ class WarmUpTimerViewController: UIViewController
 	    timer.invalidate()
 	    self.timer = nil
 	 }
+	 
+	 //Re-Enable the user to start the timer again (if needed)
+	 timerButton.isEnabled = true
       }
    }
    
@@ -133,5 +145,5 @@ class WarmUpTimerViewController: UIViewController
       let minutes: Int = (totalSeconds / 60) % 60
       return String(format: "%02d:%02d", minutes, seconds)
    }
-    
+   
 }

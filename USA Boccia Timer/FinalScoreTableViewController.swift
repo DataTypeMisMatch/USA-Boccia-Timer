@@ -194,14 +194,14 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       do
       {
-     let data = try encoder.encode(historyItems)
-     try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
-     
-     print("Save Successful!")
+	 let data = try encoder.encode(historyItems)
+	 try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+	 
+	 print("Save Successful!")
       }
       catch
       {
-     print("Error encoding historyItem array: \(error.localizedDescription)")
+	 print("Error encoding historyItem array: \(error.localizedDescription)")
       }
    }
    

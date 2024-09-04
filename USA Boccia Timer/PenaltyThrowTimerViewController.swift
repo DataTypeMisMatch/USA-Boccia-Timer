@@ -14,6 +14,7 @@ class PenaltyThrowTimerViewController: UIViewController
    var timer: Timer?
    var timeOutDuration: Int = 1 * 60
    var totalTime: Int = 0
+   var timerIsRunning = false
    var teamColor = ""
    
    

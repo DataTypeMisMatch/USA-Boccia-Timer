@@ -284,7 +284,6 @@ class FlagPickerViewController: UITableViewController
    {
       super.viewDidLoad()
      
-      
    }
 
    

@@ -20,8 +20,8 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       _ controller: InputScoreViewController,
       didFinishAdding item: EndsItem)
    {
-      redTeamCumulativeScore = item.redTeamFinalScore + item.redTeamPenaltiesScored
-      blueTeamCumulativeScore = item.blueTeamFinalScore + item.blueTeamPenaltiesScored
+      redTeamCumulativeScore = redTeamCumulativeScore + item.redTeamFinalScore + item.redTeamPenaltiesScored
+      blueTeamCumulativeScore = blueTeamCumulativeScore + item.blueTeamFinalScore + item.blueTeamPenaltiesScored
       
       //Copy all properties into Temp Item
       let tempItemToAppend = EndsItem()
@@ -94,11 +94,14 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
      
       //Close the Screen
       navigationController?.popViewController(animated: true)
+      
+      //Set Flag to show the Between-Ends Timer Screen
+      needsBetwixtTimer = true
    }
    
    
    
-   @IBOutlet weak var classification: UILabel!
+   @IBOutlet weak var gameName: UILabel!
    @IBOutlet weak var redTeamScoreLabel: UILabel!
    @IBOutlet weak var blueTeamScoreLabel: UILabel!
    @IBOutlet weak var currentEndLabel: UILabel!
@@ -165,6 +168,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    var currentEndTitle = ""
    
    var needsTieBreak = false
+   var needsBetwixtTimer = false
    var numberTieBreaks = 0
 
    
@@ -197,6 +201,12 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Show Finish Button and hide Tie Break Button (if necessary)
 	 finishButton.isHidden = false
       }
+      else if (currentEndNumber != 1 && needsBetwixtTimer)
+      {
+	 
+	 //Auto-Show the Between-Ends One-Minute Timer Screen
+	 performSegue(withIdentifier: "BetwixtEndsTimer", sender: nil)
+      }
       
    }
    
@@ -211,7 +221,11 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       let endsVariables = EndsItem()
       
       endsVariables.endNumber = currentEndNumber
-      endsVariables.classification = newMatchItem.classification
+      
+      endsVariables.gameName = newMatchItem.gameName
+      
+      //endsVariables.classification = newMatchItem.classification
+      
       endsVariables.endsTime = newMatchItem.endsTime
       endsVariables.redTeamName = newMatchItem.redTeamName
       endsVariables.blueTeamName = newMatchItem.blueTeamName
@@ -548,9 +562,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    func resetScreen()
    {
       //Reset Values to their Defaults for Next End
-      classification.text = newMatchItem.classification
-      redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
-      blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
+      gameName.text = newMatchItem.gameName
+      redTeamScoreLabel.text = redTeamCumulativeScore.description
+      blueTeamScoreLabel.text = blueTeamCumulativeScore.description
       
       //currentEndLabel.text = currentEndNumber.description
       currentEndLabel.text = currentEndTitle
@@ -601,7 +615,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    func initializeValuesOnScreen()
    {
       //Initialize values on the screen
-      classification.text = newMatchItem.classification
+      gameName.text = newMatchItem.gameName
       redTeamScoreLabel.text = currentEndItem.redTeamFinalScore.description
       blueTeamScoreLabel.text = currentEndItem.blueTeamFinalScore.description
       
@@ -787,6 +801,18 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 //Tie Breaker is Done, so toggle the flag back to False
 	 needsTieBreak = false
       }
+      else if segue.identifier == "BetwixtEndsTimer"
+      {
+	 let controller = segue.destination as! BetwixtEndsTimerViewController
+	 
+	 controller.currentEndString = currentEndTitle
+	 
+	 
+	 //Toggle the Flag to False, to prevent this screen from appearing every time NewMatchController
+	 // comes into view.  ViewWillAppear( ) is evil like that.
+	 needsBetwixtTimer = false
+      }
+      
    }
    
 }

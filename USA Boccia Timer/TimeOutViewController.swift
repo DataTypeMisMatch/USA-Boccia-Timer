@@ -14,6 +14,7 @@ class TimeOutViewController: UIViewController
    var timer: Timer?
    var timeOutDuration: Int = 10 * 60
    var totalTime: Int = 0
+   var timerIsRunning = false
    var timeOutType = ""
    var teamColor = ""
    
@@ -117,14 +118,30 @@ class TimeOutViewController: UIViewController
    
    @IBAction func startTimeOutTimer()
    {
-      //Set Timer's totalTime Variable to the time specified in the MatchSettings Screen
-      totalTime = timeOutDuration
       
-      //Schedule the Timer
-      timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+      //Change the text on the button to "Pause"
+      switch (timerIsRunning)
+      {
+      case false:
+	    //Schedule the Timer
+	 timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+	 
+	    //Set button title to "Pause Timer"
+	 timerButton.setTitle("Pause Timer", for: UIControl.State.normal)
+	 timerButton.titleLabel?.font = UIFont.systemFont(ofSize: 68, weight: .bold)
+	 timerIsRunning = true
+	 break
+      case true:
+	    //Stop the Timer (there is no Pause)
+	 timer?.invalidate()
+	 
+	    //Set button title to "Start Timer"
+	 timerButton.setTitle("Start Timer", for: .normal)
+	 timerButton.titleLabel?.font = UIFont.systemFont(ofSize: 68, weight: .bold)
+	 timerIsRunning = false
+	 break
+      }
       
-      //Disable the user from pressing the Start Timer Button, once it has been started
-      timerButton.isEnabled = false
    }
    
    @objc func updateTimer()
@@ -151,9 +168,6 @@ class TimeOutViewController: UIViewController
 	    timer.invalidate()
 	    self.timer = nil
 	 }
-	 
-	 //Re-Enable the user to start the timer again (if needed)
-	 timerButton.isEnabled = true
       }
    }
    

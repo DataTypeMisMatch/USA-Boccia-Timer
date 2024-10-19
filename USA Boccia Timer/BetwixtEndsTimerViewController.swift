@@ -132,9 +132,6 @@ class BetwixtEndsTimerViewController: UIViewController
 	    timer.invalidate()
 	    self.timer = nil
 	 }
-	 
-	 //Re-Enable the user to start the timer again (if needed)
-	 timerButton.isEnabled = true
       }
    }
    

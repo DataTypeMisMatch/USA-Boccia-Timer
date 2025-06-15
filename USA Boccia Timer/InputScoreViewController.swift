@@ -127,7 +127,7 @@ class InputScoreViewController: UIViewController
       //Save Data into Array
       currentEndItem.endNumber = currentEndNumber
       currentEndItem.classification = newMatchItem.classification
-      currentEndItem.endsTime = newMatchItem.endsTime
+      currentEndItem.endsTime = Int(newMatchItem.endsTime)
       currentEndItem.redTeamName = newMatchItem.redTeamName
       currentEndItem.blueTeamName = newMatchItem.blueTeamName
       currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
@@ -163,7 +163,7 @@ class InputScoreViewController: UIViewController
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
          
           // Update external display
-          NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
+	 NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
       }
        
        // Update external display

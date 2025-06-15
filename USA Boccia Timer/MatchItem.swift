@@ -24,7 +24,7 @@ class MatchItem
    
    var numEnds = 4
    
-   var endsTime = 6 * 60
-   var warmUpTime = 2 * 60
+   var endsTime = 6.0 * 60
+   var warmUpTime = 2.0 * 60
 }
 

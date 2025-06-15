@@ -46,7 +46,7 @@ class BetwixtEndsTimerViewController: UIViewController
       timer?.invalidate()
       
       // Update external display
-      
+      NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
    }
    
    //MARK:  - Actions

@@ -37,7 +37,7 @@ class TieBreakViewController: UIViewController
       tieBreakTimerLabel.layer.borderColor = UIColor.black.cgColor
       
       //Set TieBreak Timer time to Current Ends Time
-      tieBreakDuration = newMatchItem.endsTime
+      tieBreakDuration = Int(newMatchItem.endsTime)
       
       //Save TimeOut Time in timeOutTimerLabel.text
       totalTime = tieBreakDuration

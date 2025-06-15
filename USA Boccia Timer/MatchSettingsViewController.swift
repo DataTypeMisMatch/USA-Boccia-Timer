@@ -402,28 +402,28 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	 switch(matchItem.classification)
 	 {
 	 case "BC01":
-	    matchItem.endsTime = 5 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    matchItem.endsTime = 4.5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(4.5 * 60) )
 	    break
 	 case "BC02":
-	    matchItem.endsTime = 4 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    matchItem.endsTime = 3.5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(3.5 * 60) )
 	    break
 	 case "BC03":
-	    matchItem.endsTime = 6 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 6 * 60 )
+	    matchItem.endsTime = 6.0 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(6 * 60) )
 	    break
 	 case "BC04":
-	    matchItem.endsTime = 4 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    matchItem.endsTime = 3.5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(3.5 * 60) )
 	    break
 	 case "BC05":
-	    matchItem.endsTime = 4 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    matchItem.endsTime = 3.5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(3.5 * 60) )
 	    break
 	 case "BC06":
-	    matchItem.endsTime = 4 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    matchItem.endsTime = 3.5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( Int(3.5 * 60) )
 	    break
 	 case "BC07":
 	    matchItem.endsTime = 6 * 60
@@ -455,16 +455,16 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	    endTimeLabel.text = formatTimerMinutesSeconds( 7 * 60 )
 	    break
 	 case "BC04":
-	    matchItem.endsTime = 5 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	    break
 	 case "BC05":
-	    matchItem.endsTime = 5 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	    break
 	 case "BC06":
-	    matchItem.endsTime = 5 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
+	    matchItem.endsTime = 4 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
 	    break
 	 case "BC07":
 	    matchItem.endsTime = 6 * 60
@@ -483,8 +483,8 @@ class MatchSettingsViewController: UITableViewController, EditTextViewController
 	       //endTimeLabel.text = formatTimerMinutesSeconds( 3 * 60 )
 	       //break
 	 default:
-	    matchItem.endsTime = 4 * 60
-	    endTimeLabel.text = formatTimerMinutesSeconds( 4 * 60 )
+	    matchItem.endsTime = 5 * 60
+	    endTimeLabel.text = formatTimerMinutesSeconds( 5 * 60 )
 	    break
 	 }
 	 break

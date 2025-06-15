@@ -86,7 +86,7 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       playType.text = newMatchItem.playType
       classification.text = newMatchItem.classification
       numEnds.text = newMatchItem.numEnds.description
-      endsTime.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
+      endsTime.text = formatTimerMinutesSeconds(Int(newMatchItem.endsTime))
       
       
       /*
@@ -181,7 +181,7 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       tempHistoryItem.playType = newMatchItem.playType
       tempHistoryItem.classification = newMatchItem.classification
       tempHistoryItem.numEnds = newMatchItem.numEnds
-      tempHistoryItem.endsTime =  newMatchItem.endsTime
+      tempHistoryItem.endsTime =  Int(newMatchItem.endsTime)
       
       //Copy Ends Results Array
       tempHistoryItem.endsItems = endsItem

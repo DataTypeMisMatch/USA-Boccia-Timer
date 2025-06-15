@@ -34,7 +34,7 @@ class WarmUpTimerViewController: UIViewController
       warmUpTimerLabel.layer.borderColor = UIColor.black.cgColor
       
       //Set Time in Variable, and save in warmUpTimerLabel.text
-      totalTime = newMatchItem!.warmUpTime
+      totalTime = Int(newMatchItem!.warmUpTime)
       warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
        
        // Update external display
@@ -64,7 +64,7 @@ class WarmUpTimerViewController: UIViewController
    @IBAction func resetWarmUpTimer()
    {
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
-      totalTime = newMatchItem!.warmUpTime
+      totalTime = Int(newMatchItem!.warmUpTime)
       warmUpTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
       //Update External Display

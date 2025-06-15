@@ -226,7 +226,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       //endsVariables.classification = newMatchItem.classification
       
-      endsVariables.endsTime = newMatchItem.endsTime
+      endsVariables.endsTime = Int(newMatchItem.endsTime)
       endsVariables.redTeamName = newMatchItem.redTeamName
       endsVariables.blueTeamName = newMatchItem.blueTeamName
       endsVariables.redTeamFlagName = newMatchItem.redTeamFlagName
@@ -571,11 +571,11 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       redTeamFlagImage.image = UIImage(named: currentEndItem.redTeamFlagName)
       redTeamNameLabel.text = currentEndItem.redTeamName
-      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
+      redTeamEndTimeLabel.text = formatTimerMinutesSeconds(Int(newMatchItem.endsTime))
       redTeamPenaltyLabel.text = currentEndItem.redTeamPenaltyCount.description
       blueTeamFlagImage.image = UIImage(named: currentEndItem.blueTeamFlagName)
       blueTeamNameLabel.text = currentEndItem.blueTeamName
-      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(newMatchItem.endsTime)
+      blueTeamEndTimeLabel.text = formatTimerMinutesSeconds(Int(newMatchItem.endsTime))
       blueTeamPenaltyLabel.text = currentEndItem.blueTeamPenaltyCount.description
       
        // Update external display

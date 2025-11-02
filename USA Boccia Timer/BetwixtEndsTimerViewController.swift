@@ -44,9 +44,6 @@ class BetwixtEndsTimerViewController: UIViewController
    {
       //Invalidate Timer
       timer?.invalidate()
-      
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
    }
    
    //MARK:  - Actions
@@ -77,9 +74,6 @@ class BetwixtEndsTimerViewController: UIViewController
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
       totalTime = timeOutDuration
       nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
-      
-      //Update External Display
-      
    }
    
    @IBAction func startTimeOutTimer()

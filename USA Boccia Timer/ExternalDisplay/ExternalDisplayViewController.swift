@@ -507,6 +507,14 @@ class ExternalDisplayViewController: UIViewController {
                 if (self.timerName == "Tiebreaker") {
                     self.timerName = self.timerName + " " + String(currTieBreaker)
                 }
+                else if (self.timerName == "New End") {
+                    if (currTieBreaker == 0) {
+                        self.timerName = self.timerName + " " + String(currentEnd)
+                    } else {
+                        self.timerName = "New Tiebreaker End " + String(currTieBreaker)
+                    }
+                    
+                }
                 
                 performSegue(withIdentifier: "nonTeamSpecificTimerSegue", sender: self)
             }

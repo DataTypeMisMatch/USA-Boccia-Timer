@@ -38,15 +38,18 @@ class BetwixtEndsTimerViewController: UIViewController
       nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
       currentEndLabel.text = currentEndString
+       
+       NotificationCenter.default.post(name: Notification.Name("ShowNonTeamSpecificTimer"), object: nil, userInfo: ["message": "New End"])
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": nextEndsTimerLabel.text!])
    }
    
    override func viewWillDisappear(_ animated: Bool)
    {
       //Invalidate Timer
       timer?.invalidate()
-      
-      // Update external display
-      NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
+       
+      //Update external display
+      NotificationCenter.default.post(name: Notification.Name("DismissTimer"), object: nil, userInfo: ["message": ""])
    }
    
    //MARK:  - Actions
@@ -77,9 +80,10 @@ class BetwixtEndsTimerViewController: UIViewController
       //Reset Timer's totalTime Variable to the time specified in the MatchSettings Screen
       totalTime = timeOutDuration
       nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
-      
+       
       //Update External Display
-      
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": totalTime])
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": nextEndsTimerLabel.text!])
    }
    
    @IBAction func startTimeOutTimer()
@@ -115,8 +119,8 @@ class BetwixtEndsTimerViewController: UIViewController
       //Set the Text on warmUpTimerLabel.text to the amount saved in totalTime variable
       nextEndsTimerLabel.text = formatTimerMinutesSeconds(totalTime)
       
-      // Update external display
-      
+      //Update external display
+      NotificationCenter.default.post(name: Notification.Name("SetExternTimeoutTimer"), object: nil, userInfo: ["message": nextEndsTimerLabel.text!])
       
       //Check if the Timer needs to end
       if totalTime != 0

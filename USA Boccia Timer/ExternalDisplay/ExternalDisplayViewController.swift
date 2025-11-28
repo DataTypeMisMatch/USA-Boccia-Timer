@@ -240,7 +240,21 @@ class ExternalDisplayViewController: UIViewController {
             }
         }
     }
-    
+
+   //Try out Dimming Red balls instead of Removing Them
+    @objc func dimRedBalls(_ notification: Notification) {
+        // Handle the notification
+        if notification.userInfo != nil {
+            for subview in redBallsStack!.arrangedSubviews.reversed() {
+                if subview.isHidden == false {
+                    subview.isHidden = true
+                    return
+                }
+            }
+        }
+    }
+
+
     @objc func decrementBlueBalls(_ notification: Notification) {
         // Handle the notification
         if notification.userInfo != nil {
@@ -252,7 +266,23 @@ class ExternalDisplayViewController: UIViewController {
             }
         }
     }
-    
+   
+   //Try out dimming Blue Balls instead of Dimming them
+
+       @objc func dimBlueBalls(_ notification: Notification) {
+        // Handle the notification
+        if notification.userInfo != nil {
+            for subview in blueBallsStack!.arrangedSubviews.reversed() {
+                if subview.isHidden == false {
+                    subview.isHidden = true
+                    return
+                }
+            }
+        }
+    }
+
+   
+   
     @objc func changeTotalEndsTo(_ notification: Notification) {
         // Handle the notification
         if let userInfo = notification.userInfo {

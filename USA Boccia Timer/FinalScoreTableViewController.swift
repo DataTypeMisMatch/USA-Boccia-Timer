@@ -34,10 +34,13 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       let blueTimeLabel = cell.viewWithTag(5) as! UILabel
       
       endLabel.text = item.endTitle
+      //redScoreLabel.text = item.redTeamFinalScore.description
       redScoreLabel.text = item.redTeamFinalScore.description
       redTimeLabel.text = formatTimerMinutesSeconds( item.redTeamEndTimeRemaining )
+      //blueScoreLabel.text = item.blueTeamFinalScore.description
       blueScoreLabel.text = item.blueTeamFinalScore.description
       blueTimeLabel.text = formatTimerMinutesSeconds( item.blueTeamEndTimeRemaining )
+      
       
       //Round Corners of the Ends Label
       endLabel.layer.masksToBounds = true
@@ -58,6 +61,9 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
    var teamVersusString = ""
    var redTeamTotalGameScore = 0
    var blueTeamTotalGameScore = 0
+   var redTeamTieBreakerTally = 0
+   var blueTeamTieBreakerTally = 0
+
    
    @IBOutlet weak var gameName: UILabel!
    @IBOutlet weak var teamVersusStringLabel: UILabel!
@@ -95,9 +101,13 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       {
 	 //Calculate Game-Total Scores for each side
 	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
+       
+         redTeamTieBreakerTally = redTeamTieBreakerTally + endsItem[index].redTeamTieBreakScore
 	 
 	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
-	 
+	
+         blueTeamTieBreakerTally = blueTeamTieBreakerTally + endsItem[index].blueTeamTieBreakScore
+       
 	 //Calculate Total Ends Score for each side
 	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
 	 
@@ -118,12 +128,21 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
 	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
 	 
 	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
+	 
+	 redTeamTieBreakerTally = redTeamTieBreakerTally + endsItem[index].redTeamTieBreakScore
+	 
+	 blueTeamTieBreakerTally = blueTeamTieBreakerTally + endsItem[index].blueTeamTieBreakScore
+	 
       }
        
       
       //Set the Final Score Labels to show the freshly calculated values
       redTeamFinalScore.text = redTeamTotalGameScore.description
       blueTeamFinalScore.text = blueTeamTotalGameScore.description
+	 
+	 //redTeamFinalScore.text = redTeamTotalGameScore.description + "( " + redTeamTieBreakerTally.description + " ) "
+      //blueTeamFinalScore.text = blueTeamTotalGameScore.description + "( " + blueTeamTieBreakerTally.description + " ) "
+      
       
       //Get Information as to where the Documents Directory is stored
       print("Documents folder is \(documentsDirectory())")

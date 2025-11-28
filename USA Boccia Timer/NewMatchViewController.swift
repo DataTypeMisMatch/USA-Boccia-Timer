@@ -20,8 +20,8 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       _ controller: InputScoreViewController,
       didFinishAdding item: EndsItem)
    {
-      redTeamCumulativeScore = redTeamCumulativeScore + item.redTeamFinalScore + item.redTeamPenaltiesScored
-      blueTeamCumulativeScore = blueTeamCumulativeScore + item.blueTeamFinalScore + item.blueTeamPenaltiesScored
+      redTeamCumulativeScore = redTeamCumulativeScore + item.redTeamFinalScore + item.redTeamPenaltiesScored + item.redTeamTieBreakScore
+      blueTeamCumulativeScore = blueTeamCumulativeScore + item.blueTeamFinalScore + item.blueTeamPenaltiesScored + item.blueTeamTieBreakScore
       
       //Copy all properties into Temp Item
       let tempItemToAppend = EndsItem()
@@ -46,6 +46,8 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       tempItemToAppend.blueTeamFlagName = item.blueTeamFlagName
       tempItemToAppend.redTeamFinalScore = item.redTeamFinalScore
       tempItemToAppend.blueTeamFinalScore = item.blueTeamFinalScore
+      tempItemToAppend.redTeamTieBreakScore = item.redTeamTieBreakScore
+      tempItemToAppend.blueTeamTieBreakScore = item.blueTeamTieBreakScore
       tempItemToAppend.redTeamPenaltyCount = item.redTeamPenaltyCount
       tempItemToAppend.blueTeamPenaltyCount = item.blueTeamPenaltyCount
       tempItemToAppend.redTeamMedicalTimeOutCount = item.redTeamMedicalTimeOutCount
@@ -306,9 +308,34 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
    
    @IBAction func cancel()
    {
+      let alert = UIAlertController(title: "Confirm", message: "Cancelling will exit the Game and lose all data.  \nStill want to Quit?", preferredStyle: UIAlertController.Style.alert)
+      
+      alert.addAction(UIAlertAction(title: "Go Back", style: .cancel, handler: {
+	 (action: UIAlertAction!) in
+	 self.alertReturnClicked()
+      }))
+      
+      alert.addAction(UIAlertAction(title: "Quit", style: .default, handler: {
+	 (action: UIAlertAction!) in
+	 self.alertQuitClicked()
+      }))
+      
+      
+      present(alert, animated: true, completion: nil)
+   }
+   
+   func alertReturnClicked()
+   {
+	 //Do Nothing
+   }
+   
+   func alertQuitClicked()
+   {
+	 //Quit the Game
       navigationController?.popViewController(animated: true)
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("ClearScoreboard"), object: nil, userInfo: ["message": "HardReset"])
+	 // Update external display
+      NotificationCenter.default.post(name: Notification.Name("ClearScoreboard"), object: nil, userInfo: ["message": "HardReset"])
+      
    }
    
    @IBAction func redBallClicked(_ gesture: UITapGestureRecognizer)
@@ -800,6 +827,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 
 	 //Tie Breaker is Done, so toggle the flag back to False
 	 needsTieBreak = false
+	 needsBetwixtTimer = false
       }
       else if segue.identifier == "BetwixtEndsTimer"
       {

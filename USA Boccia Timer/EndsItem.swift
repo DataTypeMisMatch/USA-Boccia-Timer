@@ -27,6 +27,9 @@ class EndsItem: NSObject, Codable
    var redTeamFinalScore = 0
    var blueTeamFinalScore = 0
    
+   var redTeamTieBreakScore = 0
+   var blueTeamTieBreakScore = 0
+   
    var redTeamPenaltyCount = 0
    var blueTeamPenaltyCount = 0
    

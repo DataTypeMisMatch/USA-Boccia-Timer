@@ -118,8 +118,36 @@ class InputScoreViewController: UIViewController
    
    @IBAction func cancel()
    {
+      
+      let alert = UIAlertController(title: "Confirm", message: "Cancelling will exit the Game and lose all data.  \nStill want to Quit?", preferredStyle: UIAlertController.Style.alert)
+      
+      alert.addAction(UIAlertAction(title: "Go Back", style: .cancel, handler: {
+     (action: UIAlertAction!) in
+     self.alertReturnClicked()
+      }))
+      
+      alert.addAction(UIAlertAction(title: "Quit", style: .default, handler: {
+     (action: UIAlertAction!) in
+     self.alertQuitClicked()
+      }))
+      
+      
+     present(alert, animated: true, completion: nil)
+   }
+   
+   func alertReturnClicked()
+   {
+	 //Do Nothing
+   }
+   
+   func alertQuitClicked()
+   {
+      //Quit the Game
       navigationController?.popViewController(animated: true)
    }
+   
+
+   
    
    @IBAction func done()
    {
@@ -132,8 +160,6 @@ class InputScoreViewController: UIViewController
       currentEndItem.blueTeamName = newMatchItem.blueTeamName
       currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
       currentEndItem.blueTeamFlagName = newMatchItem.blueTeamFlagName
-      currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
-      currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
       currentEndItem.redTeamPenaltiesScored = redTeamPenaltiesScored.selectedSegmentIndex
       currentEndItem.blueTeamPenaltiesScored = blueTeamPenaltiesScored.selectedSegmentIndex
       currentEndItem.redTeamPenaltyCount = 0
@@ -146,17 +172,27 @@ class InputScoreViewController: UIViewController
       //Check if Last Ends or Needs TieBreak
       if (needsTieBreak)
       {
+	 currentEndItem.redTeamTieBreakScore = redTeamBallsScored.selectedSegmentIndex
+	 currentEndItem.blueTeamTieBreakScore = blueTeamBallsScored.selectedSegmentIndex
+	 
 	 currentEndNumber += 1
+	 
 	 needsTieBreak = false
       }
       else if ( currentEndNumber >= newMatchItem.numEnds )
       {
-	 //Game Over
+	 currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
+	 currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
+	    
+	    //Game Over
 	 let item = currentEndItem
 	 delegate?.inputScoreViewController(self, didFinishAdding: item)
       }
       else
       {
+	 currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
+	 currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
+	 
 	 currentEndNumber += 1
 	 
 	 let item = currentEndItem

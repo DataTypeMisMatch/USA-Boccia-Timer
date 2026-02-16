@@ -3,4 +3,54 @@
    uuid = "D464B91A-8DA5-47CC-A07B-28FFEB7B0774"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DDB5F00-86F9-414E-853C-F22B3A446136"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "USA Boccia Timer/FinalScoreTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3DDB5F00-86F9-414E-853C-F22B3A446136 - 688e7af4a0bcaab5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "USA_Boccia_Timer.FinalScoreTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "USA Boccia Timer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fox/Documents/USBoccia_app/USA_Boccia_Timer_app/USA%20Boccia%20Timer/USA%20Boccia%20Timer/FinalScoreTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "5713">
+               </Location>
+               <Location
+                  uuid = "3DDB5F00-86F9-414E-853C-F22B3A446136 - 688e7af4a0bcabf3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "USA_Boccia_Timer.FinalScoreTableViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "USA Boccia Timer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fox/Documents/USBoccia_app/USA_Boccia_Timer_app/USA%20Boccia%20Timer/USA%20Boccia%20Timer/FinalScoreTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "5682">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

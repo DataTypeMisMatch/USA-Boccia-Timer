@@ -2209,15 +2209,15 @@
             <objects>
                 <tableViewController modalPresentationStyle="fullScreen" id="ggf-dq-FGb" customClass="HistoryTableViewController" customModule="USA_Boccia_Timer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="415" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="FgV-Kp-RwM">
-                        <rect key="frame" x="0.0" y="0.0" width="820" height="1180"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.098039215686274508" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="415" id="dN6-MX-ZOj">
-                                <rect key="frame" x="0.0" y="50" width="820" height="415"/>
+                                <rect key="frame" x="0.0" y="50" width="704" height="415"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dN6-MX-ZOj" id="bRh-kC-YEq">
-                                    <rect key="frame" x="0.0" y="0.0" width="820" height="415"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="704" height="415"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Name Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-TE-Ees">
@@ -2241,20 +2241,20 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="240" translatesAutoresizingMaskIntoConstraints="NO" id="NtS-Rf-f8J">
-                                            <rect key="frame" x="130.5" y="178" width="441" height="66"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="123" translatesAutoresizingMaskIntoConstraints="NO" id="NtS-Rf-f8J">
+                                            <rect key="frame" x="74" y="178" width="554" height="66"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3O-Sb-Ogi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="101" height="66"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R00 (00)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="69" translatesAutoresizingMaskIntoConstraints="NO" id="j3O-Sb-Ogi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="215.5" height="66"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="101" id="xZo-VW-Yei"/>
+                                                        <constraint firstAttribute="width" constant="215.5" id="Os9-N5-Qhv"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="55"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koQ-gm-vDy">
-                                                    <rect key="frame" x="341" y="0.0" width="100" height="66"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B00 (00)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="69" translatesAutoresizingMaskIntoConstraints="NO" id="koQ-gm-vDy">
+                                                    <rect key="frame" x="338.5" y="0.0" width="215.5" height="66"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="55"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -2408,14 +2408,14 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="klY-TE-Ees" firstAttribute="top" secondItem="VSP-xH-lBO" secondAttribute="bottom" constant="16" id="2T0-gk-uQs"/>
-                                        <constraint firstItem="uDg-C3-Hj2" firstAttribute="top" secondItem="NtS-Rf-f8J" secondAttribute="bottom" constant="15.999999999904617" id="BOA-0u-YBX"/>
+                                        <constraint firstItem="VSP-xH-lBO" firstAttribute="centerX" secondItem="uDg-C3-Hj2" secondAttribute="centerX" id="7lb-hK-EfY"/>
                                         <constraint firstItem="klY-TE-Ees" firstAttribute="centerX" secondItem="YSy-NN-aFP" secondAttribute="centerX" id="DTK-JB-aew"/>
-                                        <constraint firstItem="NtS-Rf-f8J" firstAttribute="centerX" secondItem="uDg-C3-Hj2" secondAttribute="centerX" id="FY0-6C-B85"/>
+                                        <constraint firstItem="uDg-C3-Hj2" firstAttribute="top" secondItem="NtS-Rf-f8J" secondAttribute="bottom" constant="15.999999999904617" id="F4P-p3-NdN"/>
+                                        <constraint firstItem="VSP-xH-lBO" firstAttribute="centerX" secondItem="NtS-Rf-f8J" secondAttribute="centerX" id="KfP-kf-ZVi"/>
                                         <constraint firstItem="klY-TE-Ees" firstAttribute="leading" secondItem="bRh-kC-YEq" secondAttribute="leading" constant="177" id="OIM-7J-q69"/>
+                                        <constraint firstItem="VSP-xH-lBO" firstAttribute="top" secondItem="bRh-kC-YEq" secondAttribute="topMargin" constant="2" id="Vip-lm-axd"/>
                                         <constraint firstItem="YSy-NN-aFP" firstAttribute="top" secondItem="klY-TE-Ees" secondAttribute="bottom" constant="9" id="d5V-mY-mjd"/>
-                                        <constraint firstItem="NtS-Rf-f8J" firstAttribute="top" secondItem="YSy-NN-aFP" secondAttribute="bottom" constant="16" id="fkX-CV-6qf"/>
-                                        <constraint firstItem="VSP-xH-lBO" firstAttribute="centerX" secondItem="NtS-Rf-f8J" secondAttribute="centerX" id="gwj-tL-ueL"/>
-                                        <constraint firstItem="NtS-Rf-f8J" firstAttribute="leading" secondItem="bRh-kC-YEq" secondAttribute="leading" constant="130.5" id="mhl-Qo-5l5"/>
+                                        <constraint firstItem="NtS-Rf-f8J" firstAttribute="leading" secondItem="bRh-kC-YEq" secondAttribute="leadingMargin" constant="54" id="ji2-IH-bCS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0" green="0.098039215686274508" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3484,16 +3484,16 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellBlueTextColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

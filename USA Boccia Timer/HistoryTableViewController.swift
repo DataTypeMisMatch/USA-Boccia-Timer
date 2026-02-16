@@ -59,8 +59,10 @@ class HistoryTableViewController: UITableViewController
       dateTimePlayedLabel.text = formatDate( item.dateTimePlayed )
       gameNameLabel.text = item.gameName
       team_vs_StringLabel.text = item.team_vs_String
-      redTeamFinalScoreLabel.text = item.redTeamFinalScore.description
-      blueTeamFinalScoreLabel.text = item.blueTeamFinalScore.description
+//      redTeamFinalScoreLabel.text = item.redTeamFinalScore.description
+//      blueTeamFinalScoreLabel.text = item.blueTeamFinalScore.description
+      redTeamFinalScoreLabel.text = item.redTeamFinalScore.description  + " (" +  item.redTeamTieBreakScore.description + ")"
+      blueTeamFinalScoreLabel.text = item.blueTeamFinalScore.description + " (" + item.blueTeamTieBreakScore.description + ")"
       playTypeLabel.text = item.playType
       classificationLabel.text = item.classification
       numEndsLabel.text = item.numEnds.description

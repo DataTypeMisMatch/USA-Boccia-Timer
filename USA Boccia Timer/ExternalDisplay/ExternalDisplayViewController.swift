@@ -37,7 +37,9 @@ class ExternalDisplayViewController: UIViewController {
     var redBallImages = UIStackView()
     var blueBallImages = UIStackView()
     var firstTime = 1
-    
+    var redTeamTotalScore = 0
+    var blueTeamTotalScore = 0
+   
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
@@ -561,9 +563,15 @@ class ExternalDisplayViewController: UIViewController {
             if let winnerInfo = userInfo["message"] as? [String] {
                 winnerScreenRedScore = winnerInfo[0]
                 winnerScreenBlueScore = winnerInfo[1]
-                if Int(winnerScreenRedScore)! > Int(winnerScreenBlueScore)! {
+	       redTeamTotalScore = (Int(winnerScreenRedScore) ?? 0) + (Int(winnerInfo[2]) ?? 0)
+	       blueTeamTotalScore = (Int(winnerScreenBlueScore) ?? 0) + (Int(winnerInfo[3]) ?? 0 )
+	       
+                if redTeamTotalScore > blueTeamTotalScore
+	        {
                     winnerTeamName = "Red"
-                } else {
+                }
+	       else
+	       {
                     winnerTeamName = "Blue"
                 }
                 performSegue(withIdentifier: "winnerSegue", sender: self)

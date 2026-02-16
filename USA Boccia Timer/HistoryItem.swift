@@ -16,6 +16,8 @@ class HistoryItem: NSObject, Codable
    var team_vs_String = ""
    var redTeamFinalScore = 0
    var blueTeamFinalScore = 0
+   var redTeamTieBreakScore = 0
+   var blueTeamTieBreakScore = 0
    var playType = ""
    var classification = ""
    var numEnds = 0

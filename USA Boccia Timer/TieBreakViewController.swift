@@ -86,7 +86,6 @@ class TieBreakViewController: UIViewController
       
       //Dismiss TieBreak Screen
       navigationController?.popViewController(animated: true)
-
    }
    
    func alertCancelClicked()

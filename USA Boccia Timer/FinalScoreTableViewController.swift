@@ -34,11 +34,11 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       let blueTimeLabel = cell.viewWithTag(5) as! UILabel
       
       endLabel.text = item.endTitle
-      //redScoreLabel.text = item.redTeamFinalScore.description
-      redScoreLabel.text = item.redTeamFinalScore.description
+//      redScoreLabel.text = item.redTeamFinalScore.description
+      redScoreLabel.text = (item.redTeamFinalScore  + item.redTeamTieBreakScore).description
       redTimeLabel.text = formatTimerMinutesSeconds( item.redTeamEndTimeRemaining )
-      //blueScoreLabel.text = item.blueTeamFinalScore.description
-      blueScoreLabel.text = item.blueTeamFinalScore.description
+  //    blueScoreLabel.text = item.blueTeamFinalScore.description
+      blueScoreLabel.text = (item.blueTeamFinalScore + item.blueTeamTieBreakScore).description
       blueTimeLabel.text = formatTimerMinutesSeconds( item.blueTeamEndTimeRemaining )
       
       
@@ -94,30 +94,10 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       numEnds.text = newMatchItem.numEnds.description
       endsTime.text = formatTimerMinutesSeconds(Int(newMatchItem.endsTime))
       
+      //Sum up the Total Points, based on the Number of Ends actually played (INCLUDING TieBreakers)
       
-      /*
-      //Sum up the Total Points, based on the Number of Ends actually played (including TieBreakers)
+//      for index in stride(from: 0, to: newMatchItem.numEnds, by: 1)
       for index in stride(from: 0, to: endsItem.count, by: 1)
-      {
-	 //Calculate Game-Total Scores for each side
-	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-       
-         redTeamTieBreakerTally = redTeamTieBreakerTally + endsItem[index].redTeamTieBreakScore
-	 
-	 blueTeamTotalGameScore = blueTeamTotalGameScore + endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
-	
-         blueTeamTieBreakerTally = blueTeamTieBreakerTally + endsItem[index].blueTeamTieBreakScore
-       
-	 //Calculate Total Ends Score for each side
-	 endsItem[index].redTeamFinalScore = endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
-	 
-	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
-      }
-      */
-      
-      
-      //Sum up the Total Points, based on the Number of Ends actually played (EXCLUDING TieBreakers)
-      for index in stride(from: 0, to: newMatchItem.numEnds, by: 1)
       {
 	 //Calculate Game-Total Scores for each side
 	 redTeamTotalGameScore = redTeamTotalGameScore + endsItem[index].redTeamFinalScore + endsItem[index].redTeamPenaltiesScored
@@ -130,18 +110,18 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
 	 endsItem[index].blueTeamFinalScore = endsItem[index].blueTeamFinalScore + endsItem[index].blueTeamPenaltiesScored
 	 
 	 redTeamTieBreakerTally = redTeamTieBreakerTally + endsItem[index].redTeamTieBreakScore
-	 
 	 blueTeamTieBreakerTally = blueTeamTieBreakerTally + endsItem[index].blueTeamTieBreakScore
 	 
       }
        
       
       //Set the Final Score Labels to show the freshly calculated values
-      redTeamFinalScore.text = redTeamTotalGameScore.description
-      blueTeamFinalScore.text = blueTeamTotalGameScore.description
+      
+      //redTeamFinalScore.text = redTeamTotalGameScore.description
+      //blueTeamFinalScore.text = blueTeamTotalGameScore.description
 	 
-	 //redTeamFinalScore.text = redTeamTotalGameScore.description + "( " + redTeamTieBreakerTally.description + " ) "
-      //blueTeamFinalScore.text = blueTeamTotalGameScore.description + "( " + blueTeamTieBreakerTally.description + " ) "
+      redTeamFinalScore.text = redTeamTotalGameScore.description + "( " + redTeamTieBreakerTally.description + " ) "
+      blueTeamFinalScore.text = blueTeamTotalGameScore.description + "( " + blueTeamTieBreakerTally.description + " ) "
       
       
       //Get Information as to where the Documents Directory is stored
@@ -149,7 +129,7 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       print("Data file path is \(dataFilePath())")
        
        // Update external display
-       NotificationCenter.default.post(name: Notification.Name("ShowWinner"), object: nil, userInfo: ["message": [redTeamFinalScore.text, blueTeamFinalScore.text]])
+      NotificationCenter.default.post(name: Notification.Name("ShowWinner"), object: nil, userInfo: ["message": [redTeamFinalScore.text, blueTeamFinalScore.text, redTeamTieBreakerTally.description, blueTeamTieBreakerTally.description]])
       
    }
    
@@ -195,8 +175,13 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       tempHistoryItem.dateTimePlayed = Date()
       tempHistoryItem.gameName = newMatchItem.gameName
       tempHistoryItem.team_vs_String = teamVersusString
+      //tempHistoryItem.redTeamFinalScore = redTeamTotalGameScore
+      //tempHistoryItem.blueTeamFinalScore = blueTeamTotalGameScore
       tempHistoryItem.redTeamFinalScore = redTeamTotalGameScore
       tempHistoryItem.blueTeamFinalScore = blueTeamTotalGameScore
+      tempHistoryItem.redTeamTieBreakScore = redTeamTieBreakerTally
+      tempHistoryItem.blueTeamTieBreakScore = blueTeamTieBreakerTally
+      
       tempHistoryItem.playType = newMatchItem.playType
       tempHistoryItem.classification = newMatchItem.classification
       tempHistoryItem.numEnds = newMatchItem.numEnds
@@ -269,9 +254,9 @@ class FinalScoreTableViewController: UIViewController, UITableViewDataSource, UI
       
       if segue.identifier == "ReturnToStart"
       {
-     let controller = segue.destination as! MainScreenTableViewController
+	 let controller = segue.destination as! MainScreenTableViewController
      
-     controller.historyItems = historyItems
+	 controller.historyItems = historyItems
       }
    }
    

@@ -23,15 +23,18 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       redTeamCumulativeScore = redTeamCumulativeScore + item.redTeamFinalScore + item.redTeamPenaltiesScored + item.redTeamTieBreakScore
       blueTeamCumulativeScore = blueTeamCumulativeScore + item.blueTeamFinalScore + item.blueTeamPenaltiesScored + item.blueTeamTieBreakScore
       
-      //Copy all properties into Temp Item
+      
+      
+	 //Copy all properties into Temp Item
       let tempItemToAppend = EndsItem()
       
       tempItemToAppend.endNumber = item.endNumber
       
-      //Name the End Properly (as End-n or TieBreak-n)
+	 //Name the End Properly (as End-n or TieBreak-n)
       if(currentEndNumber > newMatchItem.numEnds)
       {
 	 tempItemToAppend.endTitle = "Tie Break " + (item.endNumber - newMatchItem.numEnds).description
+	 
       }
       else
       {
@@ -59,17 +62,17 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       tempItemToAppend.redTeamPenaltiesScored = item.redTeamPenaltiesScored
       tempItemToAppend.blueTeamPenaltiesScored = item.blueTeamPenaltiesScored
       
-      //Add Item to the Array
+	 //Add Item to the Array
       endsItem.append(tempItemToAppend)
       
-      //Increment End Number
+	 //Increment End Number
       currentEndNumber += 1
       
       
-      //Check if Game Over and TieBreaker Necessary
+	 //Check if Game Over and TieBreaker Necessary
       if (currentEndNumber > newMatchItem.numEnds)
       {
-	 //Check if Tie Breaker is necessary (at the end of the last End Section)
+	    //Check if Tie Breaker is necessary (at the end of the last End Section)
 	 if ( redTeamCumulativeScore == blueTeamCumulativeScore )
 	 {
 	    needsTieBreak = true
@@ -77,7 +80,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       }
       
       
-      //Name the End Properly (as End-n or TieBreak-n)
+	 //Name the End Properly (as End-n or TieBreak-n)
       if(currentEndNumber > newMatchItem.numEnds)
       {
 	 currentEndTitle = "Tie Break " + (currentEndNumber - newMatchItem.numEnds).description
@@ -90,15 +93,12 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       
       resetScreen()
       
-      //Stop Timers
+	 //Stop Timers
       timerRedTeamEnd?.invalidate()
       timerBlueTeamEnd?.invalidate()
-     
-      //Close the Screen
-      navigationController?.popViewController(animated: true)
       
-      //Set Flag to show the Between-Ends Timer Screen
-      needsBetwixtTimer = true
+	 //Close the Screen
+      navigationController?.popViewController(animated: true)
    }
    
    
@@ -241,6 +241,9 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
       endsVariables.blueTeamTechnicalTimeOutCount = 0
       endsVariables.redTeamMedicalTimeOutCount = 0
       endsVariables.blueTeamMedicalTimeOutCount = 0
+      
+      endsVariables.blueTeamTieBreakScore = 0
+      endsVariables.redTeamTieBreakScore = 0
       
       currentEndItem = endsVariables
       
@@ -810,6 +813,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 controller.currentTimeBlueTeamEnd = currentTimeBlueTeamEnd
 	 
 	 controller.needsTieBreak = needsTieBreak
+	 controller.numberTieBreaks = numberTieBreaks
       }
       else if segue.identifier == "FinalScoreTableView"
       {
@@ -827,7 +831,7 @@ class NewMatchViewController: UIViewController, InputScoreViewControllerDelegate
 	 
 	 //Tie Breaker is Done, so toggle the flag back to False
 	 needsTieBreak = false
-	 needsBetwixtTimer = false
+	 //needsBetwixtTimer = false
       }
       else if segue.identifier == "BetwixtEndsTimer"
       {

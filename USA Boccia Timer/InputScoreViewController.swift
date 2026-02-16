@@ -36,6 +36,7 @@ class InputScoreViewController: UIViewController
    var blueTeamCumulativeScore = 0
    
    var needsTieBreak = false
+   var numberTieBreaks = 0
    
    weak var delegate: InputScoreViewControllerDelegate?
    
@@ -151,61 +152,111 @@ class InputScoreViewController: UIViewController
    
    @IBAction func done()
    {
-      
-      //Save Data into Array
-      currentEndItem.endNumber = currentEndNumber
-      currentEndItem.classification = newMatchItem.classification
-      currentEndItem.endsTime = Int(newMatchItem.endsTime)
-      currentEndItem.redTeamName = newMatchItem.redTeamName
-      currentEndItem.blueTeamName = newMatchItem.blueTeamName
-      currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
-      currentEndItem.blueTeamFlagName = newMatchItem.blueTeamFlagName
-      currentEndItem.redTeamPenaltiesScored = redTeamPenaltiesScored.selectedSegmentIndex
-      currentEndItem.blueTeamPenaltiesScored = blueTeamPenaltiesScored.selectedSegmentIndex
-      currentEndItem.redTeamPenaltyCount = 0
-      currentEndItem.blueTeamPenaltyCount = 0
-      
-      currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
-      currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
-   
-      
-      //Check if Last Ends or Needs TieBreak
-      if (needsTieBreak)
+      /*
+      if (redTeamBallsScored.selectedSegmentIndex + blueTeamBallsScored.selectedSegmentIndex //+ redTeamPenaltiesScored.selectedSegmentIndex + blueTeamPenaltiesScored
+	  == 0 )
       {
-	 currentEndItem.redTeamTieBreakScore = redTeamBallsScored.selectedSegmentIndex
-	 currentEndItem.blueTeamTieBreakScore = blueTeamBallsScored.selectedSegmentIndex
+	 let alert = UIAlertController(title: "Confirm", message: "Neither Team scored?.  \nStill want to proceed with a Zero Score??", preferredStyle: UIAlertController.Style.alert)
 	 
-	 currentEndNumber += 1
+	 alert.addAction(UIAlertAction(title: "Go Back", style: .cancel, handler: {
+	    (action: UIAlertAction!) in
+	    self.alertZeroScoreFalseClicked()
+	 }))
 	 
-	 needsTieBreak = false
-      }
-      else if ( currentEndNumber >= newMatchItem.numEnds )
-      {
-	 currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
-	 currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
-	    
-	    //Game Over
-	 let item = currentEndItem
-	 delegate?.inputScoreViewController(self, didFinishAdding: item)
+	 alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: {
+	    (action: UIAlertAction!) in
+	    self.alertZeroScoreTrueClicked()
+	 }))
+	 
+	 
+	 present(alert, animated: true, completion: nil)
       }
       else
+  
       {
-	 currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
-	 currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
+	*/
+	    //Save Data into Array
+	 currentEndItem.endNumber = currentEndNumber
+	 currentEndItem.classification = newMatchItem.classification
+	 currentEndItem.endsTime = Int(newMatchItem.endsTime)
+	 currentEndItem.redTeamName = newMatchItem.redTeamName
+	 currentEndItem.blueTeamName = newMatchItem.blueTeamName
+	 currentEndItem.redTeamFlagName = newMatchItem.redTeamFlagName
+	 currentEndItem.blueTeamFlagName = newMatchItem.blueTeamFlagName
+	 currentEndItem.redTeamPenaltiesScored = redTeamPenaltiesScored.selectedSegmentIndex
+	 currentEndItem.blueTeamPenaltiesScored = blueTeamPenaltiesScored.selectedSegmentIndex
 	 
-	 currentEndNumber += 1
+         currentEndItem.redTeamPenaltyCount = 0
+	 currentEndItem.blueTeamPenaltyCount = 0
+      
+         currentEndItem.blueTeamTieBreakScore = 0
+         currentEndItem.redTeamTieBreakScore = 0
+      
+         currentEndItem.redTeamFinalScore = 0
+         currentEndItem.blueTeamFinalScore = 0
 	 
-	 let item = currentEndItem
-	 delegate?.inputScoreViewController(self, didFinishAdding: item)
-         
-          // Update external display
-	 NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
-      }
-       
-       // Update external display
-       NotificationCenter.default.post(name: Notification.Name("ClearScoreboard"), object: nil, userInfo: ["message": ""])
+	 currentEndItem.blueTeamEndTimeRemaining = currentTimeBlueTeamEnd
+	 currentEndItem.redTeamEndTimeRemaining = currentTimeRedTeamEnd
+	 
+	 
+	    //Check if Last Ends or Needs TieBreak
+	 if (numberTieBreaks > 0)
+	 {
+	    currentEndItem.redTeamTieBreakScore = redTeamBallsScored.selectedSegmentIndex
+	    currentEndItem.blueTeamTieBreakScore = blueTeamBallsScored.selectedSegmentIndex
+	    
+	    let item = currentEndItem
+	    delegate?.inputScoreViewController(self, didFinishAdding: item)
+	    
+	    currentEndNumber += 1
+	    
+	    needsTieBreak = false
+	    
+	 }
+      /*
+	 else if ( currentEndNumber >= newMatchItem.numEnds )
+	 {
+	    
+	       //Game Over
+	    let item = currentEndItem
+	    delegate?.inputScoreViewController(self, didFinishAdding: item)
+	 }
+       */
+	 else
+	 {
+	    currentEndItem.redTeamFinalScore = redTeamBallsScored.selectedSegmentIndex
+	    currentEndItem.blueTeamFinalScore = blueTeamBallsScored.selectedSegmentIndex
+	    
+	         if ( currentEndNumber >= newMatchItem.numEnds )
+	         {
+	         }
+	         else
+	         {
+	            currentEndNumber += 1
+	         }
+	    
+	    let item = currentEndItem
+	    delegate?.inputScoreViewController(self, didFinishAdding: item)
+	    
+	       // Update external display
+	    NotificationCenter.default.post(name: Notification.Name("NextEnd"), object: nil, userInfo: ["message": ""])
+	 }
+	 
+	    // Update external display
+	 NotificationCenter.default.post(name: Notification.Name("ClearScoreboard"), object: nil, userInfo: ["message": ""])
+      //}
    }
    
+   func alertZeroScoreTrueClicked()
+   {
+      
+   }
+
+
+   func alertZeroScoreFalseClicked()
+   {
+      //Do Nothing
+   }
    
    @IBAction func redTeamEndTimeStepperChanged(_ sender: UIStepper)
    {
